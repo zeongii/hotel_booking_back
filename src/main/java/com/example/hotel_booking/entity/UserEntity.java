@@ -18,7 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="user")
+@Table(name= "user")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,7 +59,6 @@ public class UserEntity {
     @Column(name = "user_grade")
     private int userGrade;
 
-    // 고객 총 지출 금액
     @Column(name = "user_total_amount")
     private Long userTotalAmount;
 
