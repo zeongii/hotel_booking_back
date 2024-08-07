@@ -1,4 +1,4 @@
-INSERT INTO user_admin (ad_pass, ad_name, ,ad_email, enabled, created_time, updated_time) VALUES
+/*INSERT INTO user_admin (ad_pass, ad_name, ,ad_email, enabled, created_time, updated_time) VALUES
                                                                                    ('a', 'a', true, 'test@exemple.com','2024-08-06 10:00:00', '2024-08-06 10:00:00'),
                                                                                    ('password456', 'Admin Two', 'test@exemple.com',true, '2024-08-06 10:01:00', '2024-08-06 10:01:00'),
                                                                                    ('password789', 'Admin Three','test@exemple.com', true, '2024-08-06 10:02:00', '2024-08-06 10:02:00'),
@@ -169,3 +169,4 @@ VALUES
 
 
 
+*/
