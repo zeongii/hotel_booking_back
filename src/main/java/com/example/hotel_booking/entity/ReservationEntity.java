@@ -44,7 +44,7 @@ public class ReservationEntity {
     private RoomEntity roomEntity;
 
     @ManyToOne
-    @JoinColumn(name="guest_id")
-    private GuestEntity guestEntity;
+    @JoinColumn(name="user_id")
+    private UserEntity guestEntity;
 
 }

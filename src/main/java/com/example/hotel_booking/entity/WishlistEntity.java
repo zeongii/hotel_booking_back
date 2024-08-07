@@ -31,7 +31,7 @@ public class WishlistEntity extends TimeEntity {
     private HotelEntity hotelEntity;
 
     @ManyToOne
-    @JoinColumn(name = "quest_id")
-    private GuestEntity guestEntity;
+    @JoinColumn(name = "user_id")
+    private UserEntity guestEntity;
 }
 
