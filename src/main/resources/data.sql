@@ -1,29 +1,3 @@
-/*INSERT INTO user_admin (ad_pass, ad_name, ,ad_email, enabled, created_time, updated_time) VALUES
-                                                                                   ('a', 'a', true, 'test@exemple.com','2024-08-06 10:00:00', '2024-08-06 10:00:00'),
-                                                                                   ('password456', 'Admin Two', 'test@exemple.com',true, '2024-08-06 10:01:00', '2024-08-06 10:01:00'),
-                                                                                   ('password789', 'Admin Three','test@exemple.com', true, '2024-08-06 10:02:00', '2024-08-06 10:02:00'),
-                                                                                   ('password012', 'Admin Four', 'test@exemple.com',true, '2024-08-06 10:03:00', '2024-08-06 10:03:00'),
-                                                                                   ('password345', 'Admin Five', 'test@exemple.com',true, '2024-08-06 10:04:00', '2024-08-06 10:04:00'),
-                                                                                   ('password678', 'Admin Six', 'test@exemple.com',true, '2024-08-06 10:05:00', '2024-08-06 10:05:00'),
-                                                                                   ('password901', 'Admin Seven','test@exemple.com', true, '2024-08-06 10:06:00', '2024-08-06 10:06:00'),
-                                                                                   ('password234', 'Admin Eight', 'test@exemple.com',true, '2024-08-06 10:07:00', '2024-08-06 10:07:00'),
-                                                                                   ('password567', 'Admin Nine', 'test@exemple.com',true, '2024-08-06 10:08:00', '2024-08-06 10:08:00'),
-                                                                                   ('password890', 'Admin Ten', 'test@exemple.com',true, '2024-08-06 10:09:00', '2024-08-06 10:09:00');
-
--- Insert multiple rows into the user_business table with explicit timestamps and snake_case column names
-
-INSERT INTO user_business (business_email, business_password, company_name, company_phone, company_address, enabled, created_time, updated_time) VALUES
-                                                                                                                                                     ('business1@example.com', 'password123', 'Company One', '123-456-7890', '123 Main St, City, Country', 1, '2024-08-06 10:00:00', '2024-08-06 10:00:00'),
-                                                                                                                                                     ('business2@example.com', 'password456', 'Company Two', '234-567-8901', '234 Elm St, City, Country', 1, '2024-08-06 10:01:00', '2024-08-06 10:01:00'),
-                                                                                                                                                     ('business3@example.com', 'password789', 'Company Three', '345-678-9012', '345 Oak St, City, Country', 1, '2024-08-06 10:02:00', '2024-08-06 10:02:00'),
-                                                                                                                                                     ('business4@example.com', 'password012', 'Company Four', '456-789-0123', '456 Pine St, City, Country', 1, '2024-08-06 10:03:00', '2024-08-06 10:03:00'),
-                                                                                                                                                     ('business5@example.com', 'password345', 'Company Five', '567-890-1234', '567 Maple St, City, Country', 1, '2024-08-06 10:04:00', '2024-08-06 10:04:00'),
-                                                                                                                                                     ('business6@example.com', 'password678', 'Company Six', '678-901-2345', '678 Birch St, City, Country', 1, '2024-08-06 10:05:00', '2024-08-06 10:05:00'),
-                                                                                                                                                     ('business7@example.com', 'password901', 'Company Seven', '789-012-3456', '789 Cedar St, City, Country', 1, '2024-08-06 10:06:00', '2024-08-06 10:06:00'),
-                                                                                                                                                     ('business8@example.com', 'password234', 'Company Eight', '890-123-4567', '890 Spruce St, City, Country', 1, '2024-08-06 10:07:00', '2024-08-06 10:07:00'),
-                                                                                                                                                     ('business9@example.com', 'password567', 'Company Nine', '901-234-5678', '901 Fir St, City, Country', 1, '2024-08-06 10:08:00', '2024-08-06 10:08:00'),
-                                                                                                                                                     ('business10@example.com', 'password890', 'Company Ten', '012-345-6789', '012 Redwood St, City, Country', 1, '2024-08-06 10:09:00', '2024-08-06 10:09:00');
-
 INSERT INTO city (city_name) VALUES
                                  ('Seoul'),
                                  ('Busan'),
@@ -60,13 +34,6 @@ INSERT INTO facility (infinity_pool, indoor_pool, sauna, kids_room, casino, fitn
                                                                                                                                                                                          (0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1),
                                                                                                                                                                                          (1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0),
                                                                                                                                                                                          (1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1);
-INSERT INTO user_guest (guest_email, guest_pass, guest_name, guest_gender, guest_phone, guest_grade, guest_total_amount)
-VALUES
-    ('john.doe@example.com', 'password123', 'John Doe', 'Male', '123-456-7890', 1, 10000),
-    ('jane.smith@example.com', 'securepass', 'Jane Smith', 'Female', '987-654-3210', 2, 20000),
-    ('alex.johnson@example.com', 'mypassword', 'Alex Johnson', 'Non-binary', '555-123-4567', 3, 15000),
-    ('emily.davis@example.com', 'password321', 'Emily Davis', 'Female', '111-222-3333', 1, 5000),
-    ('michael.brown@example.com', 'passw0rd', 'Michael Brown', 'Male', '444-555-6666', 2, 30000);
 
 INSERT INTO hotel (hotel_name, hotel_address, hotel_phone, hotel_email, hotel_grade, hotel_facilities)
 VALUES
@@ -80,6 +47,19 @@ VALUES
     ('세종 호텔', '세종특별자치시', '044-1234-5678', 'sejonghotel@example.com', 5, '공용 주방, 공동 라운지'),
     ('수원 호텔', '경기도 수원시 팔달구', '031-8765-4321', 'suwonhotel@example.com', 4, '야외 수영장, 실내 수영장'),
     ('제주 호텔', '제주특별자치도 제주시', '064-9876-5432', 'jejuhotel@example.com', 5, '해변, 무료 조식');
+
+
+INSERT INTO user (email, password, name, nickname, role, address, user_gender, phone, user_grade, user_total_amount, enabled) VALUES
+                                                                                                                                  ('john.doe@example.com', 'password123', 'John Doe', 'johnny', 'USER', '123 Maple Street', 'Male', '123-456-7890', 1, 1000, 1),
+                                                                                                                                  ('jane.smith@example.com', 'password123', 'Jane Smith', 'janey', 'USER', '456 Oak Avenue', 'Female', '234-567-8901', 2, 2000, 1),
+                                                                                                                                  ('mike.jones@example.com', 'password123', 'Mike Jones', 'mikey', 'USER', '789 Pine Road', 'Male', '345-678-9012', 3, 3000, 1),
+                                                                                                                                  ('lisa.brown@example.com', 'password123', 'Lisa Brown', 'lisaB', 'USER', '101 Cedar Lane', 'Female', '456-789-0123', 4, 4000, 1),
+                                                                                                                                  ('tom.wilson@example.com', 'password123', 'Tom Wilson', 'tommy', 'USER', '202 Birch Boulevard', 'Male', '567-890-1234', 5, 5000, 1),
+                                                                                                                                  ('nancy.white@example.com', 'password123', 'Nancy White', 'nanc', 'USER', '303 Spruce Drive', 'Female', '678-901-2345', 6, 6000, 1),
+                                                                                                                                  ('steve.green@example.com', 'password123', 'Steve Green', 'steveG', 'USER', '404 Elm Court', 'Male', '789-012-3456', 7, 7000, 1),
+                                                                                                                                  ('mary.hall@example.com', 'password123', 'Mary Hall', 'maryH', 'USER', '505 Willow Place', 'Female', '890-123-4567', 8, 8000, 1),
+                                                                                                                                  ('dave.adams@example.com', 'password123', 'Dave Adams', 'daveA', 'USER', '606 Aspen Way', 'Male', '901-234-5678', 9, 9000, 1),
+                                                                                                                                  ('susan.miller@example.com', 'password123', 'Susan Miller', 'susie', 'USER', '707 Cherry Circle', 'Female', '012-345-6789', 10, 10000, 1);
 
 INSERT INTO hotel_pay (pay_price, pay_date, pay_way)
 VALUES
@@ -152,6 +132,7 @@ VALUES
 
 
 
+
 -- TripEntity 더미 데이터
 INSERT INTO hotel_trip (trip_name, trip_content)
 VALUES
@@ -169,4 +150,3 @@ VALUES
 
 
 
-*/

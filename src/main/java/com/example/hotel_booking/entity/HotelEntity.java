@@ -3,6 +3,7 @@ package com.example.hotel_booking.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.catalina.User;
 
 /**
  * packageName : com.example.hotelbooking.entity
@@ -62,7 +63,7 @@ public class HotelEntity extends TimeEntity{
 
     // 사업 정보 (외래키)
     @ManyToOne
-    @JoinColumn(name = "business_id")
-    private BusinessEntity businessEntity;
+    @JoinColumn(name = "user_id")
+    private UserEntity businessEntity;
 }
 
