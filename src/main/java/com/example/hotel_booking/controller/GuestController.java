@@ -1,19 +1,25 @@
 package com.example.hotel_booking.controller;
 
-import com.example.hotel_booking.dto.GuestDto;
+import com.example.hotel_booking.dto.ReservationDto;
+import com.example.hotel_booking.dto.UserDto;
 import com.example.hotel_booking.service.GuestService;
+import com.example.hotel_booking.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/guest/")
 public class GuestController {
     private final GuestService guestService;
+    private final ReservationService reservationService;
 
     @Autowired
-    public GuestController(GuestService guestService) {
+    public GuestController(GuestService guestService, ReservationService reservationService) {
         this.guestService = guestService;
+        this.reservationService = reservationService;
     }
 
 
@@ -23,17 +29,23 @@ public class GuestController {
     }
 
     @GetMapping("update/{id}")
-    public GuestDto update(@PathVariable Long id, Model model) {
-        GuestDto guestDto = guestService.findById(id);
-        model.addAttribute("guest", guestDto);
-        return guestDto;
+    public UserDto update(@PathVariable Long id, Model model) {
+        System.out.println("id = " + id + ", model = " + model);
+        UserDto userDto = guestService.findById(id);
+        model.addAttribute("guest", userDto);
+        return userDto;
     }
 
     @PostMapping("update")
-    public GuestDto update(@RequestBody GuestDto guestDto, Model model) {
-        System.out.println("guestDto = " + guestDto + ", model = " + model);
-        GuestDto updatedGuestDto = guestService.update(guestDto);
+    public UserDto update(@RequestBody UserDto guestDto, Model model) {
+        UserDto updatedGuestDto = guestService.update(guestDto);
         model.addAttribute("guest", updatedGuestDto);
         return updatedGuestDto;
+    }
+
+    @GetMapping("reservationInfo/{id}")
+    public List<ReservationDto> reservationInfo(@PathVariable Long id) {
+        List<ReservationDto> reservationDtoList = reservationService.findAllByGuestId(id);
+        return reservationDtoList;
     }
 }

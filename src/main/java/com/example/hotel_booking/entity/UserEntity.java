@@ -1,5 +1,6 @@
 package com.example.hotel_booking.entity;
 
+import com.example.hotel_booking.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name= "user")
+@Table(name = "user")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,18 +36,18 @@ public class UserEntity {
     // 고객 이름
     @Column(name = "name")
     private String name;
-    
+
     // 고객 닉네임
-    @Column(name="nickname")
+    @Column(name = "nickname")
     private String nickname;
 
     @Column(name = "role")
     private String role;
-    
+
     // 고객 주소
-    @Column(name="address")
+    @Column(name = "address")
     private String address;
-    
+
     // 고객 성별
     @Column(name = "user_gender")
     private String userGender;
@@ -64,4 +65,40 @@ public class UserEntity {
 
     @Column(name = "enabled")
     private int enabled;
+
+    public static UserEntity toGuestEntity(UserDto guestDto) {
+        UserEntity guestEntity = new UserEntity();
+        guestEntity.setId(guestDto.getId());
+        guestEntity.setEmail(guestDto.getEmail());
+        guestEntity.setPassword(guestDto.getPassword());
+        guestEntity.setName(guestDto.getName());
+        guestEntity.setNickname(guestDto.getNickname());
+        guestEntity.setRole(guestDto.getRole());
+        guestEntity.setAddress(guestDto.getAddress());
+        guestEntity.setUserGender(guestDto.getUserGender());
+        guestEntity.setPhone(guestDto.getPhone());
+        guestEntity.setUserGrade(guestDto.getUserGrade());
+        guestEntity.setUserTotalAmount(guestDto.getUserTotalAmount());
+        guestEntity.setEnabled(guestDto.getEnabled());
+        return guestEntity;
+    }
+
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", role='" + role + '\'' +
+                ", address='" + address + '\'' +
+                ", userGender='" + userGender + '\'' +
+                ", phone='" + phone + '\'' +
+                ", userGrade=" + userGrade +
+                ", userTotalAmount=" + userTotalAmount +
+                ", enabled=" + enabled +
+                '}';
+    }
 }
