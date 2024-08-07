@@ -5,7 +5,7 @@ import lombok.Value;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
+/*
  * DTO for {@link com.example.hotel_booking.entity.ReservationEntity}
  */
 @Value

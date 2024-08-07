@@ -1,5 +1,6 @@
 package com.example.hotel_booking.entity;
 
+import com.example.hotel_booking.dto.GuestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,6 +41,19 @@ public class GuestEntity extends TimeEntity {
     // 고객 총 지출 금액
     @Column(name = "guest_total_amount", nullable = false)
     private Long guestTotalAmount;
+
+    public static GuestEntity toGuestEntity(GuestDto guestDto) {
+        GuestEntity guestEntity = new GuestEntity();
+        guestEntity.setId(guestDto.getId());
+        guestEntity.setGuestEmail(guestDto.getGuestEmail());
+        guestEntity.setGuestPass(guestDto.getGuestPass());
+        guestEntity.setGuestName(guestDto.getGuestName());
+        guestEntity.setGuestGender(guestDto.getGuestGender());
+        guestEntity.setGuestPhone(guestDto.getGuestPhone());
+        guestEntity.setGuestGrade(guestDto.getGuestGrade());
+        guestEntity.setGuestTotalAmount(guestDto.getGuestTotalAmount());
+        return guestEntity;
+    }
 }
 
 
