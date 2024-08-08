@@ -1,9 +1,13 @@
 package com.example.hotel_booking.entity;
 
+import com.example.hotel_booking.dto.HotelDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.catalina.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * packageName : com.example.hotelbooking.entity
@@ -47,23 +51,29 @@ public class HotelEntity extends TimeEntity{
     @Column(name = "hotel_grade", nullable = false)
     private Long hotelGrade;
 
-    // 호텔 시설
-    @Column(name = "hotel_facilities", nullable = false)
-    private String hotelFacilities;
 
-    // 도시 정보 (외래키)
-    @ManyToOne
-    @JoinColumn(name = "city_id")
-    private CityEntity cityEntity;
+    @Column(name = "file_attached", nullable = true)
+    private int fileAttached;
 
-    // 시설 정보 (외래키)
-    @ManyToOne
-    @JoinColumn(name = "facility_id")
-    private FacilityEntity facilityEntity;
+    @OneToMany(mappedBy = "hotelEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<HotelFileEntity> hotelFileEntityList = new ArrayList<>();
 
-    // 사업 정보 (외래키)
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity businessEntity;
+    public static HotelEntity toHotelEntity(HotelDto hotelDto){
+        HotelEntity hotelEntity = new HotelEntity();
+        hotelEntity.setId(hotelDto.getId());
+        hotelEntity.setHotelName(hotelDto.getHotelName());
+        hotelEntity.setHotelAddress(hotelDto.getHotelAddress());
+        hotelEntity.setHotelPhone(hotelDto.getHotelPhone());
+        hotelEntity.setHotelEmail(hotelDto.getHotelEmail());
+        hotelEntity.setHotelGrade(hotelDto.getHotelGrade());
+        hotelEntity.setFileAttached(0);
+
+        return hotelEntity;
+
+    }
+
+
+
+
 }
 

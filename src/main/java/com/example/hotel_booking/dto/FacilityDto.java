@@ -1,5 +1,8 @@
 package com.example.hotel_booking.dto;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
 import java.io.Serializable;
@@ -7,22 +10,10 @@ import java.io.Serializable;
 /**
  * DTO for {@link com.example.hotel_booking.entity.FacilityEntity}
  */
-@Value
+@Data
+@RequiredArgsConstructor
 public class FacilityDto implements Serializable {
-    Long id;
-    Long infinityPool;
-    Long indoorPool;
-    Long sauna;
-    Long kidsRoom;
-    Long casino;
-    Long fitnessCenter;
-    Long freeWifi;
-    Long laundryRoom;
-    Long frontDesk;
-    Long restaurant;
-    Long freeParking;
-    Long bar;
-    Long atm;
-    Long outdoorGarden;
+    private Long id;
+    private Long hotelId;
 
 }

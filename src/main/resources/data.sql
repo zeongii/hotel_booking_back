@@ -1,4 +1,4 @@
-INSERT INTO city (city_name) VALUES
+/*INSERT INTO city (city_name) VALUES
                                  ('Seoul'),
                                  ('Busan'),
                                  ('Incheon'),
@@ -150,3 +150,4 @@ VALUES
 
 
 
+*/

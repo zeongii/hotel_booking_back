@@ -15,17 +15,17 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class HotelDto implements Serializable {
-    LocalDateTime createdTime;
-    LocalDateTime updatedTime;
-    Long id;
-    String hotelName;
-    String hotelAddress;
-    String hotelPhone;
-    String hotelEmail;
-    Long hotelGrade;
-    String hotelFacilities;
+    private LocalDateTime createdTime;
+    private LocalDateTime updatedTime;
+    private Long id;
+    private String hotelName;
+    private String hotelAddress;
+    private String hotelPhone;
+    private String hotelEmail;
+    private Long hotelGrade;
+    private int fileAttached;
+
 
     public static HotelDto toHotelDto(HotelEntity hotelEntity){
         HotelDto hotelDto = new HotelDto();
@@ -35,7 +35,7 @@ public class HotelDto implements Serializable {
         hotelDto.setHotelEmail(hotelEntity.getHotelEmail());
         hotelDto.setHotelPhone(hotelEntity.getHotelPhone());
         hotelDto.setHotelGrade(hotelEntity.getHotelGrade());
-        hotelDto.setHotelFacilities(hotelEntity.getHotelFacilities());
+        hotelDto.setFileAttached(hotelEntity.getFileAttached());
         return hotelDto;
     }
 }
