@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface ReservationRepository extends JpaRepository<ReservationEntity, Long> {
     @Query(value = "SELECT * FROM room_reservation WHERE user_id = ?1 ORDER BY start_date", nativeQuery = true)
-    List<ReservationEntity> findByGuestId(Long id);
+    List<ReservationEntity> findByGuestId(Long userId);
 
 }

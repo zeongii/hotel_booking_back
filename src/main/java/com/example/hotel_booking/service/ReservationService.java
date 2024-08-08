@@ -20,10 +20,10 @@ public class ReservationService {
 
     public List<ReservationDto> findAllByGuestId(Long id) {
         List<ReservationEntity> reservationEntities = reservationRepository.findByGuestId(id);
-        List<ReservationDto> reservationDtos = new ArrayList<>();
+        List<ReservationDto> reservationDtoList = new ArrayList<>();
         for (ReservationEntity reservationEntity : reservationEntities) {
-            reservationDtos.add(ReservationDto.toReservationDto(reservationEntity));
+            reservationDtoList.add(ReservationDto.toReservationDto(reservationEntity));
         }
-        return reservationDtos;
+        return reservationDtoList;
     }
 }
