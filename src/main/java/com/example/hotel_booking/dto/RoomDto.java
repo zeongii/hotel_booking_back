@@ -13,7 +13,9 @@ import java.util.List;
 /**
  * DTO for {@link com.example.hotel_booking.entity.RoomEntity}
  */
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoomDto implements Serializable {
@@ -25,6 +27,7 @@ public class RoomDto implements Serializable {
     private Long roomPrice;
     private String roomContent;
     private Long hotelId;
+    private Long roomTypeId;
     private LocalDateTime checkIn;
     private LocalDateTime checkOut;
     private Long breakfastPrice;
@@ -45,6 +48,7 @@ public class RoomDto implements Serializable {
         roomDto.setCheckIn(roomEntity.getCheckIn());
         roomDto.setCreatedTime(roomEntity.getCreatedTime());
         roomDto.setUpdatedTime(roomEntity.getUpdatedTime());
+        roomDto.setBreakfastPrice(roomEntity.getBreakfastPrice());
         if (roomEntity.getFileAttached() ==null) {
              roomDto.setFileAttached(roomDto.getFileAttached());
         } else {
