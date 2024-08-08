@@ -1,29 +1,33 @@
 package com.example.hotel_booking.service;
 
-import com.example.hotel_booking.dto.BusinessDto;
-import com.example.hotel_booking.entity.BusinessEntity;
-import com.example.hotel_booking.repository.BusinessEntityRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.example.hotel_booking.dto.UserDto;
+import com.example.hotel_booking.entity.UserEntity;
+import com.example.hotel_booking.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class BusinessService {
+public class UserService {
 
-    private final BusinessEntityRepository businessRepository;
+    private final UserRepository userRepository;
 
-    public BusinessDto selectByEmail(String Email) {
-        Optional<BusinessEntity> byBusinessEmail = businessRepository.findByUsername(Email);
-        BusinessDto businessDto= BusinessDto.toBusinessDto(byBusinessEmail.get());
-        if(byBusinessEmail.isPresent()){
+    public UserDto selectByEmail(String Email) {
+        Optional<UserEntity> byUserEmail = userRepository.findByEmail(Email);
+        UserDto userDto= UserDto.toUserDto(byUserEmail.get());
+        if(!byUserEmail.isPresent()){
             return null;
         } else{
-            return businessDto;
+            return userDto;
         }
     }
+
+    public void register(UserDto userDto) {
+        UserEntity userEntity= UserEntity.toUserEntity(userDto);
+        userRepository.save(userEntity);
+    }
+
+
 }

@@ -1,4 +1,4 @@
-INSERT INTO city (city_name) VALUES
+/*INSERT INTO city (city_name) VALUES
                                  ('Seoul'),
                                  ('Busan'),
                                  ('Incheon'),
@@ -119,16 +119,18 @@ VALUES
 -- RoomTypeEntity 더미 데이터
 INSERT INTO room_type (type_name, type_content)
 VALUES
-    ('Single', 'Single bed for one person.'),
-    ('Double', 'Double bed for two people.'),
-    ('Twin', 'Two single beds for two people.'),
-    ('Suite', 'Luxury suite with separate living area.'),
-    ('Deluxe', 'Spacious room with premium amenities.'),
-    ('Family', 'Room for families with extra beds.'),
-    ('Presidential', 'Top-tier luxury suite with exclusive features.'),
-    ('Economy', 'Basic room for budget travelers.'),
-    ('Studio', 'Studio-style room with kitchen facilities.'),
-    ('Standard', 'Standard amenities for comfortable stay.');
+    ('스탠다드+싱글+시티뷰', 'A'),
+    ('스탠다드+싱글+오션뷰', 'B'),
+    ('스탠다드+더블+시티뷰', 'C'),
+    ('스탠다드+더블+오션뷰', 'D'),
+    ('디럭스+싱글+시티뷰', 'E'),
+    ('디럭스+싱글+오션뷰', 'F'),
+    ('디럭스+더블+시티뷰', 'G'),
+    ('디럭스+더블+오션뷰', 'H'),
+    ('스위트+시티뷰', 'I'),
+    ('스위트+오션뷰', 'J'),
+    ('레지던스+시티뷰', 'K'),
+    ('레지던스+시티뷰', 'L');
 
 
 
@@ -150,3 +152,4 @@ VALUES
 
 
 
+*/

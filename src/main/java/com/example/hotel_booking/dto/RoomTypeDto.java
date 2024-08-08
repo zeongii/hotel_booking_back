@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 @Value
 public class RoomTypeDto implements Serializable {
-    Long id;
-    String typeName;
-    String typeContent;
+    private Long id;
+    private String typeName;
+    private String typeContent;
 }

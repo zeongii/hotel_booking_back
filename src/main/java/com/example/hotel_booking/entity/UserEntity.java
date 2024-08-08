@@ -1,5 +1,6 @@
 package com.example.hotel_booking.entity;
 
+import com.example.hotel_booking.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -64,4 +65,21 @@ public class UserEntity {
 
     @Column(name = "enabled")
     private int enabled;
+
+    public static UserEntity toUserEntity(UserDto userDto) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setEmail(userDto.getEmail());
+        userEntity.setPassword(userDto.getPassword());
+        userEntity.setName(userDto.getName());
+        userEntity.setNickname(userDto.getNickname());
+        userEntity.setRole(userDto.getRole());
+        userEntity.setAddress(userDto.getAddress());
+        userEntity.setUserGender(userDto.getUserGender());
+        userEntity.setPhone(userDto.getPhone());
+        userEntity.setUserGrade(userDto.getUserGrade());
+        userEntity.setUserTotalAmount(userDto.getUserTotalAmount());
+        userEntity.setEnabled(userDto.getEnabled());
+
+        return userEntity;
+    }
 }

@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.catalina.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * packageName : com.example.hotelbooking.entity
  * fileName    : CoInfoEntity
@@ -50,6 +53,10 @@ public class HotelEntity extends TimeEntity{
     // 호텔 시설
     @Column(name = "hotel_facilities", nullable = false)
     private String hotelFacilities;
+
+    // 룸 정보 (외래키) 부모
+    @OneToMany(mappedBy = "hotelEntity",cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<RoomEntity> roomEntityList=new ArrayList<>();
 
     // 도시 정보 (외래키)
     @ManyToOne

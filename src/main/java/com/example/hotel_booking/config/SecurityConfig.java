@@ -28,12 +28,11 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize)->
                         authorize
-                                .requestMatchers("/user/**").permitAll()
-                                .anyRequest().authenticated())
+                                .requestMatchers("/user/**","/**").permitAll()
+                                .requestMatchers("/user/authOk").authenticated())
                 .formLogin((form) ->
                         form
-                                .usernameParameter("businessEmail")
-                                .passwordParameter("businessPassword")
+                                .usernameParameter("email")
                                 .loginPage("/login")
                                 .loginProcessingUrl("/user/auth")
                                 .successForwardUrl("/user/authOk")
