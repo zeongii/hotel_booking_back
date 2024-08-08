@@ -26,7 +26,6 @@ import java.util.List;
 @Entity
 @Table(name = "hotel")
 public class HotelEntity extends TimeEntity{
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -51,9 +50,19 @@ public class HotelEntity extends TimeEntity{
     @Column(name = "hotel_grade", nullable = false)
     private Long hotelGrade;
 
+    // 호텔 시설
+    @Column(name = "hotel_facilities", nullable = false)
+    private String hotelFacilities;
 
-    @Column(name = "file_attached", nullable = true)
-    private int fileAttached;
+    // 도시 정보 (외래키)
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private CityEntity cityEntity;
+
+    // 사업 정보 (외래키)
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity businessEntity;
 
     @OneToMany(mappedBy = "hotelEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<HotelFileEntity> hotelFileEntityList = new ArrayList<>();
@@ -66,13 +75,10 @@ public class HotelEntity extends TimeEntity{
         hotelEntity.setHotelPhone(hotelDto.getHotelPhone());
         hotelEntity.setHotelEmail(hotelDto.getHotelEmail());
         hotelEntity.setHotelGrade(hotelDto.getHotelGrade());
-        hotelEntity.setFileAttached(0);
 
         return hotelEntity;
 
     }
-
-
 
 
 }

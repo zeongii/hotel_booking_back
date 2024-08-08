@@ -16,5 +16,4 @@ public class FacilityEntity {
         @ManyToOne
         @JoinColumn(name="hotel_id")
         private HotelEntity HotelEntity;
-
 }

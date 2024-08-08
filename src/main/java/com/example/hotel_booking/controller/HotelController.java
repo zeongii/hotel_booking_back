@@ -20,15 +20,15 @@ public class HotelController {
     @GetMapping("hotelAll")
     public HashMap<String, Object> hotelAll() {
         HashMap<String, Object> resultmap = new HashMap<>();
-         resultmap.put("hotelList", hotelService.selectAll());
+        resultmap.put("hotelList", hotelService.selectAll());
         System.out.println(resultmap);
         return resultmap;
     }
 
-    @GetMapping("hotelOne")
-    public HotelDto selectOne(@PathVariable Long id, Model model){
+    @GetMapping("hotelOne/{id}")
+    public HotelDto selectOne(@PathVariable Long id){
         return hotelService.findById(id);
-
     }
+
 
 }

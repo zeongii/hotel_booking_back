@@ -24,7 +24,6 @@ public class HotelDto implements Serializable {
     private String hotelPhone;
     private String hotelEmail;
     private Long hotelGrade;
-    private int fileAttached;
 
 
     public static HotelDto toHotelDto(HotelEntity hotelEntity){
@@ -35,7 +34,6 @@ public class HotelDto implements Serializable {
         hotelDto.setHotelEmail(hotelEntity.getHotelEmail());
         hotelDto.setHotelPhone(hotelEntity.getHotelPhone());
         hotelDto.setHotelGrade(hotelEntity.getHotelGrade());
-        hotelDto.setFileAttached(hotelEntity.getFileAttached());
         return hotelDto;
     }
 }
