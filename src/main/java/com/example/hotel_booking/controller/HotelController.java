@@ -1,5 +1,4 @@
 package com.example.hotel_booking.controller;
-
 import com.example.hotel_booking.dto.HotelDto;
 import com.example.hotel_booking.dto.TestDto;
 import com.example.hotel_booking.entity.HotelEntity;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
+
 @CrossOrigin
 @RequestMapping("/hotel/")
 public class HotelController {
