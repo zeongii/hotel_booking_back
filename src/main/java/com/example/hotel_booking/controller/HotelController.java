@@ -26,19 +26,32 @@ public class HotelController {
 
         List<Integer> gradeIntegerList = (List<Integer>) data.get("grade");
         List<Integer> cityIdIntegerList = (List<Integer>) data.get("cityId");
+        List<Integer> facilityIdIntegerList = (List<Integer>) data.get("facilityId");
 
         List<Long> gradeList = new ArrayList<>();
-        for (int gradeInteger : gradeIntegerList) {
-            gradeList.add((long) gradeInteger);
+        if (gradeIntegerList != null) {
+            for (int gradeInteger : gradeIntegerList) {
+                gradeList.add((long) gradeInteger);
+            }
         }
+
         List<Long> cityIdList = new ArrayList<>();
-        for (int cityIdInteger : cityIdIntegerList) {
-            cityIdList.add((long) cityIdInteger);
+        if (cityIdIntegerList != null) {
+            for (int cityIdInteger : cityIdIntegerList) {
+                cityIdList.add((long) cityIdInteger);
+            }
+        }
+
+        List<Long> facilityIdList = new ArrayList<>();
+        if (facilityIdIntegerList != null) {
+            for (int facilityIdInteger : facilityIdIntegerList) {
+                facilityIdList.add((long) facilityIdInteger);
+            }
         }
 
         String hotelName = (String) data.get("hotelName");
 
-        List<HotelDto> hotelDtoList = hotelService.searchHotel(gradeList, cityIdList, hotelName);
+        List<HotelDto> hotelDtoList = hotelService.searchHotel(gradeList, cityIdList, facilityIdList, hotelName);
 
         resultMap.put("hotelDtoList", hotelDtoList);
         //return hotelDtoSet;
