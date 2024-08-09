@@ -49,6 +49,10 @@ VALUES ('호텔 서울', '서울특별시 중구', '02-1234-5678', 'seoulhotel@e
        ('수원 호텔', '경기도 수원시 팔달구', '031-8765-4321', 'suwonhotel@example.com', 4, '야외 수영장, 실내 수영장'),
        ('제주 호텔', '제주특별자치도 제주시', '064-9876-5432', 'jejuhotel@example.com', 5, '해변, 무료 조식');
 
+UPDATE hotel SET `city_id` = '1' WHERE (`id` = '1');
+UPDATE hotel SET `facility_id` = '1' WHERE (`id` = '1');
+
+
 
 INSERT INTO user (email, password, name, nickname, role, address, user_gender, phone, user_grade, user_total_amount,
                   enabled)

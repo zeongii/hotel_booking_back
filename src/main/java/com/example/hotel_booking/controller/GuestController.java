@@ -4,40 +4,30 @@ import com.example.hotel_booking.dto.ReservationDto;
 import com.example.hotel_booking.dto.ReviewDto;
 import com.example.hotel_booking.dto.UserDto;
 import com.example.hotel_booking.dto.WishlistDto;
+import com.example.hotel_booking.entity.UserEntity;
 import com.example.hotel_booking.service.GuestService;
 import com.example.hotel_booking.service.ReservationService;
 import com.example.hotel_booking.service.ReviewService;
 import com.example.hotel_booking.service.WishlistService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
+@RequiredArgsConstructor
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/guest/")
 public class GuestController {
     private final GuestService guestService;
     private final ReservationService reservationService;
     private final WishlistService wishlistService;
     private final ReviewService reviewService;
-
-    @Autowired
-    public GuestController(GuestService guestService,
-                           ReservationService reservationService,
-                           WishlistService wishlistService,
-                           ReviewService reviewService) {
-
-        this.guestService = guestService;
-        this.reservationService = reservationService;
-        this.wishlistService = wishlistService;
-        this.reviewService = reviewService;
-    }
-
-    @GetMapping("test")
-    public String test() {
-        return "test";
-    }
 
     //id로 유저 정보 가져오기(내 정보)
     @GetMapping("update/{id}")
@@ -118,5 +108,69 @@ public class GuestController {
     @GetMapping("review/delete/{id}")
     public void reviewDelete(@PathVariable Long id) {
         reviewService.deleteReview(id);
+    }
+
+    //이메일 찾기
+    @PostMapping("forgot-username")
+    public ResponseEntity<Map<String, Object>> forgotUsername(@RequestBody Map<String, String> request) {
+        String name = request.get("name");
+        String phone = request.get("phone");
+        Map<String, Object> resultMap = new HashMap<>();
+
+        try {
+            Optional<UserEntity> userOptional = guestService.findByNameAndPhone(name, phone);
+            if (userOptional.isPresent()) {
+                UserEntity user = userOptional.get();
+                resultMap.put("result", "success");
+                resultMap.put("email", user.getEmail());
+                return ResponseEntity.ok(resultMap);
+            } else {
+                resultMap.put("result", "fail");
+                resultMap.put("message", "User not found");
+                return ResponseEntity.status(404).body(resultMap);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("result", "fail");
+            resultMap.put("message", e.getMessage());
+            return ResponseEntity.status(500).body(resultMap);
+        }
+    }
+
+    //비밀번호 찾기
+    @PostMapping("forgot-password")
+    public ResponseEntity<Map<String, Object>> forgotPassword(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        String name = request.get("name");
+        String phone = request.get("phone");
+        Map<String, Object> resultMap = new HashMap<>();
+
+        try {
+            Optional<UserEntity> userOptional = guestService.findByEmailAndNameAndPhone(email, name, phone);
+            if (userOptional.isPresent()) {
+                UserEntity user = userOptional.get();
+                if (user.getName().equals(name) && user.getPhone().equals(phone)) {
+                    String password = guestService.getPassword(user); // 비밀번호 반환
+                    resultMap.put("result", "success");
+                    resultMap.put("password", password); // 주의: 해시된 비밀번호가 반환됩니다.
+                    return ResponseEntity.ok(resultMap);
+                } else {
+                    resultMap.put("result", "fail");
+                    resultMap.put("message", "일치하는 정보가 없습니다.");
+                    return ResponseEntity.status(404).body(resultMap);
+                }
+            } else {
+                resultMap.put("result", "fail");
+                resultMap.put("message", "찾기 실패");
+                return ResponseEntity.status(404).body(resultMap);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("result", "fail");
+            resultMap.put("message", e.getMessage());
+            return ResponseEntity.status(500).body(resultMap);
+        }
+
+
     }
 }

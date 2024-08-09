@@ -36,19 +36,19 @@ public class HotelEntity extends TimeEntity{
     private String hotelAddress;
 
     // 호텔 전화번호
-    @Column(name = "hotel_phone", nullable = false)
+    @Column(name = "hotel_phone")
     private String hotelPhone;
 
     // 호텔 이메일
-    @Column(name = "hotel_email", nullable = false)
+    @Column(name = "hotel_email")
     private String hotelEmail;
 
     // 호텔 등급
-    @Column(name = "hotel_grade", nullable = false)
+    @Column(name = "hotel_grade")
     private Long hotelGrade;
 
     // 호텔 시설
-    @Column(name = "hotel_facilities", nullable = false)
+    @Column(name = "hotel_facilities")
     private String hotelFacilities;
 
     // 도시 정보 (외래키)
