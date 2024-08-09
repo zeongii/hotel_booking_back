@@ -83,9 +83,7 @@ public class HotelService {
                 hotelIdListFindByHotelName.isEmpty() ||
                 hotelIdListFindByFacility.isEmpty()) {
             return null;
-        }
-
-        for (Long id : hotelIdListFindByGrade) {
+        }for (Long id : hotelIdListFindByGrade) {
             if (hotelIdListFindByCity.contains(id) &&
                     hotelIdListFindByHotelName.contains(id) &&
                     hotelIdListFindByFacility.contains(id)) {
