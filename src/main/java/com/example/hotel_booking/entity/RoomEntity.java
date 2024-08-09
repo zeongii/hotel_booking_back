@@ -72,7 +72,7 @@ public class RoomEntity extends TimeEntity {
     @JoinColumn(name = "room_type_id")
     private RoomTypeEntity roomTypeEntity;
 
-    public static RoomEntity toInsertEntity(RoomDto roomDto, HotelEntity hotelEntity) {
+    public static RoomEntity toInsertEntity(RoomDto roomDto, HotelEntity hotelEntity,RoomTypeEntity roomTypeEntity) {
         RoomEntity roomEntity = new RoomEntity();
         roomEntity.setRoomName(roomDto.getRoomName());
         roomEntity.setRoomMax(roomDto.getRoomMax());
@@ -83,6 +83,7 @@ public class RoomEntity extends TimeEntity {
         roomEntity.setBreakfastPrice(roomDto.getBreakfastPrice());
         roomEntity.setFileAttached(0);
         roomEntity.setHotelEntity(hotelEntity);
+        roomEntity.setRoomTypeEntity(roomTypeEntity);
         return roomEntity;
     }
 

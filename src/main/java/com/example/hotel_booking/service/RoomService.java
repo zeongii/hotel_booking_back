@@ -4,9 +4,11 @@ import com.example.hotel_booking.dto.RoomDto;
 import com.example.hotel_booking.entity.HotelEntity;
 import com.example.hotel_booking.entity.RoomEntity;
 import com.example.hotel_booking.entity.RoomFileEntity;
+import com.example.hotel_booking.entity.RoomTypeEntity;
 import com.example.hotel_booking.repository.HotelRepository;
 import com.example.hotel_booking.repository.RoomFileRepository;
 import com.example.hotel_booking.repository.RoomRepository;
+import com.example.hotel_booking.repository.RoomTypeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,11 +27,14 @@ public class RoomService {
     private final HotelRepository HOTEL_REPOSITORY;
     private final RoomRepository ROOM_REPOSITORY;
     private final RoomFileRepository ROOM_FILE_REPOSITORY;
+    private final RoomTypeRepository ROOM_TYPE_REPOSITORY;
 
-    public RoomService(HotelRepository hotelRepository, RoomRepository roomRepository, RoomFileRepository roomFileRepository) {
-        this.HOTEL_REPOSITORY = hotelRepository;
-        this.ROOM_REPOSITORY = roomRepository;
-        this.ROOM_FILE_REPOSITORY = roomFileRepository;
+
+    public RoomService(HotelRepository HOTEL_REPOSITORY, RoomRepository ROOM_REPOSITORY, RoomFileRepository ROOM_FILE_REPOSITORY, RoomTypeRepository ROOM_TYPE_REPOSITORY) {
+        this.HOTEL_REPOSITORY = HOTEL_REPOSITORY;
+        this.ROOM_REPOSITORY = ROOM_REPOSITORY;
+        this.ROOM_FILE_REPOSITORY = ROOM_FILE_REPOSITORY;
+        this.ROOM_TYPE_REPOSITORY = ROOM_TYPE_REPOSITORY;
     }
 
     public Long insert(RoomDto roomDto) throws IOException {
@@ -38,8 +43,8 @@ public class RoomService {
         if (optionalHotelEntity.isPresent()) {
             HotelEntity hotelEntity = optionalHotelEntity.get();
             if (roomDto.getFile() == null) {
-                System.out.println("ajkhjkhkjhkjhkjhkj");
-                RoomEntity roomEntity = RoomEntity.toInsertEntity(roomDto, hotelEntity);
+                RoomTypeEntity roomTypeEntity= ROOM_TYPE_REPOSITORY.findById(roomDto.getRoomTypeId()).get();
+                RoomEntity roomEntity = RoomEntity.toInsertEntity(roomDto, hotelEntity,roomTypeEntity);
                 return ROOM_REPOSITORY.save(roomEntity).getId();
             } else {
                 RoomEntity roomEntity = RoomEntity.toSaveFileEntity(roomDto, hotelEntity);
@@ -76,6 +81,7 @@ public class RoomService {
     @Transactional
     public RoomDto selectOne(Long roomId) {
         Optional<RoomEntity> optionalRoomEntity = ROOM_REPOSITORY.findById(roomId);
+//        System.out.println(optionalRoomEntity);
         if (optionalRoomEntity.isPresent()) {
             RoomEntity roomEntity = optionalRoomEntity.get();
             RoomDto roomDto = RoomDto.toRoomDto(roomEntity, roomEntity.getHotelEntity().getId());

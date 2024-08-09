@@ -29,17 +29,24 @@ public class RoomController {
     }
 
     @GetMapping("showOne/{id}")
-    public RoomDto selectOne(@PathVariable Long id) {
-        return ROOM_SERVICE.selectOne(id);
+    public HashMap<String,Object> selectOne(@PathVariable Long id) {
+        HashMap<String,Object> resultMap=new HashMap<>();
+        resultMap.put("roomDto",ROOM_SERVICE.selectOne(id));
+        resultMap.put("roomTypeList",ROOM_TYPE_SERVICE.selectAll());
+        // 호텔 아이디를 통해 userID를 빼와야함 지금은 없으니까 비교 안하고 클릭 버튼만 해놓자
+        return resultMap;
     }
 
     @GetMapping("showList/{id}")
-    public HashMap<String,Object> selectList(@PathVariable Long Id) {
+    public HashMap<String,Object> selectList(@PathVariable Long id) {
         HashMap<String, Object> resultMap=new HashMap<>();
-
-        resultMap.put("roomList",ROOM_SERVICE.selectAll(Id));
+        List<RoomTypeDto> roomTypeDtoList=ROOM_TYPE_SERVICE.selectAll();
+        resultMap.put("roomTypeList",roomTypeDtoList);
+        resultMap.put("roomList",ROOM_SERVICE.selectAll(id));
         return resultMap;
     }
+
+
     @GetMapping("write/{hotelId}")
     public RoomDto write(@PathVariable Long hotelId) {
         RoomDto roomDto = new RoomDto();
@@ -48,12 +55,12 @@ public class RoomController {
         return roomDto;
     }
 
-    @PostMapping("write")
-    public HashMap<String, Object> write(@RequestBody RoomDto roomDto) {
+    @PostMapping("write/{hotelId}")
+    public HashMap<String, Object> write(@PathVariable Long hotelId, @RequestBody RoomDto roomDto) {
         System.out.println(roomDto);
+        roomDto.setHotelId(hotelId);
         List<RoomTypeDto> roomTypeDtoList=ROOM_TYPE_SERVICE.selectAll();
         HashMap<String,Object> resultMap = new HashMap<>();
-        System.out.println(roomTypeDtoList);
         try {
             Long id = ROOM_SERVICE.insert(roomDto);
             resultMap.put("result","success");

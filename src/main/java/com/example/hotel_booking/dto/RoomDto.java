@@ -45,6 +45,7 @@ public class RoomDto implements Serializable {
         roomDto.setRoomPrice(roomEntity.getRoomPrice());
         roomDto.setRoomContent(roomEntity.getRoomContent());
         roomDto.setHotelId(hotelId);
+        roomDto.setRoomTypeId(roomEntity.getRoomTypeEntity().getId());
         roomDto.setCheckIn(roomEntity.getCheckIn());
         roomDto.setCreatedTime(roomEntity.getCreatedTime());
         roomDto.setUpdatedTime(roomEntity.getUpdatedTime());
