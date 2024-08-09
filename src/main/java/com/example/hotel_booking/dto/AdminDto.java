@@ -1,20 +1,19 @@
 package com.example.hotel_booking.dto;
 
-import lombok.Value;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/*
- * DTO for {@link com.example.hotel_booking.entity.CouponEntity}
+/**
+ * DTO for {@link com.example.hotel_booking.entity.AdminEntity}
  */
-@Value
-public class CouponDto implements Serializable {
+@Data
+public class AdminDto implements Serializable {
     LocalDateTime createdTime;
     LocalDateTime updatedTime;
     Long id;
-    String couName;
-    String couType;
-    Long couValue;
+    String adPass;
+    String adName;
     boolean enabled;
 }

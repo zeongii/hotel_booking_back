@@ -1,5 +1,6 @@
 package com.example.hotel_booking.entity;
 
+import com.example.hotel_booking.dto.ReviewDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,12 @@ public class ReviewEntity extends TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JoinColumn(name = "hotel_id")
+    private Long hotelId;
+
+    @JoinColumn(name = "user_id")
+    private Long userId;
 
     @Column(name = "room_type")
     private Long roomType;
@@ -36,4 +43,35 @@ public class ReviewEntity extends TimeEntity {
 
     @Column(name = "review_content", nullable = false)
     private String reviewContent;
+
+    public static ReviewEntity toAddReviewEntity(ReviewDto reviewDto) {
+        ReviewEntity reviewEntity = new ReviewEntity();
+        reviewEntity.setHotelId(reviewDto.getHotelId());
+        reviewEntity.setUserId(reviewDto.getUserId());
+        reviewEntity.setRoomType(reviewDto.getRoomType());
+        reviewEntity.setReservationId(reviewDto.getReservationId());
+        reviewEntity.setCleanRating(reviewDto.getCleanRating());
+        reviewEntity.setTrafficRating(reviewDto.getTrafficRating());
+        reviewEntity.setFacilityRating(reviewDto.getFacilityRating());
+        reviewEntity.setTotalRating(reviewDto.getTotalRating());
+        reviewEntity.setReviewTitle(reviewDto.getReviewTitle());
+        reviewEntity.setReviewContent(reviewDto.getReviewContent());
+        return reviewEntity;
+    }
+
+    public static ReviewEntity toUpdateReviewEntity(ReviewDto reviewDto) {
+        ReviewEntity reviewEntity = new ReviewEntity();
+        reviewEntity.setId(reviewDto.getId());
+        reviewEntity.setHotelId(reviewDto.getHotelId());
+        reviewEntity.setUserId(reviewDto.getUserId());
+        reviewEntity.setRoomType(reviewDto.getRoomType());
+        reviewEntity.setReservationId(reviewDto.getReservationId());
+        reviewEntity.setCleanRating(reviewDto.getCleanRating());
+        reviewEntity.setTrafficRating(reviewDto.getTrafficRating());
+        reviewEntity.setFacilityRating(reviewDto.getFacilityRating());
+        reviewEntity.setTotalRating(reviewDto.getTotalRating());
+        reviewEntity.setReviewTitle(reviewDto.getReviewTitle());
+        reviewEntity.setReviewContent(reviewDto.getReviewContent());
+        return reviewEntity;
+    }
 }

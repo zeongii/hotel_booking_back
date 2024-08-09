@@ -1,5 +1,6 @@
 package com.example.hotel_booking.dto;
 
+import com.example.hotel_booking.entity.UserEntity;
 import lombok.Data;
 import lombok.Value;
 
@@ -22,4 +23,21 @@ public class UserDto implements Serializable {
     int userGrade;
     Long userTotalAmount;
     int enabled;
+
+    public static UserDto toGuestDto(UserEntity guestEntity) {
+        UserDto guestDto = new UserDto();
+        guestDto.setId(guestEntity.getId());
+        guestDto.setEmail(guestEntity.getEmail());
+        guestDto.setPassword(guestEntity.getPassword());
+        guestDto.setName(guestEntity.getName());
+        guestDto.setNickname(guestEntity.getNickname());
+        guestDto.setRole(guestEntity.getRole());
+        guestDto.setAddress(guestEntity.getAddress());
+        guestDto.setUserGender(guestEntity.getUserGender());
+        guestDto.setPhone(guestEntity.getPhone());
+        guestDto.setUserGrade(guestEntity.getUserGrade());
+        guestDto.setUserTotalAmount(guestEntity.getUserTotalAmount());
+        guestDto.setEnabled(guestEntity.getEnabled());
+        return guestDto;
+    }
 }
