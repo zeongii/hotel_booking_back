@@ -7,8 +7,6 @@ import com.example.hotel_booking.entity.RoomFileEntity;
 import com.example.hotel_booking.repository.HotelRepository;
 import com.example.hotel_booking.repository.RoomFileRepository;
 import com.example.hotel_booking.repository.RoomRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,28 +18,33 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+
 public class RoomService {
 
-    @Autowired
-    private final HotelRepository hotelRepository;
-    @Autowired
-    private final RoomRepository roomRepository;
-    @Autowired
-    private final RoomFileRepository roomFileRepository;
+
+    private final HotelRepository HOTEL_REPOSITORY;
+    private final RoomRepository ROOM_REPOSITORY;
+    private final RoomFileRepository ROOM_FILE_REPOSITORY;
+
+    public RoomService(HotelRepository hotelRepository, RoomRepository roomRepository, RoomFileRepository roomFileRepository) {
+        this.HOTEL_REPOSITORY = hotelRepository;
+        this.ROOM_REPOSITORY = roomRepository;
+        this.ROOM_FILE_REPOSITORY = roomFileRepository;
+    }
 
     public Long insert(RoomDto roomDto) throws IOException {
-        roomDto.setHotelId(1L);
-        Optional<HotelEntity> optionalHotelEntity = hotelRepository.findById(roomDto.getHotelId());
-        HotelEntity hotelEntity = optionalHotelEntity.get();
+
+        Optional<HotelEntity> optionalHotelEntity = HOTEL_REPOSITORY.findById(roomDto.getHotelId());
         if (optionalHotelEntity.isPresent()) {
-            if (roomDto.getFile().isEmpty()) {
+            HotelEntity hotelEntity = optionalHotelEntity.get();
+            if (roomDto.getFile() == null) {
+                System.out.println("ajkhjkhkjhkjhkjhkj");
                 RoomEntity roomEntity = RoomEntity.toInsertEntity(roomDto, hotelEntity);
-                return roomRepository.save(roomEntity).getId();
+                return ROOM_REPOSITORY.save(roomEntity).getId();
             } else {
                 RoomEntity roomEntity = RoomEntity.toSaveFileEntity(roomDto, hotelEntity);
-                Long saveId = roomRepository.save(roomEntity).getId();
-                RoomEntity room = roomRepository.findById(saveId).get();
+                Long saveId = ROOM_REPOSITORY.save(roomEntity).getId();
+                RoomEntity room = ROOM_REPOSITORY.findById(saveId).get();
                 for (MultipartFile roomFile : roomDto.getFile()) {
                     String originalFilename = roomFile.getOriginalFilename();
                     String storedFileName = System.currentTimeMillis() + "_" + originalFilename; //1970년 1월1일부터 얼마나 지났는지 밀리초 단위로 나타내는 친구
@@ -49,20 +52,22 @@ public class RoomService {
                     roomFile.transferTo(new File(savePath));
 
                     RoomFileEntity roomFileEntity = RoomFileEntity.toRoomFileEntity(room, originalFilename, storedFileName);
-                    return roomFileRepository.save(roomFileEntity).getId();
+                    ROOM_FILE_REPOSITORY.save(roomFileEntity);
                 }
+                return room.getId();
             }
+
         }
         return null;
     }
 
     @Transactional
     public List<RoomDto> selectAll(Long hotelId) {
-        HotelEntity hotelEntity= hotelRepository.findById(hotelId).get();
-        List<RoomEntity> roomEntityList = roomRepository.findAllByHotelEntityOrderByIdDesc(hotelEntity);
+        HotelEntity hotelEntity = HOTEL_REPOSITORY.findById(hotelId).get();
+        List<RoomEntity> roomEntityList = ROOM_REPOSITORY.findAllByHotelEntityOrderByIdDesc(hotelEntity);
         List<RoomDto> roomDtoList = new ArrayList<>();
-        for (RoomEntity roomEntity: roomEntityList) {
-            RoomDto roomDto = RoomDto.toRoomDto(roomEntity,hotelId);
+        for (RoomEntity roomEntity : roomEntityList) {
+            RoomDto roomDto = RoomDto.toRoomDto(roomEntity, hotelId);
             roomDtoList.add(roomDto);
         }
         return roomDtoList;
@@ -70,10 +75,10 @@ public class RoomService {
 
     @Transactional
     public RoomDto selectOne(Long roomId) {
-        Optional<RoomEntity> optionalRoomEntity = roomRepository.findById(roomId);
+        Optional<RoomEntity> optionalRoomEntity = ROOM_REPOSITORY.findById(roomId);
         if (optionalRoomEntity.isPresent()) {
             RoomEntity roomEntity = optionalRoomEntity.get();
-            RoomDto roomDto = RoomDto.toRoomDto(roomEntity,roomEntity.getHotelEntity().getId());
+            RoomDto roomDto = RoomDto.toRoomDto(roomEntity, roomEntity.getHotelEntity().getId());
             return roomDto;
         } else {
             return null;
@@ -82,15 +87,15 @@ public class RoomService {
 
     @Transactional
     public RoomDto update(RoomDto roomDto) {
-        HotelEntity hotelEntity = hotelRepository.findById(roomDto.getHotelId()).get();
-        RoomEntity roomEntity = RoomEntity.toUpdateEntity(roomDto,hotelEntity);
-        roomRepository.save(roomEntity);
+        HotelEntity hotelEntity = HOTEL_REPOSITORY.findById(roomDto.getHotelId()).get();
+        RoomEntity roomEntity = RoomEntity.toUpdateEntity(roomDto, hotelEntity);
+        ROOM_REPOSITORY.save(roomEntity);
         return selectOne(roomDto.getId());
     }
 
     @Transactional
     public void delete(Long id) {
-        roomRepository.deleteById(id);
+        ROOM_REPOSITORY.deleteById(id);
     }
 
 

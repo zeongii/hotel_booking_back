@@ -2,6 +2,9 @@ package com.example.hotel_booking.controller;
 
 import com.example.hotel_booking.dto.UserDto;
 import com.example.hotel_booking.service.UserService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -16,11 +19,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user/")
 public class UserController {
-
-    @Autowired
-    private UserService USER_SERVICE;
+    private final UserService USER_SERVICE;
     @Autowired
     private BCryptPasswordEncoder encoder;
+
+    public UserController(UserService USER_SERVICE) {
+        this.USER_SERVICE = USER_SERVICE;
+    }
 
     @RequestMapping("authOk")
     public ResponseEntity<Map<String,Object>> authOk(Authentication authentication) {

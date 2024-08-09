@@ -5,6 +5,7 @@ import com.example.hotel_booking.dto.RoomTypeDto;
 import com.example.hotel_booking.service.RoomService;
 import com.example.hotel_booking.service.RoomTypeService;
 import com.zaxxer.hikari.HikariDataSource;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,14 +19,13 @@ import java.util.List;
 @RequestMapping("/room/")
 public class RoomController {
 
-    @Autowired
-    private RoomService ROOM_SERVICE;
-    @Autowired
-    private RoomTypeService roomTypeService;
 
-    @Autowired
-    public RoomController(RoomService roomService) {
-        ROOM_SERVICE=roomService;
+    private final RoomService ROOM_SERVICE;
+    private final RoomTypeService ROOM_TYPE_SERVICE;
+
+    public RoomController(RoomTypeService roomTypeService, RoomService ROOM_SERVICE) {
+        this.ROOM_TYPE_SERVICE = roomTypeService;
+        this.ROOM_SERVICE = ROOM_SERVICE;
     }
 
     @GetMapping("showOne/{id}")
@@ -41,21 +41,23 @@ public class RoomController {
         return resultMap;
     }
     @GetMapping("write/{hotelId}")
-    public HashMap<String, Object> write(@PathVariable Long hotelId) {
-        return null;
+    public RoomDto write(@PathVariable Long hotelId) {
+        RoomDto roomDto = new RoomDto();
+        roomDto.setHotelId(1L);
+        System.out.println(roomDto);
+        return roomDto;
     }
 
-    @PostMapping("write/{hotelId}")
-    public HashMap<String, Object> write(@PathVariable Long hotelId, @RequestBody RoomDto roomDto) {
+    @PostMapping("write")
+    public HashMap<String, Object> write(@RequestBody RoomDto roomDto) {
         System.out.println(roomDto);
-        roomDto.setHotelId(hotelId);
-        List<RoomTypeDto> roomTypeDtoList=roomTypeService.selectAll();
+        List<RoomTypeDto> roomTypeDtoList=ROOM_TYPE_SERVICE.selectAll();
         HashMap<String,Object> resultMap = new HashMap<>();
         System.out.println(roomTypeDtoList);
         try {
-            ROOM_SERVICE.insert(roomDto);
+            Long id = ROOM_SERVICE.insert(roomDto);
             resultMap.put("result","success");
-            resultMap.put("roomId",roomDto.getId());
+            resultMap.put("roomId",id);
             resultMap.put("roomTypeList",roomTypeDtoList);
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,7 +71,7 @@ public class RoomController {
         HashMap<String,Object> resultMap= new HashMap<>();
         ROOM_SERVICE.update(roomDto);
         resultMap.put("destRoomId",roomDto.getId());
-        List<RoomTypeDto> roomTypeDtoList=roomTypeService.selectAll();
+        List<RoomTypeDto> roomTypeDtoList=ROOM_TYPE_SERVICE.selectAll();
         try {
             ROOM_SERVICE.update(roomDto);
             resultMap.put("result","success");

@@ -25,7 +25,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "room")
-public class RoomEntity extends TimeEntity{
+public class RoomEntity extends TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -66,14 +66,14 @@ public class RoomEntity extends TimeEntity{
     private HotelEntity hotelEntity;
 
     @OneToMany(mappedBy = "roomEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<RoomFileEntity> roomFileEntityList=new ArrayList<>();
+    private List<RoomFileEntity> roomFileEntityList = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name="room_type_id")
+    @JoinColumn(name = "room_type_id")
     private RoomTypeEntity roomTypeEntity;
 
-    public static RoomEntity toInsertEntity(RoomDto roomDto,HotelEntity hotelEntity) {
-        RoomEntity roomEntity=new RoomEntity();
+    public static RoomEntity toInsertEntity(RoomDto roomDto, HotelEntity hotelEntity) {
+        RoomEntity roomEntity = new RoomEntity();
         roomEntity.setRoomName(roomDto.getRoomName());
         roomEntity.setRoomMax(roomDto.getRoomMax());
         roomEntity.setRoomPrice(roomDto.getRoomPrice());
@@ -86,8 +86,8 @@ public class RoomEntity extends TimeEntity{
         return roomEntity;
     }
 
-    public static RoomEntity toUpdateEntity (RoomDto roomDto,HotelEntity hotelEntity) {
-        RoomEntity roomEntity=new RoomEntity();
+    public static RoomEntity toUpdateEntity(RoomDto roomDto, HotelEntity hotelEntity) {
+        RoomEntity roomEntity = new RoomEntity();
         roomEntity.setId(roomDto.getId());
         roomEntity.setRoomName(roomDto.getRoomName());
         roomEntity.setRoomMax(roomDto.getRoomMax());
@@ -100,8 +100,8 @@ public class RoomEntity extends TimeEntity{
         return roomEntity;
     }
 
-    public static RoomEntity toSaveFileEntity(RoomDto roomDto,HotelEntity hotelEntity) {
-        RoomEntity roomEntity=new RoomEntity();
+    public static RoomEntity toSaveFileEntity(RoomDto roomDto, HotelEntity hotelEntity) {
+        RoomEntity roomEntity = new RoomEntity();
         roomEntity.setRoomName(roomDto.getRoomName());
         roomEntity.setRoomMax(roomDto.getRoomMax());
         roomEntity.setRoomPrice(roomDto.getRoomPrice());
