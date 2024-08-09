@@ -31,6 +31,7 @@ public class RoomService {
     private final RoomFileRepository roomFileRepository;
 
     public Long insert(RoomDto roomDto) throws IOException {
+        roomDto.setHotelId(1L);
         Optional<HotelEntity> optionalHotelEntity = hotelRepository.findById(roomDto.getHotelId());
         HotelEntity hotelEntity = optionalHotelEntity.get();
         if (optionalHotelEntity.isPresent()) {

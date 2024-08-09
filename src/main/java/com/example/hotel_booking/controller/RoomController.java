@@ -40,6 +40,10 @@ public class RoomController {
         resultMap.put("roomList",ROOM_SERVICE.selectAll(Id));
         return resultMap;
     }
+    @GetMapping("write/{hotelId}")
+    public HashMap<String, Object> write(@PathVariable Long hotelId) {
+        return null;
+    }
 
     @PostMapping("write/{hotelId}")
     public HashMap<String, Object> write(@PathVariable Long hotelId, @RequestBody RoomDto roomDto) {
