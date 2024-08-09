@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/search/")
@@ -22,13 +23,15 @@ public class HotelController {
 
     //호텔 찾기
     @PostMapping("hotel")
-    public List<HotelDto> searchHotel(@RequestBody Map<String, Object> data) {
-        List<HotelDto> hotelDtoList = new ArrayList<>();
+    public Set<HotelDto> searchHotel(@RequestBody Map<String, Object> data) {
         List<Long> gradeList = (List<Long>) data.get("grade");
         List<Long> cityIdList = (List<Long>) data.get("cityId");
+        //List<Long> facilityIdList = (List<Long>) data.get("facilityId");
         String hotelName = (String) data.get("hotelName");
-        System.out.println(gradeList + " " + cityIdList + " " + hotelName);
-        return hotelDtoList;
+
+        Set<HotelDto> hotelDtoSet = hotelService.searchHotel(gradeList, cityIdList, hotelName);
+
+        return hotelDtoSet;
     }
 
 }
