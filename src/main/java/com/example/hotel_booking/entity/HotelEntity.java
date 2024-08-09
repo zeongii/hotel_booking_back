@@ -50,10 +50,6 @@ public class HotelEntity extends TimeEntity{
     @Column(name = "hotel_grade", nullable = false)
     private Long hotelGrade;
 
-    // 호텔 시설
-    @Column(name = "hotel_facilities", nullable = false)
-    private String hotelFacilities;
-
     // 도시 정보 (외래키)
     @ManyToOne
     @JoinColumn(name = "city_id")
@@ -67,6 +63,7 @@ public class HotelEntity extends TimeEntity{
     @OneToMany(mappedBy = "hotelEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<HotelFileEntity> hotelFileEntityList = new ArrayList<>();
 
+
     public static HotelEntity toHotelEntity(HotelDto hotelDto){
         HotelEntity hotelEntity = new HotelEntity();
         hotelEntity.setId(hotelDto.getId());
@@ -77,8 +74,24 @@ public class HotelEntity extends TimeEntity{
         hotelEntity.setHotelGrade(hotelDto.getHotelGrade());
 
         return hotelEntity;
-
     }
+
+    public static HotelEntity toSaveHotelEntity(HotelDto hotelDto){
+        HotelEntity hotelEntity = new HotelEntity();
+        hotelEntity.setId(hotelDto.getId());
+        hotelEntity.setHotelName(hotelDto.getHotelName());
+        hotelEntity.setHotelAddress(hotelDto.getHotelAddress());
+        hotelEntity.setHotelPhone(hotelDto.getHotelPhone());
+        hotelEntity.setHotelEmail(hotelDto.getHotelEmail());
+        hotelEntity.setHotelGrade(hotelDto.getHotelGrade());
+
+        return hotelEntity;
+    }
+
+
+
+
+
 
 
 }

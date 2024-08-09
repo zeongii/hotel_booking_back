@@ -30,5 +30,25 @@ public class HotelController {
         return hotelService.findById(id);
     }
 
+    @PostMapping("insert")
+    public HashMap<String, Object> write(@RequestBody HotelDto hotelDto ){
+        HashMap<String, Object> resultMap = new HashMap<>();
+        System.out.println(hotelDto);
+        try {
+            hotelService.save(hotelDto);
+            resultMap.put("result", "success");
+        } catch (Exception e){
+            e.printStackTrace();
+            resultMap.put("result", "fail");
+        }
+
+        System.out.println("HotelController.write");
+
+        return  resultMap;
+    }
+
+
+
+
 
 }
