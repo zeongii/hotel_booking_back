@@ -58,7 +58,7 @@ public class HotelController {
             facilityDtoList.add(temp);
         }
 
-         facilityService.save(facilityDtoList, id);
+        facilityService.save(facilityDtoList, id);
         System.out.println(facilityList);
 
         System.out.println("HotelController.write");
