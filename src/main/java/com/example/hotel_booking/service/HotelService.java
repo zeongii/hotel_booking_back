@@ -1,6 +1,7 @@
 package com.example.hotel_booking.service;
 
 import com.example.hotel_booking.dto.HotelDto;
+import com.example.hotel_booking.entity.HotelEntity;
 import com.example.hotel_booking.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,41 +17,54 @@ public class HotelService {
         this.hotelRepository = hotelRepository;
     }
 
-    public Set<HotelDto> searchHotel(List<Long> gradeList, List<Long> cityIdList, String hotelName) {
-        Set<HotelDto> hotelDtoSet = new HashSet<>();
+    public List<HotelDto> searchHotel(List<Long> gradeList, List<Long> cityIdList, String hotelName) {
+        List<HotelDto> hotelDtoList = new ArrayList<>();
 
-        for (Long gradeId : gradeList) {
-            for (Long cityId : cityIdList) {
-                hotelDtoSet.add(hotelRepository.search(gradeId, cityId, hotelName));
+        List<Long> hotelIdListFindByGrade = new ArrayList<>();
+        if (gradeList != null) {
+            for (Long id : gradeList) {
+                hotelIdListFindByGrade.addAll(hotelRepository.findByGrade(id));
+            }
+        } else {
+            hotelIdListFindByGrade = hotelRepository.findAllId();
+        }
+
+        List<Long> hotelIdListFindByCity = new ArrayList<>();
+        if (cityIdList != null) {
+            for (Long id : cityIdList) {
+                hotelIdListFindByCity.addAll(hotelRepository.findByCityId(id));
+            }
+        } else {
+            hotelIdListFindByCity = hotelRepository.findAllId();
+        }
+
+        List<Long> hotelIdListFindByHotelName = new ArrayList<>();
+        if (hotelName != null) {
+            hotelIdListFindByHotelName.addAll(hotelRepository.findByHotelNameContaining(hotelName));
+        } else {
+            hotelIdListFindByHotelName = hotelRepository.findAllId();
+        }
+
+        System.out.println("gradeList: " + hotelIdListFindByGrade);
+        System.out.println("cityList: " + hotelIdListFindByCity);
+        System.out.println("nameList: " + hotelIdListFindByHotelName);
+
+
+        if (hotelIdListFindByGrade.size() == 0 ||
+                hotelIdListFindByCity.size() == 0 ||
+                hotelIdListFindByHotelName.size() == 0) {
+            return null;
+        }
+
+        for (Long id : hotelIdListFindByGrade) {
+            if (hotelIdListFindByCity.contains(id) &&
+                    hotelIdListFindByHotelName.contains(id)) {
+                hotelDtoList.add(HotelDto.toHotelDto(hotelRepository.findById(id)));
             }
         }
 
-        return hotelDtoSet;
-//        List<Long> hotelIdListFindByGrade = new ArrayList<>();
-//        for (Long id : gradeList) {
-//            hotelIdListFindByGrade.add(hotelRepository.findByGrade(id));
-//        }
-//        Collections.sort(hotelIdListFindByGrade);
-//
-//        List<Long> hotelIdListFindByCity = new ArrayList<>();
-//        for (Long id : cityIdList) {
-//            hotelIdListFindByCity.add(hotelRepository.findByCityId(id));
-//        }
-//        Collections.sort(hotelIdListFindByCity);
-//
-//        List<Long> hotelIdListFindByHotelName = new ArrayList<>();
-//        hotelIdListFindByHotelName.add(hotelRepository.findByHotelNameContaining(hotelName));
-//        Collections.sort(hotelIdListFindByHotelName);
-//
-//        int gradeIndex = 0, cityIndex = 0, hotelNameIndex = 0;
-//        while (true) {
-//            if (hotelIdListFindByGrade.size() >= gradeIndex
-//            || hotelIdListFindByCity.size() >= cityIndex
-//            || hotelIdListFindByHotelName.size() >= hotelNameIndex) {
-//                break;
-//            }
-//
-//            if (hotelI)
-//        }
+        System.out.println("hotelDtoList: " + hotelDtoList);
+
+        return hotelDtoList;
     }
 }
