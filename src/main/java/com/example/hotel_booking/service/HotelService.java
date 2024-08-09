@@ -3,6 +3,7 @@ package com.example.hotel_booking.service;
 import com.example.hotel_booking.dto.HotelDto;
 import com.example.hotel_booking.entity.HotelEntity;
 import com.example.hotel_booking.entity.HotelFileEntity;
+import com.example.hotel_booking.repository.FacilityRepository;
 import com.example.hotel_booking.repository.HotelFileRepository;
 import com.example.hotel_booking.repository.HotelRepository;
 import lombok.RequiredArgsConstructor;
@@ -42,8 +43,9 @@ public class HotelService {
         }
     }
 
-    public void save(HotelDto hotelDto) {
+    public Long save(HotelDto hotelDto) {
             HotelEntity hotelEntity = HotelEntity.toHotelEntity(hotelDto);
-            hotelRepository.save(hotelEntity);
+            HotelEntity hotel = hotelRepository.save(hotelEntity);
+            return hotel.getId();
     }
 }
