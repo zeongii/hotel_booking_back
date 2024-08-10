@@ -1,6 +1,7 @@
 package com.example.hotel_booking.service;
 
 import com.example.hotel_booking.dto.HotelDto;
+import com.example.hotel_booking.entity.CityEntity;
 import com.example.hotel_booking.entity.HotelEntity;
 import com.example.hotel_booking.repository.CityRepository;
 import com.example.hotel_booking.repository.HotelFileRepository;
@@ -42,7 +43,8 @@ public class HotelService {
     }
 
     public Long save(HotelDto hotelDto) {
-            HotelEntity hotelEntity = HotelEntity.toHotelEntity(hotelDto);
+        CityEntity cityEntity = cityRepository.findById(hotelDto.getCityId()).get();
+        HotelEntity hotelEntity = HotelEntity.toHotelEntity(hotelDto, cityEntity);
             HotelEntity hotel = hotelRepository.save(hotelEntity);
             return hotel.getId();
     }
