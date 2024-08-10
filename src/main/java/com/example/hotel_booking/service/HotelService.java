@@ -2,6 +2,7 @@ package com.example.hotel_booking.service;
 
 import com.example.hotel_booking.dto.HotelDto;
 import com.example.hotel_booking.entity.HotelEntity;
+import com.example.hotel_booking.repository.CityRepository;
 import com.example.hotel_booking.repository.HotelFileRepository;
 import com.example.hotel_booking.repository.HotelRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ public class HotelService {
 
     private final HotelRepository hotelRepository;
     private final HotelFileRepository hotelFileRepository;
+    private final CityRepository cityRepository;
 
     public List<HotelDto> selectAll() {
         List<HotelEntity> hotelEntityList = hotelRepository.findAll();

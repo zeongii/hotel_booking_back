@@ -28,6 +28,7 @@ public class HotelDto implements Serializable {
     private String hotelPhone;
     private String hotelEmail;
     private Long hotelGrade;
+    private Long cityId;
 
 
     public static HotelDto toHotelDto(HotelEntity hotelEntity){

@@ -42,7 +42,12 @@ public class HotelController {
         hotelDto.setHotelAddress((String) valueMap.get("hotelAddress"));
         System.out.println(valueMap.get("hotelGrade").toString());
         int hotelGrade = Integer.parseInt(valueMap.get("hotelGrade").toString());
+        int cityId = Integer.parseInt(valueMap.get("cityId").toString());
+
+
         hotelDto.setHotelGrade((long) hotelGrade);
+        hotelDto.setCityId((long) cityId);
+
 
         Long id = hotelService.save(hotelDto);
 
