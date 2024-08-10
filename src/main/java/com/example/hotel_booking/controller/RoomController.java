@@ -10,9 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin
@@ -33,6 +40,7 @@ public class RoomController {
         HashMap<String,Object> resultMap=new HashMap<>();
         resultMap.put("roomDto",ROOM_SERVICE.selectOne(id));
         resultMap.put("roomTypeList",ROOM_TYPE_SERVICE.selectAll());
+        System.out.println(ROOM_SERVICE.selectOne(id));
         // 호텔 아이디를 통해 userID를 빼와야함 지금은 없으니까 비교 안하고 클릭 버튼만 해놓자
         return resultMap;
     }
@@ -73,6 +81,8 @@ public class RoomController {
         return resultMap;
     }
 
+
+
     @PostMapping("update")
     public HashMap<String, Object> update (@RequestBody RoomDto roomDto,Long hotelId) {
         HashMap<String,Object> resultMap= new HashMap<>();
@@ -97,5 +107,7 @@ public class RoomController {
 
         return ResponseEntity.ok().build();
     }
+
+
 
 }

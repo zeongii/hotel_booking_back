@@ -87,7 +87,7 @@ public class RoomEntity extends TimeEntity {
         return roomEntity;
     }
 
-    public static RoomEntity toUpdateEntity(RoomDto roomDto, HotelEntity hotelEntity) {
+    public static RoomEntity toUpdateEntity(RoomDto roomDto, HotelEntity hotelEntity,RoomTypeEntity roomTypeEntity) {
         RoomEntity roomEntity = new RoomEntity();
         roomEntity.setId(roomDto.getId());
         roomEntity.setRoomName(roomDto.getRoomName());
@@ -98,6 +98,7 @@ public class RoomEntity extends TimeEntity {
         roomEntity.setCheckOut(roomDto.getCheckOut());
         roomEntity.setBreakfastPrice(roomDto.getBreakfastPrice());
         roomEntity.setHotelEntity(hotelEntity);
+        roomEntity.setRoomTypeEntity(roomTypeEntity);
         return roomEntity;
     }
 

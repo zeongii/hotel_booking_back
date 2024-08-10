@@ -53,7 +53,7 @@ public class RoomService {
                 for (MultipartFile roomFile : roomDto.getFile()) {
                     String originalFilename = roomFile.getOriginalFilename();
                     String storedFileName = System.currentTimeMillis() + "_" + originalFilename; //1970년 1월1일부터 얼마나 지났는지 밀리초 단위로 나타내는 친구
-                    String savePath = "C:/springboot_img/" + storedFileName;
+                    String savePath = "srcC:/springboot_img/" + storedFileName;
                     roomFile.transferTo(new File(savePath));
 
                     RoomFileEntity roomFileEntity = RoomFileEntity.toRoomFileEntity(room, originalFilename, storedFileName);
@@ -94,7 +94,8 @@ public class RoomService {
     @Transactional
     public RoomDto update(RoomDto roomDto) {
         HotelEntity hotelEntity = HOTEL_REPOSITORY.findById(roomDto.getHotelId()).get();
-        RoomEntity roomEntity = RoomEntity.toUpdateEntity(roomDto, hotelEntity);
+        RoomTypeEntity roomTypeEntity= ROOM_TYPE_REPOSITORY.findById(roomDto.getRoomTypeId()).get();
+        RoomEntity roomEntity = RoomEntity.toUpdateEntity(roomDto, hotelEntity,roomTypeEntity);
         ROOM_REPOSITORY.save(roomEntity);
         return selectOne(roomDto.getId());
     }
