@@ -8,7 +8,14 @@ import com.example.hotel_booking.service.HotelFileService;
 import com.example.hotel_booking.service.HotelService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.relational.core.sql.In;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,8 +47,15 @@ public class HotelController {
     }
 
     @GetMapping("hotelOne/{id}")
-    public HotelDto selectOne(@PathVariable Long id) {
-        return hotelService.findById(id);
+    public HashMap<String, Object> selectOne(@PathVariable Long id) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        HotelDto hotelDto = hotelService.findById(id);
+        List<HotelFileDto> hotelFileDtoList = hotelFileService.findByHotelId(id);
+
+        hashMap.put("hotelDto", hotelDto);
+        hashMap.put("hotelFileDtoList", hotelFileDtoList);
+        return hashMap;
+
     }
 
     @PostMapping("insert")
@@ -101,7 +115,7 @@ public class HotelController {
 
         StringBuilder fileNames = new StringBuilder();
 
-        Path uploadPath = Paths.get("src/main/resources/uploads");
+        Path uploadPath = Paths.get("src/main/resources/uploads/hotel");
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
@@ -138,6 +152,22 @@ public class HotelController {
         }
 
     }
+
+    @GetMapping("image")
+    public ResponseEntity<Resource> getImage(@RequestParam String fileName) throws IOException {
+        Path filePath = Paths.get("src/main/resources/uploads/hotel").resolve(fileName);
+        if (Files.exists(filePath)) {
+            Resource fileResource = new UrlResource(filePath.toUri());
+            return ResponseEntity.ok()
+                    .body(fileResource);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+
+
 
 
 }
