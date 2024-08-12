@@ -30,8 +30,12 @@ public class HotelDto implements Serializable {
     private Long hotelGrade;
     private Long cityId;
 
+    private List<MultipartFile> hotelFile; // save.html -> controller 파일 담는 용도
+    private List<String> originalFileName; // 원본 파일 이름
+    private List<String> storedFileName; // 서버 저장용 파일 이름
 
-    public static HotelDto toHotelDto(HotelEntity hotelEntity){
+
+    public static HotelDto toHotelDto(HotelEntity hotelEntity) {
         HotelDto hotelDto = new HotelDto();
         hotelDto.setId(hotelEntity.getId());
         hotelDto.setHotelName(hotelEntity.getHotelName());
@@ -40,7 +44,9 @@ public class HotelDto implements Serializable {
         hotelDto.setHotelPhone(hotelEntity.getHotelPhone());
         hotelDto.setHotelGrade(hotelEntity.getHotelGrade());
 
-
         return hotelDto;
     }
+
+
+
 }

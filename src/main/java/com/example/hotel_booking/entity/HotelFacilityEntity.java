@@ -17,8 +17,8 @@ public class HotelFacilityEntity {
         @Column(name = "facility_id")
         private Long facilityId;
 
-        @ManyToOne
-        @JoinColumn(name="hotel_id")
+        @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+        @JoinColumn(name = "hotel_id")
         private HotelEntity hotelEntity;
 
         public static HotelFacilityEntity toFacilityEntity(FacilityDto facilityDto, HotelEntity hotelEntity){
@@ -28,13 +28,6 @@ public class HotelFacilityEntity {
                 facilityEntity.setHotelEntity(hotelEntity);
                 return facilityEntity;
         }
-
-        /*public static FacilityEntity toFacilityEntity(FacilityDto facilityDto){
-                FacilityEntity facilityEntity = new FacilityEntity();
-                facilityEntity.setId(facilityDto.getId());
-                facilityEntity.setFacilityId(facilityDto.getFacilityId());
-                return facilityEntity;
-        }*/
 
 
 

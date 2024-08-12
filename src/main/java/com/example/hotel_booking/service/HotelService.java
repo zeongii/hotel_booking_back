@@ -6,7 +6,9 @@ import com.example.hotel_booking.entity.HotelEntity;
 import com.example.hotel_booking.repository.CityRepository;
 import com.example.hotel_booking.repository.HotelFileRepository;
 import com.example.hotel_booking.repository.HotelRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,7 +20,6 @@ import java.util.Optional;
 public class HotelService {
 
     private final HotelRepository hotelRepository;
-    private final HotelFileRepository hotelFileRepository;
     private final CityRepository cityRepository;
 
     public List<HotelDto> selectAll() {
@@ -48,4 +49,13 @@ public class HotelService {
             HotelEntity hotel = hotelRepository.save(hotelEntity);
             return hotel.getId();
     }
+
+
+    @Transactional
+    public ResponseEntity<Void> delete(Long id) {
+        hotelRepository.deleteById(id);
+
+        return ResponseEntity.ok().build();
+    }
+
 }
