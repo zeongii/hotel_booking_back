@@ -139,6 +139,7 @@ public class HotelService {
         System.out.println("cityList: " + hotelIdListFindByCity);
         System.out.println("facilityList: " + hotelIdListFindByFacility);
         System.out.println("nameList: " + hotelIdListFindByHotelName);
+        System.out.println(facilityIdList);
 
         return hotelDtoList;
     }

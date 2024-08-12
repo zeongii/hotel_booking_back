@@ -12,6 +12,7 @@ import java.util.Optional;
 /*
  * DTO for {@link com.example.hotel_booking.entity.HotelEntity}
  */
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -36,6 +37,7 @@ public class HotelDto implements Serializable {
             hotelDto.setHotelEmail(hotelEntityOptional.get().getHotelEmail());
             hotelDto.setHotelGrade(hotelEntityOptional.get().getHotelGrade());
         }
+
         return hotelDto;
     }
 }

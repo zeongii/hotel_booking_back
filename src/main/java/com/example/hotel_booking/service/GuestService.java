@@ -11,12 +11,9 @@ import java.util.Optional;
 
 @Service
 public class GuestService {
-    private final UserRepository userRepository;
 
     @Autowired
-    public GuestService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private UserRepository userRepository;
 
     @Transactional
     public UserDto findById(Long id) {
@@ -34,5 +31,18 @@ public class GuestService {
         userRepository.save(UserEntity.toGuestEntity(guestDto));
 
         return findById(guestDto.getId());
+    }
+
+    public Optional<UserEntity> findByEmailAndNameAndPhone(String email, String name, String phone) {
+        return userRepository.findByEmailAndNameAndPhone(email, name, phone);
+    }
+
+    public String getPassword(UserEntity user) {
+        // 나중에 수정해야해 이건 테스트용
+        return user.getPassword();
+    }
+
+    public Optional<UserEntity> findByNameAndPhone(String name, String phone) {
+        return userRepository.findByNameAndPhone(name, phone);
     }
 }

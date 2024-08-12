@@ -1,16 +1,18 @@
 package com.example.hotel_booking.controller;
-
 import com.example.hotel_booking.dto.HotelDto;
 import com.example.hotel_booking.dto.TestDto;
 import com.example.hotel_booking.entity.HotelEntity;
 import com.example.hotel_booking.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
 @RestController
-@RequestMapping("/search/")
+
+@CrossOrigin
+@RequestMapping("/hotel/")
 public class HotelController {
     private final HotelService hotelService;
 
@@ -20,8 +22,8 @@ public class HotelController {
     }
 
     //호텔 찾기
-    @PostMapping("hotel")
-    public Map<String, Object> searchHotel(@RequestBody Map<String, Object> data) {
+    @PostMapping("search")
+    public ResponseEntity<Map<String, Object>> searchHotel(@RequestBody Map<String, Object> data) {
         Map<String, Object> resultMap = new HashMap<>();
         List<Integer> gradeIntegerList = (List<Integer>) data.get("grade");
         List<Integer> cityIdIntegerList = (List<Integer>) data.get("cityId");
@@ -54,7 +56,7 @@ public class HotelController {
 
         resultMap.put("hotelDtoList", hotelDtoList);
         //return hotelDtoSet;
-        return resultMap;
+        return ResponseEntity.ok(resultMap);
     }
 
 }
