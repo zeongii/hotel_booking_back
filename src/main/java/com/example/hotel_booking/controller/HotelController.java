@@ -23,7 +23,6 @@ public class HotelController {
     @PostMapping("hotel")
     public Map<String, Object> searchHotel(@RequestBody Map<String, Object> data) {
         Map<String, Object> resultMap = new HashMap<>();
-
         List<Integer> gradeIntegerList = (List<Integer>) data.get("grade");
         List<Integer> cityIdIntegerList = (List<Integer>) data.get("cityId");
         List<Integer> facilityIdIntegerList = (List<Integer>) data.get("facilityId");

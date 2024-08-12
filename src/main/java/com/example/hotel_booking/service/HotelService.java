@@ -31,6 +31,11 @@ public class HotelService {
             hotelIdListFindByGrade = hotelRepository.findAllId();
         }
 
+        if (hotelIdListFindByGrade.isEmpty()) {
+            return null;
+        }
+        Collections.sort(hotelIdListFindByGrade);
+
         List<Long> hotelIdListFindByCity = new ArrayList<>();
         if (!cityIdList.isEmpty()) {
             for (Long cityId : cityIdList) {
@@ -39,6 +44,11 @@ public class HotelService {
         } else {
             hotelIdListFindByCity = hotelRepository.findAllId();
         }
+
+        if (hotelIdListFindByCity.isEmpty()) {
+            return null;
+        }
+        Collections.sort(hotelIdListFindByCity);
 
         List<Long> hotelIdListFindByFacility = new ArrayList<>();
         if (!facilityIdList.isEmpty()) {
@@ -65,35 +75,70 @@ public class HotelService {
             hotelIdListFindByFacility = hotelRepository.findAllId();
         }
 
-        List<Long> hotelIdListFindByHotelName = new ArrayList<>();
+        if (hotelIdListFindByFacility.isEmpty()) {
+            return null;
+        }
+        Collections.sort(hotelIdListFindByFacility);
+
+        List<Long> hotelIdListFindByHotelName;
         if (hotelName != null) {
-            hotelIdListFindByHotelName.addAll(hotelRepository.findByHotelNameContaining(hotelName));
+            hotelIdListFindByHotelName = new ArrayList<>(hotelRepository.findByHotelNameContaining(hotelName));
         } else {
             hotelIdListFindByHotelName = hotelRepository.findAllId();
         }
 
+        if (hotelIdListFindByHotelName.isEmpty()) {
+            return null;
+        }
+        Collections.sort(hotelIdListFindByHotelName);
+
+        int gradeIndex = 0, cityIndex = 0, facilityIndex = 0, hotelIndex = 0;
+
+        while (gradeIndex < hotelIdListFindByGrade.size() &&
+                cityIndex < hotelIdListFindByCity.size() &&
+                facilityIndex < hotelIdListFindByFacility.size() &&
+                hotelIndex < hotelIdListFindByHotelName.size()) {
+
+            long gradeCurVal = hotelIdListFindByGrade.get(gradeIndex);
+            long cityCurVal = hotelIdListFindByCity.get(cityIndex);
+            long facilityCurVal = hotelIdListFindByFacility.get(facilityIndex);
+            long hotelCurVal = hotelIdListFindByHotelName.get(hotelIndex);
+
+            if (gradeCurVal == cityCurVal &&
+                    cityCurVal == facilityCurVal &&
+                    facilityCurVal == hotelCurVal) {
+                hotelDtoList.add(HotelDto.toHotelDto(hotelRepository.findById(gradeCurVal)));
+                gradeIndex++;
+                cityIndex++;
+                facilityIndex++;
+                hotelIndex++;
+            } else {
+                long tempMin1 = Math.min(gradeCurVal, cityCurVal);
+                long tempMin2 = Math.min(facilityCurVal, hotelCurVal);
+                long minVal = Math.min(tempMin1, tempMin2);
+
+                if (gradeCurVal == minVal)
+                    gradeIndex++;
+                if (cityCurVal == minVal)
+                    cityIndex++;
+                if (facilityCurVal == minVal)
+                    facilityIndex++;
+                if (hotelCurVal == minVal)
+                    hotelIndex++;
+            }
+        }
+
+//        for (Long id : hotelIdListFindByGrade) {
+//            if (hotelIdListFindByCity.contains(id) &&
+//                    hotelIdListFindByHotelName.contains(id) &&
+//                    hotelIdListFindByFacility.contains(id)) {
+//                hotelDtoList.add(HotelDto.toHotelDto(hotelRepository.findById(id)));
+//            }
+//        }
         System.out.println("gradeList: " + hotelIdListFindByGrade);
         System.out.println("cityList: " + hotelIdListFindByCity);
         System.out.println("facilityList: " + hotelIdListFindByFacility);
         System.out.println("nameList: " + hotelIdListFindByHotelName);
-        System.out.println(facilityIdList);
-
-        if (hotelIdListFindByGrade.isEmpty() ||
-                hotelIdListFindByCity.isEmpty() ||
-                hotelIdListFindByHotelName.isEmpty() ||
-                hotelIdListFindByFacility.isEmpty()) {
-            return null;
-        }
-
-        for (Long id : hotelIdListFindByGrade) {
-            if (hotelIdListFindByCity.contains(id) &&
-                    hotelIdListFindByHotelName.contains(id) &&
-                    hotelIdListFindByFacility.contains(id)) {
-                hotelDtoList.add(HotelDto.toHotelDto(hotelRepository.findById(id)));
-            }
-        }
-
-        System.out.println("hotelDtoList: " + hotelDtoList);
 
         return hotelDtoList;
     }
