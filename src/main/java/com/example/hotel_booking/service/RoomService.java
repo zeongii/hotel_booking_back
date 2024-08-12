@@ -9,8 +9,8 @@ import com.example.hotel_booking.repository.HotelRepository;
 import com.example.hotel_booking.repository.RoomFileRepository;
 import com.example.hotel_booking.repository.RoomRepository;
 import com.example.hotel_booking.repository.RoomTypeRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;

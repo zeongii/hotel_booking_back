@@ -72,7 +72,7 @@ public class RoomEntity extends TimeEntity {
     @JoinColumn(name = "room_type_id")
     private RoomTypeEntity roomTypeEntity;
 
-    public static RoomEntity toInsertEntity(RoomDto roomDto, HotelEntity hotelEntity,RoomTypeEntity roomTypeEntity) {
+    public static RoomEntity toInsertEntity(RoomDto roomDto, HotelEntity hotelEntity, RoomTypeEntity roomTypeEntity) {
         RoomEntity roomEntity = new RoomEntity();
         roomEntity.setRoomName(roomDto.getRoomName());
         roomEntity.setRoomMax(roomDto.getRoomMax());

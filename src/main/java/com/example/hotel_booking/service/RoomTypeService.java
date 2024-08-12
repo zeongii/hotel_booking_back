@@ -4,7 +4,6 @@ import com.example.hotel_booking.dto.RoomTypeDto;
 import com.example.hotel_booking.entity.RoomTypeEntity;
 import com.example.hotel_booking.repository.RoomTypeRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
