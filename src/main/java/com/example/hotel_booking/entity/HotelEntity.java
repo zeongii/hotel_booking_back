@@ -51,9 +51,11 @@ public class HotelEntity extends TimeEntity{
     private Long hotelGrade;
 
     // 도시 정보 (외래키)
-    @ManyToOne
-    @JoinColumn(name = "city_id")
-    private CityEntity cityEntity;
+//    @ManyToOne
+//    @JoinColumn(name = "city_id")
+//    private CityEntity cityEntity;
+
+    private Long cityId;
 
     // 사업 정보 (외래키)
     @ManyToOne
@@ -66,12 +68,14 @@ public class HotelEntity extends TimeEntity{
 
     public static HotelEntity toHotelEntity(HotelDto hotelDto){
         HotelEntity hotelEntity = new HotelEntity();
+
         hotelEntity.setId(hotelDto.getId());
         hotelEntity.setHotelName(hotelDto.getHotelName());
         hotelEntity.setHotelAddress(hotelDto.getHotelAddress());
         hotelEntity.setHotelPhone(hotelDto.getHotelPhone());
         hotelEntity.setHotelEmail(hotelDto.getHotelEmail());
         hotelEntity.setHotelGrade(hotelDto.getHotelGrade());
+        hotelEntity.setCityId(hotelDto.getCityId());
 
         return hotelEntity;
     }
@@ -89,10 +93,19 @@ public class HotelEntity extends TimeEntity{
     }
 
 
-
-
-
-
-
+    @Override
+    public String toString() {
+        return "HotelEntity{" +
+                "id=" + id +
+                ", hotelName='" + hotelName + '\'' +
+                ", hotelAddress='" + hotelAddress + '\'' +
+                ", hotelPhone='" + hotelPhone + '\'' +
+                ", hotelEmail='" + hotelEmail + '\'' +
+                ", hotelGrade=" + hotelGrade +
+                ", cityId=" + cityId +
+                ", businessEntity=" + businessEntity +
+                ", hotelFileEntityList=" + hotelFileEntityList +
+                '}';
+    }
 }
 

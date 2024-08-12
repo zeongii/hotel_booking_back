@@ -1,7 +1,7 @@
 
 INSERT INTO city (city_name) VALUES
                                  ('Seoul'),
-                                 ('Busan'),
+                                 ('Gyeonggi'),
                                  ('Incheon'),
                                  ('Daegu'),
                                  ('Gwangju'),
@@ -9,7 +9,8 @@ INSERT INTO city (city_name) VALUES
                                  ('Ulsan'),
                                  ('Jeju'),
                                  ('Suwon'),
-                                 ('Gyeongju');
+                                 ('Gyeongju'),
+                                 ('Busan');
 
 -- Insert multiple rows into the hotel_coupon table with dummy data
 

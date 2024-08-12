@@ -1,6 +1,7 @@
 package com.example.hotel_booking.service;
 
 import com.example.hotel_booking.dto.HotelDto;
+import com.example.hotel_booking.entity.HotelEntity;
 import com.example.hotel_booking.repository.FacilityRepository;
 import com.example.hotel_booking.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,9 @@ public class HotelService {
         this.facilityRepository = facilityRepository;
     }
 
-    public List<HotelDto> searchHotel(List<Long> gradeList, List<Long> cityIdList, List<Long> facilityIdList, String hotelName) {
+    public List<HotelDto> searchHotel(List<Long> gradeList, List<Long> cityIdList
+            , List<Long> facilityIdList, String hotelName) {
+
         List<HotelDto> hotelDtoList = new ArrayList<>();
 
         List<Long> hotelIdListFindByGrade = new ArrayList<>();
@@ -80,6 +83,8 @@ public class HotelService {
         }
         Collections.sort(hotelIdListFindByFacility);
 
+        //Set<Long> roomTypeIdSet = new HashSet<>();
+
         List<Long> hotelIdListFindByHotelName;
         if (hotelName != null) {
             hotelIdListFindByHotelName = new ArrayList<>(hotelRepository.findByHotelNameContaining(hotelName));
@@ -107,7 +112,9 @@ public class HotelService {
             if (gradeCurVal == cityCurVal &&
                     cityCurVal == facilityCurVal &&
                     facilityCurVal == hotelCurVal) {
-                hotelDtoList.add(HotelDto.toHotelDto(hotelRepository.findById(gradeCurVal)));
+                HotelDto tempHotelDto = HotelDto.toHotelDto(hotelRepository.findById(gradeCurVal));
+
+                hotelDtoList.add(tempHotelDto);
                 gradeIndex++;
                 cityIndex++;
                 facilityIndex++;
@@ -140,7 +147,9 @@ public class HotelService {
         System.out.println("facilityList: " + hotelIdListFindByFacility);
         System.out.println("nameList: " + hotelIdListFindByHotelName);
         System.out.println(facilityIdList);
-
+//        for (HotelDto hotelDto : hotelDtoList) {
+//            System.out.println(hotelDto.toString());
+//        }
         return hotelDtoList;
     }
 }

@@ -1,4 +1,5 @@
 package com.example.hotel_booking.controller;
+
 import com.example.hotel_booking.dto.HotelDto;
 import com.example.hotel_booking.dto.TestDto;
 import com.example.hotel_booking.entity.HotelEntity;
@@ -22,11 +23,13 @@ public class SearchController {
 
     //호텔 찾기
     @PostMapping("hotel")
-    public ResponseEntity<Map<String, Object>> searchHotel(@RequestBody Map<String, Object> data) {
+    public Map<String, Object> searchHotel(@RequestBody Map<String, Object> data) {
         Map<String, Object> resultMap = new HashMap<>();
         List<Integer> gradeIntegerList = (List<Integer>) data.get("grade");
         List<Integer> cityIdIntegerList = (List<Integer>) data.get("cityId");
         List<Integer> facilityIdIntegerList = (List<Integer>) data.get("facilityId");
+        List<Integer> roomTypeIdIntegerList = (List<Integer>) data.get("roomTypeId");
+        String hotelName = (String) data.get("hotelName");
 
         List<Long> gradeList = new ArrayList<>();
         if (gradeIntegerList != null) {
@@ -49,13 +52,18 @@ public class SearchController {
             }
         }
 
-        String hotelName = (String) data.get("hotelName");
+        List<Long> roomTypeIdList = new ArrayList<>();
+        if (roomTypeIdIntegerList != null) {
+            for (int roomTypeIdInteger : roomTypeIdIntegerList) {
+                roomTypeIdList.add((long) roomTypeIdInteger);
+            }
+        }
 
         List<HotelDto> hotelDtoList = hotelService.searchHotel(gradeList, cityIdList, facilityIdList, hotelName);
 
         resultMap.put("hotelDtoList", hotelDtoList);
 
-        return ResponseEntity.ok(resultMap);
+        return resultMap;
     }
 
 }

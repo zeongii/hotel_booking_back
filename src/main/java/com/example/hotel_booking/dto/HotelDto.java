@@ -26,6 +26,7 @@ public class HotelDto implements Serializable {
     String hotelEmail;
     Long hotelGrade;
     String hotelFacilities;
+    Long cityId;
 
     public static HotelDto toHotelDto(Optional<HotelEntity> hotelEntityOptional) {
         HotelDto hotelDto = new HotelDto();
@@ -36,8 +37,26 @@ public class HotelDto implements Serializable {
             hotelDto.setHotelPhone(hotelEntityOptional.get().getHotelPhone());
             hotelDto.setHotelEmail(hotelEntityOptional.get().getHotelEmail());
             hotelDto.setHotelGrade(hotelEntityOptional.get().getHotelGrade());
+            hotelDto.setCityId(hotelEntityOptional.get().getCityId());
+
         }
 
         return hotelDto;
+    }
+
+    @Override
+    public String toString() {
+        return "HotelDto{" +
+                "createdTime=" + createdTime +
+                ", updatedTime=" + updatedTime +
+                ", id=" + id +
+                ", hotelName='" + hotelName + '\'' +
+                ", hotelAddress='" + hotelAddress + '\'' +
+                ", hotelPhone='" + hotelPhone + '\'' +
+                ", hotelEmail='" + hotelEmail + '\'' +
+                ", hotelGrade=" + hotelGrade +
+                ", hotelFacilities='" + hotelFacilities + '\'' +
+                ", cityId=" + cityId +
+                '}';
     }
 }
