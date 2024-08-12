@@ -2,15 +2,12 @@ package com.example.hotel_booking.dto;
 
 import com.example.hotel_booking.entity.UserEntity;
 import lombok.Data;
-import lombok.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,19 +34,20 @@ public class UserDto implements Serializable, UserDetails {
     private List<GrantedAuthority> authorities;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (role == null || role.isEmpty()) {
-            throw new IllegalArgumentException("role 정보가 없습니다.");
-        }
-//        authorities= new ArrayList<>();
-//        authorities.add(new SimpleGrantedAuthority(role));
-        return Collections.singletonList(new SimpleGrantedAuthority(role));
+    public List<GrantedAuthority> getAuthorities(){
+        authorities=new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(role));
+        return authorities;
     }
+
+
 
     @Override
     public String getUsername() {
         return user.getEmail();
     }
+
+
     public static UserDto toUserDto(UserEntity userEntity) {
         UserDto userDto= new UserDto();
         userDto.setId(userEntity.getId());

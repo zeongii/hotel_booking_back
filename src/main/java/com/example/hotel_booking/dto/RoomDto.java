@@ -3,6 +3,7 @@ package com.example.hotel_booking.dto;
 import com.example.hotel_booking.entity.RoomEntity;
 import com.example.hotel_booking.entity.RoomFileEntity;
 import lombok.*;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
@@ -35,7 +36,7 @@ public class RoomDto implements Serializable {
     private List<MultipartFile> File;
     private List<String> originalFileName;
     private List<String> storedFileName; // 서버 저장용 파일 이름
-    private Integer fileAttached;
+
 
     public static RoomDto toRoomDto(RoomEntity roomEntity, Long hotelId) {
         RoomDto roomDto=new RoomDto();
@@ -51,23 +52,7 @@ public class RoomDto implements Serializable {
         roomDto.setCreatedTime(roomEntity.getCreatedTime());
         roomDto.setUpdatedTime(roomEntity.getUpdatedTime());
         roomDto.setBreakfastPrice(roomEntity.getBreakfastPrice());
-        if (roomEntity.getFileAttached() ==null) {
-             roomDto.setFileAttached(roomDto.getFileAttached());
-        } else {
-            List<String> originalFileNameList = new ArrayList<>();
-            List <String> storedFileNameList = new ArrayList<>();
-            roomDto.setFileAttached(roomEntity.getFileAttached());
-            //파일 이름도 가져가야함
-            // originalFileName, storedFileName : board_file_table(boardFileEntity)]
-            for (RoomFileEntity roomFileEntity: roomEntity.getRoomFileEntityList()) {
-                originalFileNameList.add(roomFileEntity.getOriginalFileName());
-                storedFileNameList.add(roomFileEntity.getStoredFileName());
-            }
-            /*boardDTO.setOriginalFileName(boardEntity.getBoardFileEntityList().get(0).getOriginalFileName());
-            boardDTO.setStoredFileName(boardEntity.getBoardFileEntityList().get(0).getStoredFileName());*/
-            roomDto.setOriginalFileName(originalFileNameList);
-            roomDto.setStoredFileName(storedFileNameList);
-        }
+
         return roomDto;
     }
 }

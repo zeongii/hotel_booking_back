@@ -1,5 +1,6 @@
 package com.example.hotel_booking.entity;
 
+import com.example.hotel_booking.dto.HotelDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +26,6 @@ import java.util.List;
 @Entity
 @Table(name = "hotel")
 public class HotelEntity extends TimeEntity{
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -51,26 +51,51 @@ public class HotelEntity extends TimeEntity{
     private Long hotelGrade;
 
     // 호텔 시설
-    @Column(name = "hotel_facilities", nullable = false)
-    private String hotelFacilities;
-
-    // 룸 정보 (외래키) 부모
-    @OneToMany(mappedBy = "hotelEntity",cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<RoomEntity> roomEntityList=new ArrayList<>();
-
     // 도시 정보 (외래키)
     @ManyToOne
     @JoinColumn(name = "city_id")
     private CityEntity cityEntity;
 
-    // 시설 정보 (외래키)
-    @ManyToOne
-    @JoinColumn(name = "facility_id")
-    private FacilityEntity facilityEntity;
-
     // 사업 정보 (외래키)
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity businessEntity;
+
+    @OneToMany(mappedBy = "hotelEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<HotelFileEntity> hotelFileEntityList = new ArrayList<>();
+
+
+    public static HotelEntity toHotelEntity(HotelDto hotelDto, CityEntity cityEntity){
+        HotelEntity hotelEntity = new HotelEntity();
+        hotelEntity.setId(hotelDto.getId());
+        hotelEntity.setHotelName(hotelDto.getHotelName());
+        hotelEntity.setHotelAddress(hotelDto.getHotelAddress());
+        hotelEntity.setHotelPhone(hotelDto.getHotelPhone());
+        hotelEntity.setHotelEmail(hotelDto.getHotelEmail());
+        hotelEntity.setHotelGrade(hotelDto.getHotelGrade());
+        hotelEntity.setCityEntity(cityEntity);
+
+        return hotelEntity;
+    }
+
+    public static HotelEntity toSaveHotelEntity(HotelDto hotelDto){
+        HotelEntity hotelEntity = new HotelEntity();
+        hotelEntity.setId(hotelDto.getId());
+        hotelEntity.setHotelName(hotelDto.getHotelName());
+        hotelEntity.setHotelAddress(hotelDto.getHotelAddress());
+        hotelEntity.setHotelPhone(hotelDto.getHotelPhone());
+        hotelEntity.setHotelEmail(hotelDto.getHotelEmail());
+        hotelEntity.setHotelGrade(hotelDto.getHotelGrade());
+
+        return hotelEntity;
+    }
+
+
+
+
+
+
+
+
 }
 
