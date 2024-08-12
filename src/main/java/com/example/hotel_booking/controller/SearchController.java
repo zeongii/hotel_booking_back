@@ -10,19 +10,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-
 @CrossOrigin
-@RequestMapping("/hotel/")
-public class HotelController {
+@RequestMapping("/search/")
+public class SearchController {
     private final HotelService hotelService;
 
     @Autowired
-    public HotelController(HotelService hotelService) {
+    public SearchController(HotelService hotelService) {
         this.hotelService = hotelService;
     }
 
     //호텔 찾기
-    @PostMapping("search")
+    @PostMapping("hotel")
     public ResponseEntity<Map<String, Object>> searchHotel(@RequestBody Map<String, Object> data) {
         Map<String, Object> resultMap = new HashMap<>();
         List<Integer> gradeIntegerList = (List<Integer>) data.get("grade");
@@ -55,7 +54,7 @@ public class HotelController {
         List<HotelDto> hotelDtoList = hotelService.searchHotel(gradeList, cityIdList, facilityIdList, hotelName);
 
         resultMap.put("hotelDtoList", hotelDtoList);
-        //return hotelDtoSet;
+
         return ResponseEntity.ok(resultMap);
     }
 
