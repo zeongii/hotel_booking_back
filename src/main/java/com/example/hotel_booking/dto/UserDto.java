@@ -5,12 +5,17 @@ import lombok.Data;
 import lombok.Value;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * DTO for {@link com.example.hotel_booking.entity.UserEntity}
  */
 @Data
 public class UserDto implements Serializable {
+    private UserEntity user;
     Long id;
     String email;
     String password;
@@ -40,4 +45,23 @@ public class UserDto implements Serializable {
         guestDto.setEnabled(guestEntity.getEnabled());
         return guestDto;
     }
+
+    public static UserDto toUserDto(UserEntity userEntity) {
+        UserDto userDto= new UserDto();
+        userDto.setId(userEntity.getId());
+        userDto.setEmail(userEntity.getEmail());
+        userDto.setPassword(userEntity.getPassword());
+        userDto.setName(userEntity.getName());
+        userDto.setNickname(userEntity.getNickname());
+        userDto.setRole(userEntity.getRole());
+        userDto.setAddress(userEntity.getAddress());
+        userDto.setUserGender(userEntity.getUserGender());
+        userDto.setPhone(userEntity.getPhone());
+        userDto.setUserGrade(userEntity.getUserGrade());
+        userDto.setUserTotalAmount(userEntity.getUserTotalAmount());
+        userDto.setEnabled(userEntity.getEnabled());
+
+        return userDto;
+    }
+
 }

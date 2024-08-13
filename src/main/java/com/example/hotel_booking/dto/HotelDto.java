@@ -1,12 +1,17 @@
 package com.example.hotel_booking.dto;
 
 import com.example.hotel_booking.entity.HotelEntity;
-import lombok.Getter;
+import com.example.hotel_booking.entity.HotelFileEntity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Getter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 /*
@@ -17,29 +22,30 @@ import java.util.Optional;
 @Setter
 @NoArgsConstructor
 public class HotelDto implements Serializable {
-    LocalDateTime createdTime;
-    LocalDateTime updatedTime;
-    Long id;
-    String hotelName;
-    String hotelAddress;
-    String hotelPhone;
-    String hotelEmail;
-    Long hotelGrade;
-    String hotelFacilities;
-    Long cityId;
+    private LocalDateTime createdTime;
+    private LocalDateTime updatedTime;
+    private Long id;
+    private String hotelName;
+    private String hotelAddress;
+    private String hotelPhone;
+    private String hotelEmail;
+    private Long hotelGrade;
+    private Long cityId;
 
-    public static HotelDto toHotelDto(Optional<HotelEntity> hotelEntityOptional) {
+    private List<MultipartFile> hotelFile; // save.html -> controller 파일 담는 용도
+    private List<String> originalFileName; // 원본 파일 이름
+    private List<String> storedFileName; // 서버 저장용 파일 이름
+
+
+    public static HotelDto toHotelDto(HotelEntity hotelEntity) {
         HotelDto hotelDto = new HotelDto();
-        if (hotelEntityOptional.isPresent()) {
-            hotelDto.setId(hotelEntityOptional.get().getId());
-            hotelDto.setHotelName(hotelEntityOptional.get().getHotelName());
-            hotelDto.setHotelAddress(hotelEntityOptional.get().getHotelAddress());
-            hotelDto.setHotelPhone(hotelEntityOptional.get().getHotelPhone());
-            hotelDto.setHotelEmail(hotelEntityOptional.get().getHotelEmail());
-            hotelDto.setHotelGrade(hotelEntityOptional.get().getHotelGrade());
-            hotelDto.setCityId(hotelEntityOptional.get().getCityId());
+        hotelDto.setId(hotelEntity.getId());
+        hotelDto.setHotelName(hotelEntity.getHotelName());
+        hotelDto.setHotelAddress(hotelEntity.getHotelAddress());
+        hotelDto.setHotelEmail(hotelEntity.getHotelEmail());
+        hotelDto.setHotelPhone(hotelEntity.getHotelPhone());
+        hotelDto.setHotelGrade(hotelEntity.getHotelGrade());
 
-        }
 
         return hotelDto;
     }
@@ -55,7 +61,6 @@ public class HotelDto implements Serializable {
                 ", hotelPhone='" + hotelPhone + '\'' +
                 ", hotelEmail='" + hotelEmail + '\'' +
                 ", hotelGrade=" + hotelGrade +
-                ", hotelFacilities='" + hotelFacilities + '\'' +
                 ", cityId=" + cityId +
                 '}';
     }

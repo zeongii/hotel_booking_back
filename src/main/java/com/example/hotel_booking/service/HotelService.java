@@ -1,24 +1,36 @@
 package com.example.hotel_booking.service;
 
 import com.example.hotel_booking.dto.HotelDto;
+import com.example.hotel_booking.entity.CityEntity;
 import com.example.hotel_booking.entity.HotelEntity;
 import com.example.hotel_booking.repository.FacilityRepository;
+import com.example.hotel_booking.repository.CityRepository;
+import com.example.hotel_booking.repository.HotelFileRepository;
 import com.example.hotel_booking.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HotelService {
     private final HotelRepository hotelRepository;
     private final FacilityRepository facilityRepository;
+    private final CityRepository cityRepository;
 
     @Autowired
-    public HotelService(HotelRepository hotelRepository, FacilityRepository facilityRepository) {
+    public HotelService(HotelRepository hotelRepository, FacilityRepository facilityRepository, CityRepository cityRepository) {
         this.hotelRepository = hotelRepository;
         this.facilityRepository = facilityRepository;
+        this.cityRepository = cityRepository;
     }
+
 
     public List<HotelDto> searchHotel(List<Long> gradeList, List<Long> cityIdList
             , List<Long> facilityIdList, String hotelName) {
@@ -135,13 +147,6 @@ public class HotelService {
             }
         }
 
-//        for (Long id : hotelIdListFindByGrade) {
-//            if (hotelIdListFindByCity.contains(id) &&
-//                    hotelIdListFindByHotelName.contains(id) &&
-//                    hotelIdListFindByFacility.contains(id)) {
-//                hotelDtoList.add(HotelDto.toHotelDto(hotelRepository.findById(id)));
-//            }
-//        }
         System.out.println("gradeList: " + hotelIdListFindByGrade);
         System.out.println("cityList: " + hotelIdListFindByCity);
         System.out.println("facilityList: " + hotelIdListFindByFacility);
@@ -151,5 +156,20 @@ public class HotelService {
 //            System.out.println(hotelDto.toString());
 //        }
         return hotelDtoList;
+    }
+
+    public Long save(HotelDto hotelDto) {
+        CityEntity cityEntity = cityRepository.findById(hotelDto.getCityId()).get();
+        HotelEntity hotelEntity = HotelEntity.toHotelEntity(hotelDto, cityEntity);
+        HotelEntity hotel = hotelRepository.save(hotelEntity);
+        return hotel.getId();
+    }
+
+
+    @Transactional
+    public ResponseEntity<Void> delete(Long id) {
+        hotelRepository.deleteById(id);
+
+        return ResponseEntity.ok().build();
     }
 }

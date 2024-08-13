@@ -1,6 +1,5 @@
 package com.example.hotel_booking.entity;
 
-import com.example.hotel_booking.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -82,7 +81,4 @@ public class UserEntity {
         guestEntity.setEnabled(guestDto.getEnabled());
         return guestEntity;
     }
-
-
-
 }

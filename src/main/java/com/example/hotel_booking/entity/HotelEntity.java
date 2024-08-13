@@ -39,28 +39,29 @@ public class HotelEntity extends TimeEntity{
     private String hotelAddress;
 
     // 호텔 전화번호
-    @Column(name = "hotel_phone")
+    @Column(name = "hotel_phone", nullable = false)
     private String hotelPhone;
 
     // 호텔 이메일
-    @Column(name = "hotel_email")
+    @Column(name = "hotel_email", nullable = false)
     private String hotelEmail;
 
     // 호텔 등급
-    @Column(name = "hotel_grade")
+    @Column(name = "hotel_grade", nullable = false)
     private Long hotelGrade;
 
     // 도시 정보 (외래키)
-//    @ManyToOne
-//    @JoinColumn(name = "city_id")
-//    private CityEntity cityEntity;
-
-    private Long cityId;
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private CityEntity cityEntity;
 
     // 사업 정보 (외래키)
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity businessEntity;
+
+    @OneToMany(mappedBy = "hotelEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<HotelFacilityEntity> hotelFacilityEntities;
 
     @OneToMany(mappedBy = "hotelEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<HotelFileEntity> hotelFileEntityList = new ArrayList<>();
@@ -68,14 +69,13 @@ public class HotelEntity extends TimeEntity{
 
     public static HotelEntity toHotelEntity(HotelDto hotelDto){
         HotelEntity hotelEntity = new HotelEntity();
-
         hotelEntity.setId(hotelDto.getId());
         hotelEntity.setHotelName(hotelDto.getHotelName());
         hotelEntity.setHotelAddress(hotelDto.getHotelAddress());
         hotelEntity.setHotelPhone(hotelDto.getHotelPhone());
         hotelEntity.setHotelEmail(hotelDto.getHotelEmail());
         hotelEntity.setHotelGrade(hotelDto.getHotelGrade());
-        hotelEntity.setCityId(hotelDto.getCityId());
+        hotelEntity.setCityEntity(cityEntity);
 
         return hotelEntity;
     }
