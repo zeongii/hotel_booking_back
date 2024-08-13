@@ -60,8 +60,6 @@ public class RoomController {
         List<RoomTypeDto> roomTypeDtoList = ROOM_TYPE_SERVICE.selectAll();
 
         List<RoomDto> roomDtoList = ROOM_SERVICE.selectAll(id);
-        // 배열안에 배열 만들기
-
 
         for (RoomDto roomDto : roomDtoList){
             roomDto.setImageList(ROOM_FILE_SERVICE.findByRoomIdToName(roomDto.getId()));
@@ -134,6 +132,7 @@ public class RoomController {
         List<RoomTypeDto> roomTypeDtoList=ROOM_TYPE_SERVICE.selectAll();
         HashMap<String,Object> resultMap = new HashMap<>();
         try {
+
             Long id = ROOM_SERVICE.insert(roomDto);
             resultMap.put("result","success");
             resultMap.put("roomId",id);

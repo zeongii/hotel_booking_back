@@ -1,5 +1,6 @@
 package com.example.hotel_booking.entity;
 
+import com.example.hotel_booking.dto.ReservationDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,7 +36,7 @@ public class ReservationEntity {
     @Column(name = "is_breakfast", nullable = false)
     private Long isBreakfast;
 
-    // 예약 활성화 여부 (1: 활성화, 0: 취소)
+    // 예약 활성화 여부 (0:예약 취소, 1: 예약, 2: 결제, 3: 이용은 o 리뷰는 x, 4, 리뷰까지 다 함)
     @Column(name = "enabled", nullable = false)
     private int enabled;
 
@@ -46,5 +47,19 @@ public class ReservationEntity {
     @ManyToOne
     @JoinColumn(name="user_id")
     private UserEntity guestEntity;
+
+    public static ReservationEntity toInsertEntity(ReservationDto reservationDto, RoomEntity roomEntity, UserEntity userEntity) {
+        ReservationEntity reservationEntity = new ReservationEntity();
+        reservationEntity.setStartDate(reservationDto.getStartDate());
+        reservationEntity.setEndDate(reservationDto.getEndDate());
+        reservationEntity.setReservationNumber(reservationDto.getReservationNumber());
+        reservationEntity.setPayPrice(reservationDto.getPayPrice());
+        reservationEntity.setIsBreakfast(reservationDto.getIsBreakfast());
+        reservationEntity.setEnabled(reservationDto.getEnabled());
+        reservationEntity.setRoomEntity(roomEntity);
+        reservationEntity.setGuestEntity(userEntity);
+
+        return reservationEntity;
+    }
 
 }

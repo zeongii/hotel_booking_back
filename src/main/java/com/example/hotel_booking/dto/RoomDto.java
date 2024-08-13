@@ -29,8 +29,8 @@ public class RoomDto implements Serializable {
     private String roomContent;
     private Long hotelId;
     private Long roomTypeId;
-    private LocalDateTime checkIn;
-    private LocalDateTime checkOut;
+    /*private LocalDateTime checkIn;
+    private LocalDateTime checkOut;*/
     private Long breakfastPrice;
 
     private List<MultipartFile> File;
@@ -48,8 +48,8 @@ public class RoomDto implements Serializable {
         roomDto.setRoomContent(roomEntity.getRoomContent());
         roomDto.setHotelId(hotelId);
         roomDto.setRoomTypeId(roomEntity.getRoomTypeEntity().getId());
-        roomDto.setCheckIn(roomEntity.getCheckIn());
-        roomDto.setCheckOut(roomEntity.getCheckOut());
+       /* roomDto.setCheckIn(roomEntity.getCheckIn());
+        roomDto.setCheckOut(roomEntity.getCheckOut());*/
         roomDto.setCreatedTime(roomEntity.getCreatedTime());
         roomDto.setUpdatedTime(roomEntity.getUpdatedTime());
         roomDto.setBreakfastPrice(roomEntity.getBreakfastPrice());
