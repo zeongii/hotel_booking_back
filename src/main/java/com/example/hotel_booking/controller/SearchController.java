@@ -1,8 +1,10 @@
 package com.example.hotel_booking.controller;
 
 import com.example.hotel_booking.dto.HotelDto;
+import com.example.hotel_booking.dto.HotelFileDto;
 import com.example.hotel_booking.dto.TestDto;
 import com.example.hotel_booking.entity.HotelEntity;
+import com.example.hotel_booking.service.HotelFileService;
 import com.example.hotel_booking.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +17,12 @@ import java.util.*;
 @RequestMapping("/search/")
 public class SearchController {
     private final HotelService hotelService;
+    private final HotelFileService hotelFileService;
 
     @Autowired
-    public SearchController(HotelService hotelService) {
+    public SearchController(HotelService hotelService, HotelFileService hotelFileService) {
         this.hotelService = hotelService;
+        this.hotelFileService = hotelFileService;
     }
 
     //호텔 찾기
@@ -60,8 +64,10 @@ public class SearchController {
         }
 
         List<HotelDto> hotelDtoList = hotelService.searchHotel(gradeList, cityIdList, facilityIdList, hotelName);
+        Map<Long, List<HotelFileDto>> hotelFileDtoList = hotelFileService.getThumbnailList(hotelDtoList.stream().map(HotelDto::getId).toList());
 
         resultMap.put("hotelDtoList", hotelDtoList);
+        resultMap.put("hotelFileDtoList", hotelFileDtoList);
 
         return resultMap;
     }

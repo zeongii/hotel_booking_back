@@ -1,35 +1,34 @@
-
-INSERT INTO city (city_name) VALUES
-                                 ('Seoul'),
-                                 ('Gyeonggi'),
-                                 ('Incheon'),
-                                 ('Daegu'),
-                                 ('Gwangju'),
-                                 ('Daejeon'),
-                                 ('Ulsan'),
-                                 ('Jeju'),
-                                 ('Suwon'),
-                                 ('Gyeongju'),
-                                 ('Busan');
+INSERT INTO city (city_name)
+VALUES ('Seoul'),
+       ('Gyeonggi'),
+       ('Incheon'),
+       ('Daegu'),
+       ('Gwangju'),
+       ('Daejeon'),
+       ('Ulsan'),
+       ('Jeju'),
+       ('Suwon'),
+       ('Gyeongju'),
+       ('Busan');
 
 -- Insert multiple rows into the hotel_coupon table with dummy data
 
-INSERT INTO facility (facility_name) VALUES
-        ('야외수영장'),
-        ('실내수영장'),
-        ('사우나'),
-        ('키즈룸'),
-        ('카지노'),
-        ('피트니스센터'),
-        ('무료와이파이'),
-        ('세탁시설'),
-        ('스파'),
-        ('24시간 프론트 데스크'),
-        ('레스토랑'),
-        ('무료주차'),
-        ('바'),
-        ('ATM'),
-        ('야외정원');
+INSERT INTO facility (facility_name)
+VALUES ('야외수영장'),
+       ('실내수영장'),
+       ('사우나'),
+       ('키즈룸'),
+       ('카지노'),
+       ('피트니스센터'),
+       ('무료와이파이'),
+       ('세탁시설'),
+       ('스파'),
+       ('24시간 프론트 데스크'),
+       ('레스토랑'),
+       ('무료주차'),
+       ('바'),
+       ('ATM'),
+       ('야외정원');
 
 INSERT INTO hotel_coupon (cou_name, cou_type, cou_value, enabled, created_time, updated_time)
 VALUES ('Summer Sale 2024', 'Percentage', 15, true, '2024-08-06 10:00:00', '2024-08-06 10:00:00'),
@@ -55,19 +54,21 @@ VALUES ('Summer Sale 2024', 'Percentage', 15, true, '2024-08-06 10:00:00', '2024
 --        (1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0),
 --        (1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1);
 
-INSERT INTO hotel (hotel_name, hotel_address, hotel_phone, hotel_email, hotel_grade)
-VALUES ('호텔 서울', '서울특별시 중구', '02-1234-5678', 'seoulhotel@example.com', 5),
-       ('부산 호텔', '부산광역시 해운대구', '051-8765-4321', 'busanhotel@example.com', 4),
-       ('인천 호텔', '인천광역시 중구', '032-3456-7890', 'incheonhotel@example.com', 3),
-       ('대구 호텔', '대구광역시 수성구', '053-9876-5432', 'daeguhotel@example.com', 5),
-       ('광주 호텔', '광주광역시 서구', '062-4321-9876', 'gwangjuhotel@example.com', 4),
-       ('대전 호텔', '대전광역시 유성구', '042-6543-2109', 'daejeonhotel@example.com', 4),
-       ('울산 호텔', '울산광역시 남구', '052-6789-1234', 'ulsanhotel@example.com', 3),
-       ('세종 호텔', '세종특별자치시', '044-1234-5678', 'sejonghotel@example.com', 5),
-       ('수원 호텔', '경기도 수원시 팔달구', '031-8765-4321', 'suwonhotel@example.com', 4),
-       ('제주 호텔', '제주특별자치도 제주시', '064-9876-5432', 'jejuhotel@example.com', 5);
+INSERT INTO hotel (hotel_name, hotel_address, hotel_phone, hotel_email, hotel_grade, city_id)
+VALUES ('호텔 서울', '서울특별시 중구', '02-1234-5678', 'seoulhotel@example.com', 5, 1),
+       ('부산 호텔', '부산광역시 해운대구', '051-8765-4321', 'busanhotel@example.com', 4, 2),
+       ('인천 호텔', '인천광역시 중구', '032-3456-7890', 'incheonhotel@example.com', 3, 3),
+       ('대구 호텔', '대구광역시 수성구', '053-9876-5432', 'daeguhotel@example.com', 5, 4),
+       ('광주 호텔', '광주광역시 서구', '062-4321-9876', 'gwangjuhotel@example.com', 4, 5),
+       ('대전 호텔', '대전광역시 유성구', '042-6543-2109', 'daejeonhotel@example.com', 4, 6),
+       ('울산 호텔', '울산광역시 남구', '052-6789-1234', 'ulsanhotel@example.com', 3, 7),
+       ('세종 호텔', '세종특별자치시', '044-1234-5678', 'sejonghotel@example.com', 5, 8),
+       ('수원 호텔', '경기도 수원시 팔달구', '031-8765-4321', 'suwonhotel@example.com', 4, 9),
+       ('제주 호텔', '제주특별자치도 제주시', '064-9876-5432', 'jejuhotel@example.com', 5, 10);
 
-UPDATE hotel SET `city_id` = '1' WHERE (`id` = '1');
+UPDATE hotel
+SET `city_id` = '1'
+WHERE (`id` = '1');
 
 
 
@@ -93,7 +94,8 @@ VALUES ('john.doe@example.com', 'password123', 'John Doe', 'johnny', 'USER', '12
         9, 9000, 1),
        ('susan.miller@example.com', 'password123', 'Susan Miller', 'susie', 'USER', '707 Cherry Circle', 'Female',
         '012-345-6789', 10, 10000, 1),
-     ('jisu.miller@example.com', 'password123', 'jisu', 'jisu', 'USER', '707 Cherry Circle', 'Female', '1', 10, 10000, 1);
+       ('jisu.miller@example.com', 'password123', 'jisu', 'jisu', 'USER', '707 Cherry Circle', 'Female', '1', 10, 10000,
+        1);
 
 
 INSERT INTO hotel_pay (pay_price, pay_date, pay_way)
