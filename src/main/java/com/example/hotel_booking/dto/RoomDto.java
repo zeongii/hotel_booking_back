@@ -34,6 +34,7 @@ public class RoomDto implements Serializable {
     private Long breakfastPrice;
 
     private List<MultipartFile> File;
+    private List<String> imageList;
     private List<String> originalFileName;
     private List<String> storedFileName; // 서버 저장용 파일 이름
 

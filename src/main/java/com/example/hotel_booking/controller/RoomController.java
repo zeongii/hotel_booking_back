@@ -7,6 +7,8 @@ import com.example.hotel_booking.service.RoomFileService;
 import com.example.hotel_booking.service.RoomService;
 import com.example.hotel_booking.service.RoomTypeService;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
@@ -41,8 +43,12 @@ public class RoomController {
     @GetMapping("showOne/{id}")
     public HashMap<String, Object> selectOne(@PathVariable Long id) {
         HashMap<String, Object> resultMap = new HashMap<>();
+        List<RoomFileDto> roomFileDtoList = ROOM_FILE_SERVICE.findByRoomId(id);
+        System.out.println(roomFileDtoList);
         resultMap.put("roomDto", ROOM_SERVICE.selectOne(id));
         resultMap.put("roomTypeList", ROOM_TYPE_SERVICE.selectAll());
+        resultMap.put("roomFileDtoList",roomFileDtoList);
+
         System.out.println(ROOM_SERVICE.selectOne(id));
         // 호텔 아이디를 통해 userID를 빼와야함 지금은 없으니까 비교 안하고 클릭 버튼만 해놓자
         return resultMap;
@@ -52,8 +58,19 @@ public class RoomController {
     public HashMap<String, Object> selectList(@PathVariable Long id) {
         HashMap<String, Object> resultMap = new HashMap<>();
         List<RoomTypeDto> roomTypeDtoList = ROOM_TYPE_SERVICE.selectAll();
+
+        List<RoomDto> roomDtoList = ROOM_SERVICE.selectAll(id);
+        // 배열안에 배열 만들기
+
+
+        for (RoomDto roomDto : roomDtoList){
+            roomDto.setImageList(ROOM_FILE_SERVICE.findByRoomIdToName(roomDto.getId()));
+        }
+
+
         resultMap.put("roomTypeList", roomTypeDtoList);
-        resultMap.put("roomList", ROOM_SERVICE.selectAll(id));
+        resultMap.put("roomList", roomDtoList);
+
         return resultMap;
     }
 
@@ -68,13 +85,13 @@ public class RoomController {
 
 
     @PostMapping("imgInsert/{id}")
-    public void insertImg(@RequestParam(value = "file", required = false) MultipartFile[] files, @RequestParam Long id, HttpServletRequest request) throws IOException {
+    public void insertImg(@RequestParam(value = "file", required = false) MultipartFile[] files, @PathVariable Long id, HttpServletRequest request) throws IOException {
 
         System.out.println("files = " + Arrays.toString(files) + ", id = " + id);
 
         StringBuilder fileNames = new StringBuilder();
 
-        Path uploadPath = Paths.get("src/main/resources/uploads");
+        Path uploadPath = Paths.get("src/main/resources/static/room/");
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
@@ -152,6 +169,18 @@ public class RoomController {
         ROOM_SERVICE.delete(id);
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("roomImage")
+    public ResponseEntity<Resource> getImage(@RequestParam String fileName) throws IOException {
+        Path filePath = Paths.get("src/main/resources/static/room").resolve(fileName);
+        if (Files.exists(filePath)) {
+            Resource fileResource = new UrlResource(filePath.toUri());
+            return ResponseEntity.ok()
+                    .body(fileResource);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 

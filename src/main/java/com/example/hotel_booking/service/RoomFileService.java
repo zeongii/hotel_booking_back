@@ -35,4 +35,13 @@ public class RoomFileService {
         }
         return roomFileDtoList;
     }
+
+    public List<String> findByRoomIdToName(Long id) {
+        List<RoomFileEntity> roomFileEntityList = ROOM_FILE_REPOSITORY.findByRoomEntity_id(id);
+        List <String> roomFileStoredNameList=new ArrayList<>();
+        for (RoomFileEntity roomFileEntity : roomFileEntityList) {
+            roomFileStoredNameList.add(RoomFileDto.toRoomFileDto(roomFileEntity,id).getStoredFileName());
+        }
+        return roomFileStoredNameList;
+    }
 }
