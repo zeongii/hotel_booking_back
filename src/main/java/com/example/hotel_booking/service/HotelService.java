@@ -34,7 +34,6 @@ public class HotelService {
 
     public List<HotelDto> searchHotel(List<Long> gradeList, List<Long> cityIdList
             , List<Long> facilityIdList, String hotelName) {
-
         List<HotelDto> hotelDtoList = new ArrayList<>();
 
         List<Long> hotelIdListFindByGrade = new ArrayList<>();

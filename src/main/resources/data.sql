@@ -42,24 +42,25 @@ VALUES ('Summer Sale 2024', 'Percentage', 15, true, '2024-08-06 10:00:00', '2024
        ('Mid-Year Sale', 'Fixed', 3000, true, '2024-08-06 10:08:00', '2024-08-06 10:08:00'),
        ('Loyalty Reward', 'Percentage', 10, false, '2024-08-06 10:09:00', '2024-08-06 10:09:00');
 
-INSERT INTO hotel (hotel_name, hotel_address, hotel_phone, hotel_email, hotel_grade)
-VALUES ('호텔 서울', '서울특별시 중구', '02-1234-5678', 'seoulhotel@example.com', 5),
-       ('부산 호텔', '부산광역시 해운대구', '051-8765-4321', 'busanhotel@example.com', 4),
-       ('인천 호텔', '인천광역시 중구', '032-3456-7890', 'incheonhotel@example.com', 3),
-       ('대구 호텔', '대구광역시 수성구', '053-9876-5432', 'daeguhotel@example.com', 5),
-       ('광주 호텔', '광주광역시 서구', '062-4321-9876', 'gwangjuhotel@example.com', 4),
-       ('대전 호텔', '대전광역시 유성구', '042-6543-2109', 'daejeonhotel@example.com', 4),
-       ('울산 호텔', '울산광역시 남구', '052-6789-1234', 'ulsanhotel@example.com', 3),
-       ('세종 호텔', '세종특별자치시', '044-1234-5678', 'sejonghotel@example.com', 5),
-       ('수원 호텔', '경기도 수원시 팔달구', '031-8765-4321', 'suwonhotel@example.com', 4),
-       ('제주 호텔', '제주특별자치도 제주시', '064-9876-5432', 'jejuhotel@example.com', 5);
+INSERT INTO hotel (hotel_name, hotel_address, hotel_phone, hotel_email, hotel_grade, city_id)
+VALUES ('호텔 서울', '서울특별시 중구', '02-1234-5678', 'seoulhotel@example.com', 5, 1),
+       ('부산 호텔', '부산광역시 해운대구', '051-8765-4321', 'busanhotel@example.com', 4, 2),
+       ('인천 호텔', '인천광역시 중구', '032-3456-7890', 'incheonhotel@example.com', 3, 3),
+       ('대구 호텔', '대구광역시 수성구', '053-9876-5432', 'daeguhotel@example.com', 5, 4),
+       ('광주 호텔', '광주광역시 서구', '062-4321-9876', 'gwangjuhotel@example.com', 4, 5),
+       ('대전 호텔', '대전광역시 유성구', '042-6543-2109', 'daejeonhotel@example.com', 4, 6),
+       ('울산 호텔', '울산광역시 남구', '052-6789-1234', 'ulsanhotel@example.com', 3, 7),
+       ('세종 호텔', '세종특별자치시', '044-1234-5678', 'sejonghotel@example.com', 5, 8),
+       ('수원 호텔', '경기도 수원시 팔달구', '031-8765-4321', 'suwonhotel@example.com', 4, 9),
+       ('제주 호텔', '제주특별자치도 제주시', '064-9876-5432', 'jejuhotel@example.com', 5, 10);
 
 INSERT INTO hotel_facility (hotel_id, facility_id)
 VALUES (1, 1), (1, 3), (1, 5), (1, 7), (1, 9), (1, 11), (1, 13),
        (2, 2), (2, 4), (2, 6), (2, 7), (2, 10), (2, 13),
        (3, 3), (3, 6), (3, 9), (3, 12), (3, 15),
        (4, 4), (4, 8), (4, 12),
-       (5, 5), (5, 10), (5, 15);
+       (5, 5), (5, 10), (5, 15),
+       (6, 3), (6, 5), (6, 7);
 
 INSERT INTO user (email, password, name, nickname, role, address, user_gender, phone, user_grade, user_total_amount,
                   enabled)

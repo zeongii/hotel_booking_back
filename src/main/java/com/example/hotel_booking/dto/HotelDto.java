@@ -49,6 +49,7 @@ public class HotelDto implements Serializable {
             hotelDto.setHotelEmail(hotelEntity.getHotelEmail());
             hotelDto.setHotelPhone(hotelEntity.getHotelPhone());
             hotelDto.setHotelGrade(hotelEntity.getHotelGrade());
+            hotelDto.setCityId(hotelEntity.getCityEntity().getId());
         }
 
         return hotelDto;

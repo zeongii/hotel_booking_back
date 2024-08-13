@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -66,8 +67,19 @@ public class SearchController {
         List<HotelDto> hotelDtoList = hotelService.searchHotel(gradeList, cityIdList, facilityIdList, hotelName);
         //Map<Long, List<HotelFileDto>> hotelFileDtoList = hotelFileService.getThumbnailList(hotelDtoList.stream().map(HotelDto::getId).toList());
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+//        String startDate = simpleDateFormat.format(data.get("startDate"));
+//        String endDate = simpleDateFormat.format(data.get("endDate"));
+
+        String startDateData = data.get("startDate").toString();
+        String startDate = startDateData.substring(0, 4) + startDateData.substring(5, 7) + startDateData.substring(8, 10);
+        startDate = (Integer.parseInt(startDate) + 1) + "";
+        String endDateData = data.get("endDate").toString();
+        String endDate = endDateData.substring(0, 4) + endDateData.substring(5, 7) + endDateData.substring(8, 10);
+
         resultMap.put("hotelDtoList", hotelDtoList);
-        //resultMap.put("hotelFileDtoList", hotelFileDtoList);
+        resultMap.put("startDate", startDate);
+        resultMap.put("endDate", endDate);
 
         return resultMap;
     }
