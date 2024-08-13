@@ -31,24 +31,54 @@ public class ReservationService {
         if (optionalRoomEntity.isPresent()) {
             RoomEntity roomEntity = optionalRoomEntity.get();
             UserEntity userEntity = optionalUserEntity.get();
-            ReservationEntity reservationEntity = ReservationEntity.toInsertEntity(reservationDto, roomEntity, userEntity);
+            ReservationEntity reservationEntity = ReservationEntity.toInsertEntity(reservationDto,userEntity , roomEntity);
             return RESERVATION_REPOSITORY.save(reservationEntity).getId();
         }
         return null;
     }
 
     @Transactional
-    public List<ReservationDto> selectAll(Long userId,Long roomId) {
+    public List<ReservationDto> selectAll(Long userId) {
         UserEntity userEntity = USER_REPOSITORY.findById(userId).get();
         List<ReservationEntity> reservationEntityList = RESERVATION_REPOSITORY.findAllByGuestEntity(userEntity);
         List<ReservationDto> reservationDtoList = new ArrayList<>();
         for (ReservationEntity reservationEntity : reservationEntityList) {
-            ReservationDto reservationDto = ReservationDto.toReservationDto(reservationEntity,roomId,userId);
+            ReservationDto reservationDto = ReservationDto.toReservationDto(reservationEntity,reservationEntity.getGuestEntity(),reservationEntity.getRoomEntity());
             reservationDtoList.add(reservationDto);
         }
 
         return  reservationDtoList;
     }
+
+    @Transactional
+    public ReservationDto selectOne(Long reservationId) {
+        Optional<ReservationEntity> optionalReservationEntity = RESERVATION_REPOSITORY.findById(reservationId);
+
+        if (optionalReservationEntity.isPresent()) {
+            ReservationEntity reservationEntity = optionalReservationEntity.get();
+            ReservationDto reservationDto = ReservationDto.toReservationDto(reservationEntity,reservationEntity.getGuestEntity(),reservationEntity.getRoomEntity());
+            return reservationDto;
+        } else {
+            return null;
+        }
+    }
+    // 예약 취소
+    @Transactional
+    public ReservationDto cancled(ReservationDto reservationDto) {
+        reservationDto.setEnabled(0);
+
+        UserEntity userEntity = USER_REPOSITORY.findById(reservationDto.getUserId()).get();
+        RoomEntity roomEntity = ROOM_REPOSITORY.findById(reservationDto.getRoomId()).get();
+        ReservationEntity reservationEntity = ReservationEntity.toInsertEntity(reservationDto, userEntity, roomEntity);
+
+        RESERVATION_REPOSITORY.save(reservationEntity);
+
+
+        return reservationDto;
+    }
+
+
+
 
 
 }

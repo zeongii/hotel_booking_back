@@ -1,6 +1,8 @@
 package com.example.hotel_booking.dto;
 
 import com.example.hotel_booking.entity.ReservationEntity;
+import com.example.hotel_booking.entity.RoomEntity;
+import com.example.hotel_booking.entity.UserEntity;
 import lombok.*;
 
 import java.io.Serializable;
@@ -22,11 +24,11 @@ public class ReservationDto implements Serializable {
     private double payPrice;
     private Long isBreakfast;
     private int enabled;
-
+    // 0 :
     private Long roomId;
     private Long userId;
 
-    public static ReservationDto toReservationDto(ReservationEntity reservationEntity, Long roomId, Long userId) {
+    public static ReservationDto toReservationDto(ReservationEntity reservationEntity, UserEntity userEntity, RoomEntity roomEntity) {
         ReservationDto reservationDto = new ReservationDto();
         reservationDto.setId(reservationEntity.getId());
         reservationDto.setStartDate(reservationEntity.getStartDate());
@@ -35,8 +37,8 @@ public class ReservationDto implements Serializable {
         reservationDto.setPayPrice(reservationEntity.getPayPrice());
         reservationDto.setIsBreakfast(reservationEntity.getIsBreakfast());
         reservationDto.setEnabled(reservationEntity.getEnabled());
-        reservationDto.setRoomId(roomId);
-        reservationDto.setUserId(userId);
+        reservationDto.setRoomId(roomEntity.getId());
+        reservationDto.setUserId(userEntity.getId());
         return reservationDto;
     }
 

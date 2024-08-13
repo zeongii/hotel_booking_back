@@ -48,7 +48,7 @@ public class ReservationEntity {
     @JoinColumn(name="user_id")
     private UserEntity guestEntity;
 
-    public static ReservationEntity toInsertEntity(ReservationDto reservationDto, RoomEntity roomEntity, UserEntity userEntity) {
+    public static ReservationEntity toInsertEntity(ReservationDto reservationDto, UserEntity userEntity, RoomEntity roomEntity) {
         ReservationEntity reservationEntity = new ReservationEntity();
         reservationEntity.setStartDate(reservationDto.getStartDate());
         reservationEntity.setEndDate(reservationDto.getEndDate());
@@ -61,5 +61,21 @@ public class ReservationEntity {
 
         return reservationEntity;
     }
+
+    public static ReservationEntity toUpdateEntity(ReservationDto reservationDto, UserEntity userEntity, RoomEntity roomEntity) {
+        ReservationEntity reservationEntity = new ReservationEntity();
+        reservationEntity.setId(reservationDto.getId());
+        reservationEntity.setStartDate(reservationDto.getStartDate());
+        reservationEntity.setEndDate(reservationDto.getEndDate());
+        reservationEntity.setReservationNumber(reservationDto.getReservationNumber());
+        reservationEntity.setPayPrice(reservationDto.getPayPrice());
+        reservationEntity.setIsBreakfast(reservationDto.getIsBreakfast());
+        reservationEntity.setEnabled(reservationDto.getEnabled());
+        reservationEntity.setRoomEntity(roomEntity);
+        reservationEntity.setGuestEntity(userEntity);
+
+        return reservationEntity;
+    }
+
 
 }
