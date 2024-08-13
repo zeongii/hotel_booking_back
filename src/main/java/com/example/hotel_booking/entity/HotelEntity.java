@@ -67,7 +67,7 @@ public class HotelEntity extends TimeEntity{
     private List<HotelFileEntity> hotelFileEntityList = new ArrayList<>();
 
 
-    public static HotelEntity toHotelEntity(HotelDto hotelDto){
+    public static HotelEntity toHotelEntity(HotelDto hotelDto, CityEntity cityEntity){
         HotelEntity hotelEntity = new HotelEntity();
         hotelEntity.setId(hotelDto.getId());
         hotelEntity.setHotelName(hotelDto.getHotelName());
@@ -80,19 +80,6 @@ public class HotelEntity extends TimeEntity{
         return hotelEntity;
     }
 
-    public static HotelEntity toSaveHotelEntity(HotelDto hotelDto){
-        HotelEntity hotelEntity = new HotelEntity();
-        hotelEntity.setId(hotelDto.getId());
-        hotelEntity.setHotelName(hotelDto.getHotelName());
-        hotelEntity.setHotelAddress(hotelDto.getHotelAddress());
-        hotelEntity.setHotelPhone(hotelDto.getHotelPhone());
-        hotelEntity.setHotelEmail(hotelDto.getHotelEmail());
-        hotelEntity.setHotelGrade(hotelDto.getHotelGrade());
-
-        return hotelEntity;
-    }
-
-
     @Override
     public String toString() {
         return "HotelEntity{" +
@@ -102,7 +89,7 @@ public class HotelEntity extends TimeEntity{
                 ", hotelPhone='" + hotelPhone + '\'' +
                 ", hotelEmail='" + hotelEmail + '\'' +
                 ", hotelGrade=" + hotelGrade +
-                ", cityId=" + cityId +
+                ", cityId=" + cityEntity.getId() +
                 ", businessEntity=" + businessEntity +
                 ", hotelFileEntityList=" + hotelFileEntityList +
                 '}';

@@ -64,10 +64,10 @@ public class SearchController {
         }
 
         List<HotelDto> hotelDtoList = hotelService.searchHotel(gradeList, cityIdList, facilityIdList, hotelName);
-        Map<Long, List<HotelFileDto>> hotelFileDtoList = hotelFileService.getThumbnailList(hotelDtoList.stream().map(HotelDto::getId).toList());
+        //Map<Long, List<HotelFileDto>> hotelFileDtoList = hotelFileService.getThumbnailList(hotelDtoList.stream().map(HotelDto::getId).toList());
 
         resultMap.put("hotelDtoList", hotelDtoList);
-        resultMap.put("hotelFileDtoList", hotelFileDtoList);
+        //resultMap.put("hotelFileDtoList", hotelFileDtoList);
 
         return resultMap;
     }

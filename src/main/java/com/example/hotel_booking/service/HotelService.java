@@ -172,4 +172,26 @@ public class HotelService {
 
         return ResponseEntity.ok().build();
     }
+
+    public List<HotelDto> selectAll() {
+        List<HotelEntity> hotelEntityList = hotelRepository.findAll();
+        List <HotelDto> hotelDtoList = new ArrayList<>();
+        for (HotelEntity hotelEntity : hotelEntityList){
+            hotelDtoList.add(HotelDto.toHotelDto(hotelEntity));
+        }
+        return hotelDtoList;
+    }
+
+    public HotelDto findById(long id){
+        Optional<HotelEntity> optionalHotelEntity = hotelRepository.findById(id);
+        if(optionalHotelEntity.isPresent()){
+            HotelEntity hotelEntity = optionalHotelEntity.get();
+            HotelDto hotelDto = HotelDto.toHotelDto(hotelEntity);
+
+            return hotelDto;
+        } else {
+            return null;
+        }
+    }
+
 }

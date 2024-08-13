@@ -58,7 +58,7 @@ public class HotelFileService {
 
             List<HotelFileDto> hotelFileDtoList = new ArrayList<>();
             for (HotelFileEntity hotelFileEntity : tempHotelFileEntityList) {
-                HotelFileDto tempHotelFileDto = HotelFileDto.toHotelFileDto(hotelFileEntity);
+                HotelFileDto tempHotelFileDto = HotelFileDto.toHotelFileDto(hotelFileEntity, hotelId);
                 hotelFileDtoList.add(tempHotelFileDto);
             }
 

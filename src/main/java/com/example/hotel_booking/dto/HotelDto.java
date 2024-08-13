@@ -37,8 +37,27 @@ public class HotelDto implements Serializable {
     private List<String> storedFileName; // 서버 저장용 파일 이름
 
 
+    public static HotelDto toHotelDto(Optional<HotelEntity> optionalHotelEntity) {
+        HotelDto hotelDto = new HotelDto();
+
+        if (optionalHotelEntity.isPresent()) {
+            HotelEntity hotelEntity = optionalHotelEntity.get();
+
+            hotelDto.setId(hotelEntity.getId());
+            hotelDto.setHotelName(hotelEntity.getHotelName());
+            hotelDto.setHotelAddress(hotelEntity.getHotelAddress());
+            hotelDto.setHotelEmail(hotelEntity.getHotelEmail());
+            hotelDto.setHotelPhone(hotelEntity.getHotelPhone());
+            hotelDto.setHotelGrade(hotelEntity.getHotelGrade());
+        }
+
+        return hotelDto;
+    }
+
     public static HotelDto toHotelDto(HotelEntity hotelEntity) {
         HotelDto hotelDto = new HotelDto();
+
+
         hotelDto.setId(hotelEntity.getId());
         hotelDto.setHotelName(hotelEntity.getHotelName());
         hotelDto.setHotelAddress(hotelEntity.getHotelAddress());
