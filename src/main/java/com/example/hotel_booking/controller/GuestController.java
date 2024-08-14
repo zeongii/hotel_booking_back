@@ -179,8 +179,6 @@ public class GuestController {
             resultMap.put("message", e.getMessage());
             return ResponseEntity.status(500).body(resultMap);
         }
-
-
     }
     @PostMapping("auth")
     public ResponseEntity<Map<String, Object>> auth(@RequestBody Map<String, String> request) {

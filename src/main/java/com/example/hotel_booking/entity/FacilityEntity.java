@@ -15,6 +15,5 @@ public class FacilityEntity {
 
         @Column(name = "facility_name")
         private String facilityName;
-
-
 }
+

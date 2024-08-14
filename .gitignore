@@ -38,3 +38,4 @@ out/
 
 application.yml
 data.sql
+/src/main/resources/static/room/

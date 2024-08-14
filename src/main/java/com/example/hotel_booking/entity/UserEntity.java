@@ -83,6 +83,20 @@ public class UserEntity {
         return guestEntity;
     }
 
+    public static UserEntity toUserEntity(UserDto userDto) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setEmail(userDto.getEmail());
+        userEntity.setPassword(userDto.getPassword());
+        userEntity.setName(userDto.getName());
+        userEntity.setNickname(userDto.getNickname());
+        userEntity.setRole(userDto.getRole());
+        userEntity.setAddress(userDto.getAddress());
+        userEntity.setUserGender(userDto.getUserGender());
+        userEntity.setPhone(userDto.getPhone());
+        userEntity.setUserGrade(userDto.getUserGrade());
+        userEntity.setUserTotalAmount(userDto.getUserTotalAmount());
+        userEntity.setEnabled(userDto.getEnabled());
 
-
+        return userEntity;
+    }
 }

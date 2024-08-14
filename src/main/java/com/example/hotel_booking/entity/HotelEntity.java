@@ -1,8 +1,10 @@
 package com.example.hotel_booking.entity;
 
+import com.example.hotel_booking.dto.HotelDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.catalina.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,17 +39,18 @@ public class HotelEntity extends TimeEntity{
     private String hotelAddress;
 
     // 호텔 전화번호
-    @Column(name = "hotel_phone")
+    @Column(name = "hotel_phone", nullable = false)
     private String hotelPhone;
 
     // 호텔 이메일
-    @Column(name = "hotel_email")
+    @Column(name = "hotel_email", nullable = false)
     private String hotelEmail;
 
     // 호텔 등급
-    @Column(name = "hotel_grade")
+    @Column(name = "hotel_grade", nullable = false)
     private Long hotelGrade;
 
+    // 호텔 시설
     // 도시 정보 (외래키)
     @ManyToOne
     @JoinColumn(name = "city_id")
@@ -58,11 +61,14 @@ public class HotelEntity extends TimeEntity{
     @JoinColumn(name = "user_id")
     private UserEntity businessEntity;
 
+    @OneToMany(mappedBy = "hotelEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<HotelFacilityEntity> hotelFacilityEntities;
+
     @OneToMany(mappedBy = "hotelEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<HotelFileEntity> hotelFileEntityList = new ArrayList<>();
 
 
-    public static HotelEntity toHotelEntity(HotelDto hotelDto){
+    public static HotelEntity toHotelEntity(HotelDto hotelDto, CityEntity cityEntity){
         HotelEntity hotelEntity = new HotelEntity();
         hotelEntity.setId(hotelDto.getId());
         hotelEntity.setHotelName(hotelDto.getHotelName());
@@ -70,6 +76,7 @@ public class HotelEntity extends TimeEntity{
         hotelEntity.setHotelPhone(hotelDto.getHotelPhone());
         hotelEntity.setHotelEmail(hotelDto.getHotelEmail());
         hotelEntity.setHotelGrade(hotelDto.getHotelGrade());
+        hotelEntity.setCityEntity(cityEntity);
 
         return hotelEntity;
     }
@@ -86,11 +93,18 @@ public class HotelEntity extends TimeEntity{
         return hotelEntity;
     }
 
-
-
-
-
-
-
+    @Override
+    public String toString() {
+        return "HotelEntity{" +
+                "id=" + id +
+                ", hotelName='" + hotelName + '\'' +
+                ", hotelAddress='" + hotelAddress + '\'' +
+                ", hotelPhone='" + hotelPhone + '\'' +
+                ", hotelEmail='" + hotelEmail + '\'' +
+                ", hotelGrade=" + hotelGrade +
+                ", cityId=" + cityEntity.getId() +
+                ", businessEntity=" + businessEntity +
+                ", hotelFileEntityList=" + hotelFileEntityList +
+                '}';
+    }
 }
-
