@@ -53,6 +53,11 @@ public class ReservationController {
         reservationDto.setRoomId(roomId);
         // 유저 정보는 가져와야하니까 로그인된 사람이 예약눌렀을때 로그인된 아이디의 id값을 출력해야함
         reservationDto.setUserId(1L);
+        String reservationNum= String.valueOf(System. currentTimeMillis());
+        reservationDto.setReservationNumber(reservationNum);
+        // 가격은 계산 나중에 다시 설정
+
+        reservationDto.setPayPrice(ROOM_SERVICE.selectOne(roomId).getRoomPrice()*2);
         HashMap<String,Object> resultMap = new HashMap<>();
         try {
             Long reservationId=RESERVATION_SERVICE.insert(reservationDto);
