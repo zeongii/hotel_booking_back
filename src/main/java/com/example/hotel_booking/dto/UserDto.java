@@ -35,15 +35,12 @@ public class UserDto implements Serializable {
 
     private List<GrantedAuthority> authorities;
 
-    @Override
     public List<GrantedAuthority> getAuthorities() {
         authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(role));
         return authorities;
     }
 
-
-    @Override
     public String getUsername() {
         return email;
     }

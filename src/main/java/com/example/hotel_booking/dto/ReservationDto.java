@@ -45,4 +45,16 @@ public class ReservationDto implements Serializable {
         return reservationDto;
     }
 
+    public static ReservationDto toReservationDto(ReservationEntity reservationEntity) {
+        ReservationDto reservationDto = new ReservationDto();
+        reservationDto.setId(reservationEntity.getId());
+        reservationDto.setStartDate(reservationEntity.getStartDate());
+        reservationDto.setEndDate(reservationEntity.getEndDate());
+        reservationDto.setReservationNumber(reservationEntity.getReservationNumber());
+        reservationDto.setPayPrice(reservationEntity.getPayPrice());
+        reservationDto.setIsBreakfast(reservationEntity.getIsBreakfast());
+        reservationDto.setEnabled(reservationEntity.getEnabled());
+        return reservationDto;
+    }
+
 }

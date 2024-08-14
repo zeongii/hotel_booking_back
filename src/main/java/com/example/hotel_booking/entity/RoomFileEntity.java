@@ -1,5 +1,6 @@
 package com.example.hotel_booking.entity;
 
+import com.example.hotel_booking.dto.RoomFileDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +28,7 @@ public class RoomFileEntity extends TimeEntity{
     @JoinColumn(name="room_id")
     private RoomEntity roomEntity;
 
-    public static RoomFileEntity toRoomFileEntity(RoomFileDto roomFileDto,RoomEntity roomEntity) {
+    public static RoomFileEntity toRoomFileEntity(RoomFileDto roomFileDto, RoomEntity roomEntity) {
         RoomFileEntity roomFileEntity = new RoomFileEntity();
         roomFileEntity.setOriginalFileName(roomFileDto.getOriginalFileName());
         roomFileEntity.setStoredFileName(roomFileDto.getStoredFileName());
