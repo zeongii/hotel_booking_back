@@ -1,10 +1,8 @@
 package com.example.hotel_booking.entity;
 
-import com.example.hotel_booking.dto.HotelDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.catalina.User;
 
 import java.util.ArrayList;
 import java.util.List;
