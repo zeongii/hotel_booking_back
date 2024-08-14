@@ -34,22 +34,21 @@ public class UserDto implements Serializable, UserDetails {
     private List<GrantedAuthority> authorities;
 
     @Override
-    public List<GrantedAuthority> getAuthorities(){
-        authorities=new ArrayList<>();
+    public List<GrantedAuthority> getAuthorities() {
+        authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(role));
         return authorities;
     }
 
 
-
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return email;
     }
 
 
     public static UserDto toUserDto(UserEntity userEntity) {
-        UserDto userDto= new UserDto();
+        UserDto userDto = new UserDto();
         userDto.setId(userEntity.getId());
         userDto.setEmail(userEntity.getEmail());
         userDto.setPassword(userEntity.getPassword());

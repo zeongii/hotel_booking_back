@@ -28,23 +28,23 @@ public class UserController {
     }
 
     @RequestMapping("authOk")
-    public ResponseEntity<Map<String,Object>> authOk(Authentication authentication) {
-        Map<String,Object> resultMap = new HashMap<>();
+    public ResponseEntity<Map<String, Object>> authOk(Authentication authentication) {
+        Map<String, Object> resultMap = new HashMap<>();
         UserDto userDto = (UserDto) authentication.getPrincipal();
         // getPrincipal을 바로 resultMap에 넣는건 좋지 않다 왜냐면 패스워드가 넘어가니깐
-        resultMap.put("result","success");
-        resultMap.put("id",userDto.getId());
-        resultMap.put("nickname",userDto.getNickname());
-        resultMap.put("role",userDto.getRole());
+        resultMap.put("result", "success");
+        resultMap.put("id", userDto.getId());
+        resultMap.put("nickname", userDto.getNickname());
+        resultMap.put("role", userDto.getRole());
 
         return ResponseEntity.ok(resultMap);
     }
 
     @RequestMapping("authFail")
-    public ResponseEntity<Map<String,Object>> authFail(){
+    public ResponseEntity<Map<String, Object>> authFail() {
         System.out.println("Auth has failed");
-        Map<String ,Object> resultMap = new HashMap<>();
-        resultMap.put("result","fail");
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("result", "fail");
 
         return ResponseEntity.ok(resultMap);
     }
@@ -58,19 +58,19 @@ public class UserController {
     }
 
     @PostMapping("register")
-    public HashMap<String,Object> register(@RequestBody UserDto userDto) {
+    public HashMap<String, Object> register(@RequestBody UserDto userDto) {
         System.out.println(userDto);
         userDto.setPassword(encoder.encode(userDto.getPassword()));
-        HashMap<String,Object> resultMap = new HashMap<>();
+        HashMap<String, Object> resultMap = new HashMap<>();
 
         try {
             USER_SERVICE.register(userDto);
-            resultMap.put("result","success");
-            resultMap.put("resultId",userDto.getId());
+            resultMap.put("result", "success");
+            resultMap.put("resultId", userDto.getId());
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            resultMap.put("result","fail");
+            resultMap.put("result", "fail");
         }
         return resultMap;
     }

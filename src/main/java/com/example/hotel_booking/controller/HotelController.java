@@ -29,6 +29,7 @@ public class HotelController {
 
     @GetMapping("hotelOne/{id}")
     public HotelDto selectOne(@PathVariable Long id) {
+
         return hotelService.findById(id);
     }
 
