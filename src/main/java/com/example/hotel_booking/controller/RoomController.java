@@ -37,7 +37,7 @@ public class RoomController {
     public RoomController(RoomTypeService roomTypeService, RoomService roomService, RoomFileService roomFileService) {
         this.ROOM_TYPE_SERVICE = roomTypeService;
         this.ROOM_SERVICE = roomService;
-        this.ROOM_FILE_SERVICE=roomFileService;
+        this.ROOM_FILE_SERVICE = roomFileService;
     }
 
     @GetMapping("showOne/{id}")
@@ -47,7 +47,7 @@ public class RoomController {
         System.out.println(roomFileDtoList);
         resultMap.put("roomDto", ROOM_SERVICE.selectOne(id));
         resultMap.put("roomTypeList", ROOM_TYPE_SERVICE.selectAll());
-        resultMap.put("roomFileDtoList",roomFileDtoList);
+        resultMap.put("roomFileDtoList", roomFileDtoList);
 
         System.out.println(ROOM_SERVICE.selectOne(id));
         // 호텔 아이디를 통해 userID를 빼와야함 지금은 없으니까 비교 안하고 클릭 버튼만 해놓자
@@ -61,7 +61,7 @@ public class RoomController {
 
         List<RoomDto> roomDtoList = ROOM_SERVICE.selectAll(id);
 
-        for (RoomDto roomDto : roomDtoList){
+        for (RoomDto roomDto : roomDtoList) {
             roomDto.setImageList(ROOM_FILE_SERVICE.findByRoomIdToName(roomDto.getId()));
         }
 
@@ -129,17 +129,17 @@ public class RoomController {
     public HashMap<String, Object> write(@PathVariable Long hotelId, @RequestBody RoomDto roomDto) {
         System.out.println(roomDto);
         roomDto.setHotelId(hotelId);
-        List<RoomTypeDto> roomTypeDtoList=ROOM_TYPE_SERVICE.selectAll();
-        HashMap<String,Object> resultMap = new HashMap<>();
+        List<RoomTypeDto> roomTypeDtoList = ROOM_TYPE_SERVICE.selectAll();
+        HashMap<String, Object> resultMap = new HashMap<>();
         try {
 
             Long id = ROOM_SERVICE.insert(roomDto);
-            resultMap.put("result","success");
-            resultMap.put("roomId",id);
-            resultMap.put("roomTypeList",roomTypeDtoList);
+            resultMap.put("result", "success");
+            resultMap.put("roomId", id);
+            resultMap.put("roomTypeList", roomTypeDtoList);
         } catch (Exception e) {
             e.printStackTrace();
-            resultMap.put("result","fail");
+            resultMap.put("result", "fail");
         }
         return resultMap;
     }
