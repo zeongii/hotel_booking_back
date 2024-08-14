@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class HotelService {
     private final HotelRepository hotelRepository;
     private final FacilityRepository facilityRepository;

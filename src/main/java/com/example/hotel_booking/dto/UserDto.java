@@ -18,7 +18,7 @@ import java.util.List;
  * DTO for {@link com.example.hotel_booking.entity.UserEntity}
  */
 @Data
-public class UserDto implements Serializable {
+public class UserDto implements Serializable, UserDetails {
     private UserEntity user;
     Long id;
     String email;
@@ -44,6 +44,7 @@ public class UserDto implements Serializable {
     public String getUsername() {
         return email;
     }
+
     public static UserDto toGuestDto(UserEntity guestEntity) {
         UserDto guestDto = new UserDto();
         guestDto.setId(guestEntity.getId());
@@ -62,7 +63,7 @@ public class UserDto implements Serializable {
     }
 
     public static UserDto toUserDto(UserEntity userEntity) {
-        UserDto userDto= new UserDto();
+        UserDto userDto = new UserDto();
         userDto.setId(userEntity.getId());
         userDto.setEmail(userEntity.getEmail());
         userDto.setPassword(userEntity.getPassword());

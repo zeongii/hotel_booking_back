@@ -29,7 +29,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize)->
                         authorize
                                 .requestMatchers("/user/**","/**").permitAll()
-                                .requestMatchers("/user/authOk").authenticated())
+                                .requestMatchers("/user/authOk").authenticated()
+                )
+
                 .formLogin((form) ->
                         form
                                 .usernameParameter("email")

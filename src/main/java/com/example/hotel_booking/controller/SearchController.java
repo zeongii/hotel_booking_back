@@ -72,7 +72,7 @@ public class SearchController {
         String startDate = "";
         String endDate = "";
 
-        if (!startDateData.isEmpty() || !endDateData.isEmpty()) {
+        if (!startDateData.isEmpty() && !endDateData.isEmpty()) {
             startDate = startDateData.substring(0, 4) + startDateData.substring(5, 7) + startDateData.substring(8, 10);
             startDate = (Integer.parseInt(startDate) + 1) + "";
             endDate = endDateData.substring(0, 4) + endDateData.substring(5, 7) + endDateData.substring(8, 10);

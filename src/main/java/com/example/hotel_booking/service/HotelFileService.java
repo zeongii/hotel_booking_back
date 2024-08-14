@@ -36,7 +36,7 @@ public class HotelFileService {
     public void save(HotelFileDto hotelFileDto, Long id) {
         Optional<HotelEntity> optionalHotelEntity = hotelRepository.findById(id);
         HotelEntity hotelEntity = optionalHotelEntity.get();
-        HotelFileEntity hotelFileEntity = HotelFileEntity.toHotelFileEntity(hotelFileDto, hotelEntity);
+        HotelFileEntity hotelFileEntity = HotelFileEntity.toHotelFileEntity(hotelEntity, hotelFileDto.getOriginalFileName(), hotelFileDto.getStoredFileName());
         hotelFileRepository.save(hotelFileEntity);
     }
 
