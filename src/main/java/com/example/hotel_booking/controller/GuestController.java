@@ -1,15 +1,13 @@
 package com.example.hotel_booking.controller;
 
-import com.example.hotel_booking.dto.ReservationDto;
-import com.example.hotel_booking.dto.ReviewDto;
-import com.example.hotel_booking.dto.UserDto;
-import com.example.hotel_booking.dto.WishlistDto;
+import com.example.hotel_booking.dto.*;
 import com.example.hotel_booking.entity.UserEntity;
 import com.example.hotel_booking.service.GuestService;
 import com.example.hotel_booking.service.ReservationService;
 import com.example.hotel_booking.service.ReviewService;
 import com.example.hotel_booking.service.WishlistService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +19,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RequestMapping("/guest/")
 public class GuestController {
     private final GuestService guestService;
@@ -47,10 +45,21 @@ public class GuestController {
     }
 
     //예약 정보 출력(내 예약)
-    @GetMapping("reservationInfo/{id}")
-    public List<ReservationDto> reservationInfo(@PathVariable Long id) {
-        List<ReservationDto> reservationDtoList = reservationService.findAllByGuestId(id);
-        return reservationDtoList;
+    @GetMapping("reservations/{id}")
+    public ResponseEntity<List<ReservationDto>> reservations(@PathVariable("id") Long id) {
+        try {
+            System.out.println("Received ID: " + id);
+            List<ReservationDto> reservations = reservationService.findAllByGuestId(id);
+            System.out.println("Reservations found: " + reservations.size());
+
+            if (reservations.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();  // 404 반환
+            }
+            return ResponseEntity.ok(reservations);
+        } catch (Exception e) {
+            e.printStackTrace();  // 예외 전체 스택 트레이스를 콘솔에 출력
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);  // 500 반환
+        }
     }
 
     // 좋아하는 호텔 유저 id를 통해 가져오기(내 찜 목록)
@@ -172,5 +181,42 @@ public class GuestController {
         }
 
 
+    }
+    @PostMapping("auth")
+    public ResponseEntity<Map<String, Object>> auth(@RequestBody Map<String, String> request) {
+        System.out.println("GuestController.auth");
+        String email = request.get("email");
+        String password = request.get("password");
+        Map<String, Object> resultMap = new HashMap<>();
+
+        Optional<UserEntity> userOptional = guestService.auth(email, password);
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
+            resultMap.put("result", "success");
+            resultMap.put("id", user.getId());
+            resultMap.put("role", user.getRole());
+            resultMap.put("nickname", user.getNickname());
+            resultMap.put("name", user.getName());
+            resultMap.put("email", user.getEmail());
+            resultMap.put("password",user.getPassword());
+            resultMap.put("phone", user.getPhone());
+            resultMap.put("address", user.getAddress());
+            resultMap.put("userTotalAmount",user.getUserTotalAmount());
+
+
+            return ResponseEntity.ok(resultMap);
+        } else {
+            resultMap.put("result", "fail");
+            resultMap.put("message", "아이디 비번 확인 바람");
+            return ResponseEntity.status(401).body(resultMap);
+        }
+    }
+
+    @PostMapping("check-password")
+    public ResponseEntity<Map<String, Boolean>> checkPassword(@RequestBody PasswordCheckRequest request) {
+        boolean valid = guestService.checkPassword(request.getUserId(), request.getPassword());
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("valid", valid);
+        return ResponseEntity.ok(response);
     }
 }

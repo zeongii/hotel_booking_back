@@ -41,18 +41,7 @@ VALUES ('Summer Sale 2024', 'Percentage', 15, true, '2024-08-06 10:00:00', '2024
        ('Early Bird', 'Percentage', 5, true, '2024-08-06 10:07:00', '2024-08-06 10:07:00'),
        ('Mid-Year Sale', 'Fixed', 3000, true, '2024-08-06 10:08:00', '2024-08-06 10:08:00'),
        ('Loyalty Reward', 'Percentage', 10, false, '2024-08-06 10:09:00', '2024-08-06 10:09:00');
--- INSERT INTO facility (infinity_pool, indoor_pool, sauna, kids_room, casino, fitness_center, free_wifi, laundry_room,
---                       front_desk, restaurant, free_parking, bar, atm, outdoor_garden)
--- VALUES (1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1),
---        (1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0),
---        (0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1),
---        (1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0),
---        (1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1),
---        (0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0),
---        (1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1),
---        (0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1),
---        (1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0),
---        (1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1);
+
 
 INSERT INTO hotel (hotel_name, hotel_address, hotel_phone, hotel_email, hotel_grade)
 VALUES ('호텔 서울', '서울특별시 중구', '02-1234-5678', 'seoulhotel@example.com', 5),
@@ -67,8 +56,6 @@ VALUES ('호텔 서울', '서울특별시 중구', '02-1234-5678', 'seoulhotel@e
        ('제주 호텔', '제주특별자치도 제주시', '064-9876-5432', 'jejuhotel@example.com', 5);
 
 UPDATE hotel SET `city_id` = '1' WHERE (`id` = '1');
-
-
 
 INSERT INTO user (email, password, name, nickname, role, address, user_gender, phone, user_grade, user_total_amount,
                   enabled)
@@ -92,7 +79,7 @@ VALUES ('john.doe@example.com', 'password123', 'John Doe', 'johnny', 'USER', '12
         9, 9000, 1),
        ('susan.miller@example.com', 'password123', 'Susan Miller', 'susie', 'USER', '707 Cherry Circle', 'Female',
         '012-345-6789', 10, 10000, 1),
-     ('jisu.miller@example.com', 'password123', 'jisu', 'jisu', 'USER', '707 Cherry Circle', 'Female', '1', 10, 10000, 1);
+     ('jisu@example.com', 'password123', 'jisu', 'jisu', 'USER', '707 Cherry Circle', 'Female', '1', 10, 10000, 1);
 
 
 INSERT INTO hotel_pay (pay_price, pay_date, pay_way)
@@ -135,26 +122,26 @@ VALUES (1, 101, 5, 4, 5, 4.7, 'Great Room!', 'Very clean and well maintained.'),
        (1, 110, 5, 5, 5, 5.0, 'Excellent', 'Loved every bit of my stay!');
 
 -- RoomEntity 더미 데이터
-INSERT INTO room (room_name, room_max, room_price, room_content, check_in, check_out, breakfast_price)
-VALUES ('Deluxe Room', 2, 200000, 'Spacious room with a king-sized bed.', '2024-08-01 14:00:00', '2024-08-02 12:00:00',
-        15000),
-       ('Suite', 4, 500000, 'Luxury suite with a separate living area.', '2024-08-01 14:00:00', '2024-08-02 12:00:00',
-        30000),
-       ('Standard Room', 2, 150000, 'Comfortable room with all standard amenities.', '2024-08-01 14:00:00',
-        '2024-08-02 12:00:00', 10000),
-       ('Family Room', 5, 300000, 'Room perfect for families, includes extra beds.', '2024-08-01 14:00:00',
-        '2024-08-02 12:00:00', 20000),
-       ('Single Room', 1, 100000, 'Cozy room for single travelers.', '2024-08-01 14:00:00', '2024-08-02 12:00:00',
-        5000),
-       ('Double Room', 2, 180000, 'Room with a double bed and a beautiful view.', '2024-08-01 14:00:00',
-        '2024-08-02 12:00:00', 15000),
-       ('Twin Room', 2, 170000, 'Room with two separate beds.', '2024-08-01 14:00:00', '2024-08-02 12:00:00', 15000),
-       ('Presidential Suite', 6, 1000000, 'Top-tier luxury suite.', '2024-08-01 14:00:00', '2024-08-02 12:00:00',
-        50000),
-       ('Economy Room', 2, 80000, 'Basic room for budget travelers.', '2024-08-01 14:00:00', '2024-08-02 12:00:00',
-        5000),
-       ('Studio Room', 2, 220000, 'Studio-style room with kitchen facilities.', '2024-08-01 14:00:00',
-        '2024-08-02 12:00:00', 20000);
+-- INSERT INTO room (room_name, room_max, room_price, room_content, check_in, check_out, breakfast_price)
+-- VALUES ('Deluxe Room', 2, 200000, 'Spacious room with a king-sized bed.', '2024-08-01 14:00:00', '2024-08-02 12:00:00',
+--         15000),
+--        ('Suite', 4, 500000, 'Luxury suite with a separate living area.', '2024-08-01 14:00:00', '2024-08-02 12:00:00',
+--         30000),
+--        ('Standard Room', 2, 150000, 'Comfortable room with all standard amenities.', '2024-08-01 14:00:00',
+--         '2024-08-02 12:00:00', 10000),
+--        ('Family Room', 5, 300000, 'Room perfect for families, includes extra beds.', '2024-08-01 14:00:00',
+--         '2024-08-02 12:00:00', 20000),
+--        ('Single Room', 1, 100000, 'Cozy room for single travelers.', '2024-08-01 14:00:00', '2024-08-02 12:00:00',
+--         5000),
+--        ('Double Room', 2, 180000, 'Room with a double bed and a beautiful view.', '2024-08-01 14:00:00',
+--         '2024-08-02 12:00:00', 15000),
+--        ('Twin Room', 2, 170000, 'Room with two separate beds.', '2024-08-01 14:00:00', '2024-08-02 12:00:00', 15000),
+--        ('Presidential Suite', 6, 1000000, 'Top-tier luxury suite.', '2024-08-01 14:00:00', '2024-08-02 12:00:00',
+--         50000),
+--        ('Economy Room', 2, 80000, 'Basic room for budget travelers.', '2024-08-01 14:00:00', '2024-08-02 12:00:00',
+--         5000),
+--        ('Studio Room', 2, 220000, 'Studio-style room with kitchen facilities.', '2024-08-01 14:00:00',
+--         '2024-08-02 12:00:00', 20000);
 
 -- RoomTypeEntity 더미 데이터
 INSERT INTO room_type (type_name, type_content)

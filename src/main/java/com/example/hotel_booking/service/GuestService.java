@@ -45,4 +45,32 @@ public class GuestService {
     public Optional<UserEntity> findByNameAndPhone(String name, String phone) {
         return userRepository.findByNameAndPhone(name, phone);
     }
+    public Optional<UserEntity> auth(String email, String password) {
+        System.out.println("Received email: " + email);  // 이메일 출력
+        System.out.println("Received password: " + password);  // 비밀번호 출력
+        Optional<UserEntity> userOptional = userRepository.findByEmail(email);
+
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
+           /* if (passwordEncoder.matches(password, user.getPassword())) {
+                return Optional.of(user);
+            }*/
+            if (password.equals(user.getPassword())) {  // 평문 비교
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public boolean checkPassword(Long userId, String password) {
+        Optional<UserEntity> userOptional = userRepository.findById(userId);
+
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
+            // 비밀번호를 암호화 체크 해야함
+            return user.getPassword().equals(password);
+        } else {
+            return false; // 사용자가 존재하지 않는 경우
+        }
+    }
 }

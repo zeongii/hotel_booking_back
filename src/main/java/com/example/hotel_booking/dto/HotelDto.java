@@ -27,17 +27,24 @@ public class HotelDto implements Serializable {
     Long hotelGrade;
     String hotelFacilities;
 
-    public static HotelDto toHotelDto(Optional<HotelEntity> hotelEntityOptional) {
-        HotelDto hotelDto = new HotelDto();
-        if (hotelEntityOptional.isPresent()) {
-            hotelDto.setId(hotelEntityOptional.get().getId());
-            hotelDto.setHotelName(hotelEntityOptional.get().getHotelName());
-            hotelDto.setHotelAddress(hotelEntityOptional.get().getHotelAddress());
-            hotelDto.setHotelPhone(hotelEntityOptional.get().getHotelPhone());
-            hotelDto.setHotelEmail(hotelEntityOptional.get().getHotelEmail());
-            hotelDto.setHotelGrade(hotelEntityOptional.get().getHotelGrade());
+    // HotelEntity를 받아서 HotelDto로 변환하는 메서드
+
+    public static HotelDto toHotelDto(HotelEntity hotelEntity) {
+        if (hotelEntity == null) {
+            return null; // 호텔 엔티티가 null인 경우 null을 반환
         }
+        HotelDto hotelDto = new HotelDto();
+
+        hotelDto.setId(hotelEntity.getId());
+        hotelDto.setHotelName(hotelEntity.getHotelName());
+        hotelDto.setHotelAddress(hotelEntity.getHotelAddress());
+        hotelDto.setHotelPhone(hotelEntity.getHotelPhone());
+        hotelDto.setHotelEmail(hotelEntity.getHotelEmail());
+        hotelDto.setHotelGrade(hotelEntity.getHotelGrade());
 
         return hotelDto;
     }
+
+
+
 }

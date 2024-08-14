@@ -43,14 +43,7 @@ public class RoomEntity extends TimeEntity{
     @Column(name = "room_content", nullable = false)
     private String roomContent;
 
-    // 체크인 시간
-    @Column(name = "check_in", nullable = false)
-    private LocalDateTime checkIn;
-
-    // 체크아웃 시간
-    @Column(name = "check_out", nullable = false)
-    private LocalDateTime checkOut;
-
+//조식
     @Column(name = "breakfast_price", nullable = false)
     private Long breakfastPrice;
 
