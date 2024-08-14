@@ -1,4 +1,4 @@
-INSERT INTO city (city_name)
+/*INSERT INTO city (city_name)
 VALUES ('Seoul'),
        ('Gyeonggi'),
        ('Incheon'),
@@ -55,12 +55,33 @@ VALUES ('호텔 서울', '서울특별시 중구', '02-1234-5678', 'seoulhotel@e
        ('제주 호텔', '제주특별자치도 제주시', '064-9876-5432', 'jejuhotel@example.com', 5, 10);
 
 INSERT INTO hotel_facility (hotel_id, facility_id)
-VALUES (1, 1), (1, 3), (1, 5), (1, 7), (1, 9), (1, 11), (1, 13),
-       (2, 2), (2, 4), (2, 6), (2, 7), (2, 10), (2, 13),
-       (3, 3), (3, 6), (3, 9), (3, 12), (3, 15),
-       (4, 4), (4, 8), (4, 12),
-       (5, 5), (5, 10), (5, 15),
-       (6, 3), (6, 5), (6, 7);
+VALUES (1, 1),
+       (1, 3),
+       (1, 5),
+       (1, 7),
+       (1, 9),
+       (1, 11),
+       (1, 13),
+       (2, 2),
+       (2, 4),
+       (2, 6),
+       (2, 7),
+       (2, 10),
+       (2, 13),
+       (3, 3),
+       (3, 6),
+       (3, 9),
+       (3, 12),
+       (3, 15),
+       (4, 4),
+       (4, 8),
+       (4, 12),
+       (5, 5),
+       (5, 10),
+       (5, 15),
+       (6, 3),
+       (6, 5),
+       (6, 7);
 
 INSERT INTO user (email, password, name, nickname, role, address, user_gender, phone, user_grade, user_total_amount,
                   enabled)
@@ -128,44 +149,44 @@ VALUES (1, 101, 5, 4, 5, 4.7, 'Great Room!', 'Very clean and well maintained.'),
        (1, 110, 5, 5, 5, 5.0, 'Excellent', 'Loved every bit of my stay!');
 
 -- RoomEntity 더미 데이터
-INSERT INTO room (room_name, room_max, room_price, room_content, check_in, check_out, breakfast_price)
-VALUES
-    ('Deluxe Room', 2, 200000, 'Spacious room with a king-sized bed.', '2024-08-01 14:00:00', '2024-08-02 12:00:00', 15000),
-    ('Suite', 4, 500000, 'Luxury suite with a separate living area.', '2024-08-01 14:00:00', '2024-08-02 12:00:00', 30000),
-    ('Standard Room', 2, 150000, 'Comfortable room with all standard amenities.', '2024-08-01 14:00:00', '2024-08-02 12:00:00', 10000),
-    ('Family Room', 5, 300000, 'Room perfect for families, includes extra beds.', '2024-08-01 14:00:00', '2024-08-02 12:00:00', 20000),
-    ('Single Room', 1, 100000, 'Cozy room for single travelers.', '2024-08-01 14:00:00', '2024-08-02 12:00:00', 5000),
-    ('Double Room', 2, 180000, 'Room with a double bed and a beautiful view.', '2024-08-01 14:00:00', '2024-08-02 12:00:00', 15000),
-    ('Twin Room', 2, 170000, 'Room with two separate beds.', '2024-08-01 14:00:00', '2024-08-02 12:00:00', 15000),
-    ('Presidential Suite', 6, 1000000, 'Top-tier luxury suite.', '2024-08-01 14:00:00', '2024-08-02 12:00:00', 50000),
-    ('Economy Room', 2, 80000, 'Basic room for budget travelers.', '2024-08-01 14:00:00', '2024-08-02 12:00:00', 5000),
-    ('Studio Room', 2, 220000, 'Studio-style room with kitchen facilities.', '2024-08-01 14:00:00', '2024-08-02 12:00:00', 20000);
+INSERT INTO room (room_name, room_max, room_price, room_content, breakfast_price)
+VALUES ('Deluxe Room', 2, 200000, 'Spacious room with a king-sized bed.', 15000),
+       ('Suite', 4, 500000, 'Luxury suite with a separate living area.', 30000),
+       ('Standard Room', 2, 150000, 'Comfortable room with all standard amenities.', 10000),
+       ('Family Room', 5, 300000, 'Room perfect for families, includes extra beds.', 20000),
+       ('Single Room', 1, 100000, 'Cozy room for single travelers.', 5000),
+       ('Double Room', 2, 180000, 'Room with a double bed and a beautiful view.', 15000),
+       ('Twin Room', 2, 170000, 'Room with two separate beds.', 15000),
+       ('Presidential Suite', 6, 1000000, 'Top-tier luxury suite.', 50000),
+       ('Economy Room', 2, 80000, 'Basic room for budget travelers.', 5000),
+       ('Studio Room', 2, 220000, 'Studio-style room with kitchen facilities.', 20000);
 
 -- RoomTypeEntity 더미 데이터
-INSERT INTO room_type (type_name, type_content)
-VALUES
-    ('Single', 'Single bed for one person.'),
-    ('Double', 'Double bed for two people.'),
-    ('Twin', 'Two single beds for two people.'),
-    ('Suite', 'Luxury suite with separate living area.'),
-    ('Deluxe', 'Spacious room with premium amenities.'),
-    ('Family', 'Room for families with extra beds.'),
-    ('Presidential', 'Top-tier luxury suite with exclusive features.'),
-    ('Economy', 'Basic room for budget travelers.'),
-    ('Studio', 'Studio-style room with kitchen facilities.'),
-    ('Standard', 'Standard amenities for comfortable stay.');
+INSERT INTO room_type (id, type_name, type_content) VALUES
+(1, '스탠다드+싱글+시티뷰', 'A'),
+(2, '스탠다드+싱글+오션뷰', 'B'),
+(3, '스탠다드+더블+시티뷰', 'C'),
+(4, '스탠다드+더블+오션뷰', 'D'),
+(5, '디럭스+싱글+시티뷰', 'E'),
+(6, '디럭스+싱글+오션뷰', 'F'),
+(7, '디럭스+더블+시티뷰', 'G'),
+(8, '디럭스+더블+오션뷰', 'H'),
+(9, '스위트+시티뷰', 'I'),
+(10, '스위트+오션뷰', 'J'),
+(11, '레지던스+시티뷰', 'K'),
+(12, '레지던스+오션뷰', 'L');
 
 -- TripEntity 더미 데이터
 INSERT INTO hotel_trip (trip_name, trip_content)
-VALUES
-    ('Seoul Tour', 'Explore the historic sites and modern attractions of Seoul.'),
-    ('Busan Beach', 'Relax at the beautiful beaches of Busan.'),
-    ('Jeju Island', 'Discover the natural beauty of Jeju Island.'),
-    ('Gyeongju Heritage', 'Experience the ancient history of Gyeongju.'),
-    ('DMZ Visit', 'Learn about the Korean War at the DMZ.'),
-    ('Andong Culture', 'Experience traditional Korean culture in Andong.'),
-    ('Gangwon Mountains', 'Hike the scenic mountains of Gangwon-do.'),
-    ('Incheon Airport', 'Enjoy the amenities of Incheon International Airport.'),
-    ('Jeonju Hanok Village', 'Explore traditional Korean houses in Jeonju.'),
-    ('Ulleungdo Adventure', 'Discover the unique island of Ulleungdo.');
+VALUES ('Seoul Tour', 'Explore the historic sites and modern attractions of Seoul.'),
+       ('Busan Beach', 'Relax at the beautiful beaches of Busan.'),
+       ('Jeju Island', 'Discover the natural beauty of Jeju Island.'),
+       ('Gyeongju Heritage', 'Experience the ancient history of Gyeongju.'),
+       ('DMZ Visit', 'Learn about the Korean War at the DMZ.'),
+       ('Andong Culture', 'Experience traditional Korean culture in Andong.'),
+       ('Gangwon Mountains', 'Hike the scenic mountains of Gangwon-do.'),
+       ('Incheon Airport', 'Enjoy the amenities of Incheon International Airport.'),
+       ('Jeonju Hanok Village', 'Explore traditional Korean houses in Jeonju.'),
+       ('Ulleungdo Adventure', 'Discover the unique island of Ulleungdo.');
 
+*/

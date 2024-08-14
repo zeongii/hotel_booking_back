@@ -60,7 +60,8 @@ public class ReservationController {
         String reservationNum = String.valueOf(System.currentTimeMillis());
         reservationDto.setReservationNumber(reservationNum);
         // 가격은 계산 나중에 다시 설정
-
+        // 방 가격
+        // endDate-startDate= 2   얘네를 스트링으로 받아와서 인티저로 바꿔 그다음에
         reservationDto.setPayPrice(ROOM_SERVICE.selectOne(roomId).getRoomPrice() * 2);
         HashMap<String, Object> resultMap = new HashMap<>();
         try {
