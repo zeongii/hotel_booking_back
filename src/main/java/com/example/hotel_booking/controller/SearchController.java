@@ -67,19 +67,33 @@ public class SearchController {
         List<HotelDto> hotelDtoList = hotelService.searchHotel(gradeList, cityIdList, facilityIdList, hotelName);
         //Map<Long, List<HotelFileDto>> hotelFileDtoList = hotelFileService.getThumbnailList(hotelDtoList.stream().map(HotelDto::getId).toList());
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-//        String startDate = simpleDateFormat.format(data.get("startDate"));
-//        String endDate = simpleDateFormat.format(data.get("endDate"));
-
         String startDateData = data.get("startDate").toString();
-        String startDate = startDateData.substring(0, 4) + startDateData.substring(5, 7) + startDateData.substring(8, 10);
-        startDate = (Integer.parseInt(startDate) + 1) + "";
         String endDateData = data.get("endDate").toString();
-        String endDate = endDateData.substring(0, 4) + endDateData.substring(5, 7) + endDateData.substring(8, 10);
+        String startDate = "";
+        String endDate = "";
+
+        if (!startDateData.isEmpty() || !endDateData.isEmpty()) {
+            startDate = startDateData.substring(0, 4) + startDateData.substring(5, 7) + startDateData.substring(8, 10);
+            startDate = (Integer.parseInt(startDate) + 1) + "";
+            endDate = endDateData.substring(0, 4) + endDateData.substring(5, 7) + endDateData.substring(8, 10);
+
+            if (Integer.parseInt(startDate) > Integer.parseInt(endDate)) {
+                startDate = "";
+                endDate = "";
+            }
+        }
+
+        int peopleCount = Integer.parseInt(data.get("peopleCount").toString());
 
         resultMap.put("hotelDtoList", hotelDtoList);
         resultMap.put("startDate", startDate);
         resultMap.put("endDate", endDate);
+        resultMap.put("peopleCount", peopleCount);
+
+        System.out.println("startDate: " + startDate);
+        System.out.println("endDate: " + endDate);
+        System.out.println("peopleCount: " + peopleCount);
+
 
         return resultMap;
     }
