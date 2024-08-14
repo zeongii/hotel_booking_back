@@ -16,16 +16,17 @@ public class UserService {
 
     public UserDto selectByEmail(String Email) {
         Optional<UserEntity> byUserEmail = userRepository.findByEmail(Email);
-        UserDto userDto= UserDto.toUserDto(byUserEmail.get());
-        if(!byUserEmail.isPresent()){
+        System.out.println(byUserEmail);
+        UserDto userDto = UserDto.toUserDto(byUserEmail.get());
+        if (!byUserEmail.isPresent()) {
             return null;
-        } else{
+        } else {
             return userDto;
         }
     }
 
     public void register(UserDto userDto) {
-        UserEntity userEntity= UserEntity.toUserEntity(userDto);
+        UserEntity userEntity = UserEntity.toUserEntity(userDto);
         userRepository.save(userEntity);
     }
 

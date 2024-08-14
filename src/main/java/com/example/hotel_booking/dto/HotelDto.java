@@ -14,13 +14,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-/*
+/**
  * DTO for {@link com.example.hotel_booking.entity.HotelEntity}
  */
 
 @Getter
 @Setter
 @NoArgsConstructor
+@Data
+@AllArgsConstructor
 public class HotelDto implements Serializable {
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;

@@ -57,9 +57,6 @@ public class RoomEntity extends TimeEntity {
     @Column(name = "breakfast_price", nullable = false)
     private Long breakfastPrice;
 
-    @Column
-    private Integer fileAttached;
-
     // 호텔이랑 (외래키) 자식
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
@@ -78,10 +75,9 @@ public class RoomEntity extends TimeEntity {
         roomEntity.setRoomMax(roomDto.getRoomMax());
         roomEntity.setRoomPrice(roomDto.getRoomPrice());
         roomEntity.setRoomContent(roomDto.getRoomContent());
-        roomEntity.setCheckIn(roomDto.getCheckIn());
-        roomEntity.setCheckOut(roomDto.getCheckOut());
+        /*roomEntity.setCheckIn(roomDto.getCheckIn());
+        roomEntity.setCheckOut(roomDto.getCheckOut());*/
         roomEntity.setBreakfastPrice(roomDto.getBreakfastPrice());
-        roomEntity.setFileAttached(0);
         roomEntity.setHotelEntity(hotelEntity);
         roomEntity.setRoomTypeEntity(roomTypeEntity);
         return roomEntity;
@@ -94,25 +90,11 @@ public class RoomEntity extends TimeEntity {
         roomEntity.setRoomMax(roomDto.getRoomMax());
         roomEntity.setRoomPrice(roomDto.getRoomPrice());
         roomEntity.setRoomContent(roomDto.getRoomContent());
-        roomEntity.setCheckIn(roomDto.getCheckIn());
-        roomEntity.setCheckOut(roomDto.getCheckOut());
+        /*roomEntity.setCheckIn(roomDto.getCheckIn());
+        roomEntity.setCheckOut(roomDto.getCheckOut());*/
         roomEntity.setBreakfastPrice(roomDto.getBreakfastPrice());
         roomEntity.setHotelEntity(hotelEntity);
         roomEntity.setRoomTypeEntity(roomTypeEntity);
-        return roomEntity;
-    }
-
-    public static RoomEntity toSaveFileEntity(RoomDto roomDto, HotelEntity hotelEntity) {
-        RoomEntity roomEntity = new RoomEntity();
-        roomEntity.setRoomName(roomDto.getRoomName());
-        roomEntity.setRoomMax(roomDto.getRoomMax());
-        roomEntity.setRoomPrice(roomDto.getRoomPrice());
-        roomEntity.setRoomContent(roomDto.getRoomContent());
-        roomEntity.setCheckIn(roomDto.getCheckIn());
-        roomEntity.setCheckOut(roomDto.getCheckOut());
-        roomEntity.setBreakfastPrice(roomDto.getBreakfastPrice());
-        roomEntity.setFileAttached(1);
-        roomEntity.setHotelEntity(hotelEntity);
         return roomEntity;
     }
 

@@ -17,8 +17,8 @@ public class HotelFacilityEntity {
         @Column(name = "facility_id")
         private Long facilityId;
 
-        @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-        @JoinColumn(name = "hotel_id")
+        @ManyToOne
+        @JoinColumn(name="hotel_id")
         private HotelEntity hotelEntity;
 
         public static HotelFacilityEntity toFacilityEntity(FacilityDto facilityDto, HotelEntity hotelEntity){

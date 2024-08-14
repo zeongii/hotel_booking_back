@@ -2,12 +2,16 @@ package com.example.hotel_booking.dto;
 
 import com.example.hotel_booking.entity.UserEntity;
 import lombok.Data;
-import lombok.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +33,20 @@ public class UserDto implements Serializable {
     Long userTotalAmount;
     int enabled;
 
+    private List<GrantedAuthority> authorities;
+
+    @Override
+    public List<GrantedAuthority> getAuthorities() {
+        authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(role));
+        return authorities;
+    }
+
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
     public static UserDto toGuestDto(UserEntity guestEntity) {
         UserDto guestDto = new UserDto();
         guestDto.setId(guestEntity.getId());

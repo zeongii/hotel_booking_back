@@ -7,8 +7,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-    private String resoucePath = "/upload/**";
-    private String savePath = "file:///C:/uploads/";
+    private String resoucePath = "src/main/uploads/**";
+    private String savePath = "src/main/uploads/room";
 
     @Override
     public void addResourceHandlers (ResourceHandlerRegistry registry){

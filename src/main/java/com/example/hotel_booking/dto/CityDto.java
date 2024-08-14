@@ -9,6 +9,6 @@ import java.io.Serializable;
  */
 @Value
 public class CityDto implements Serializable {
-    Long id;
-    String cityName;
+    private Long id;
+    private String cityName;
 }

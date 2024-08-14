@@ -36,7 +36,6 @@ import java.util.*;
 public class HotelController {
     private final HotelService hotelService;
     private final FacilityService facilityService;
-    private final HotelFileService hotelFileService;
 
     @GetMapping("hotelAll")
     public HashMap<String, Object> hotelAll() {
@@ -46,16 +45,9 @@ public class HotelController {
         return resultmap;
     }
 
-    @GetMapping("hotelOne/{id}")
-    public HashMap<String, Object> selectOne(@PathVariable Long id) {
-        HashMap<String, Object> hashMap = new HashMap<>();
-        HotelDto hotelDto = hotelService.findById(id);
-        List<HotelFileDto> hotelFileDtoList = hotelFileService.findByHotelId(id);
+    public HotelDto selectOne(@PathVariable Long id) {
 
-        hashMap.put("hotelDto", hotelDto);
-        hashMap.put("hotelFileDtoList", hotelFileDtoList);
-        return hashMap;
-
+        return hotelService.findById(id);
     }
 
     @PostMapping("insert")
@@ -94,12 +86,7 @@ public class HotelController {
 
         System.out.println("HotelController.write");
 
-        HashMap<String, Object> resultMap = new HashMap<>();
-        resultMap.put("result", hotelDto);
-        resultMap.put("resultId", id);
-
-        return resultMap;
-
+        return valueMap;
     }
 
     @GetMapping("delete/{id}")
@@ -107,67 +94,4 @@ public class HotelController {
         System.out.println("id = " + id);
         hotelService.delete(id);
     }
-
-    @PostMapping("imgInsert/{id}")
-    public void insertImg(@RequestParam(value = "file", required = false) MultipartFile[] files, @RequestParam Long id, HttpServletRequest request) throws IOException {
-        System.out.println("HotelController.insertImg");
-        System.out.println("files = " + Arrays.toString(files) + ", id = " + id);
-
-        StringBuilder fileNames = new StringBuilder();
-
-        Path uploadPath = Paths.get("src/main/resources/uploads/hotel");
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
-
-
-        for (MultipartFile file : files) {
-            String originalFileName = file.getOriginalFilename();
-            long fileSize = file.getSize();
-            String extension = "";
-
-            if (originalFileName != null && originalFileName.contains(".")) {
-                extension = originalFileName.substring(originalFileName.lastIndexOf('.') + 1);
-            }
-
-            String storedFileName = System.currentTimeMillis() + "." + extension;
-            fileNames.append(",").append(storedFileName);
-
-            Path filePath = uploadPath.resolve(storedFileName);
-            try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-
-            }
-
-            HotelFileDto temp = new HotelFileDto();
-            temp.setId(id);
-            temp.setOriginalFileName(originalFileName);
-            temp.setStoredFileName(storedFileName);
-            temp.setExtension(extension);
-
-            System.out.println(temp);
-
-            hotelFileService.save(temp, id);
-
-        }
-
-    }
-
-    @GetMapping("image")
-    public ResponseEntity<Resource> getImage(@RequestParam String fileName) throws IOException {
-        Path filePath = Paths.get("src/main/resources/uploads/hotel").resolve(fileName);
-        if (Files.exists(filePath)) {
-            Resource fileResource = new UrlResource(filePath.toUri());
-            return ResponseEntity.ok()
-                    .body(fileResource);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-
-
-
-
-
 }
