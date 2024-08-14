@@ -48,7 +48,6 @@ public class RoomService {
         return null;
     }
 
-
     @Transactional
     public List<RoomDto> selectAll(Long hotelId) {
         HotelEntity hotelEntity = HOTEL_REPOSITORY.findById(hotelId).get();
@@ -85,7 +84,6 @@ public class RoomService {
 
     @Transactional
     public void delete(Long id) {
-
         ROOM_REPOSITORY.deleteById(id);
     }
 

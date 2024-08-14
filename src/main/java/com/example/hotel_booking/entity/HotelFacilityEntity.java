@@ -29,13 +29,20 @@ public class HotelFacilityEntity {
                 return facilityEntity;
         }
 
+    public static HotelFacilityEntity toHotelFacilityEntity(FacilityDto facilityDto,HotelEntity hotelEntity) {
+        HotelFacilityEntity hotelFacilityEntity = new HotelFacilityEntity();
+        hotelFacilityEntity.setId(facilityDto.getId());
+        hotelFacilityEntity.setFacilityId(facilityDto.getFacilityId());
+        hotelFacilityEntity.setHotelEntity(hotelEntity);
+        return hotelFacilityEntity;
+    }
+
         /*public static FacilityEntity toFacilityEntity(FacilityDto facilityDto){
                 FacilityEntity facilityEntity = new FacilityEntity();
                 facilityEntity.setId(facilityDto.getId());
                 facilityEntity.setFacilityId(facilityDto.getFacilityId());
                 return facilityEntity;
         }*/
-
 
 
 

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.util.HashMap;
+import java.util.List;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,15 +75,13 @@ public class RoomController {
     }
 
 
-    /*@GetMapping("write/{hotelId}")
+    @GetMapping("write/{hotelId}")
     public RoomDto write(@PathVariable Long hotelId) {
         RoomDto roomDto = new RoomDto();
         roomDto.setHotelId(1L);
         System.out.println(roomDto);
         return roomDto;
-    }*/
-
-
+    }
     @PostMapping("imgInsert/{id}")
     public void insertImg(@RequestParam(value = "file", required = false) MultipartFile[] files, @PathVariable Long id, HttpServletRequest request) throws IOException {
 
@@ -132,7 +132,6 @@ public class RoomController {
         List<RoomTypeDto> roomTypeDtoList = ROOM_TYPE_SERVICE.selectAll();
         HashMap<String, Object> resultMap = new HashMap<>();
         try {
-
             Long id = ROOM_SERVICE.insert(roomDto);
             resultMap.put("result", "success");
             resultMap.put("roomId", id);
@@ -143,7 +142,6 @@ public class RoomController {
         }
         return resultMap;
     }
-
 
     @PostMapping("update")
     public HashMap<String, Object> update(@RequestBody RoomDto roomDto, Long hotelId) {
@@ -181,6 +179,5 @@ public class RoomController {
             return ResponseEntity.notFound().build();
         }
     }
-
 
 }

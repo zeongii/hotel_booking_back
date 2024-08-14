@@ -1,9 +1,10 @@
 package com.example.hotel_booking.service;
 
-
 import com.example.hotel_booking.dto.ReservationDto;
+import com.example.hotel_booking.entity.ReservationEntity;
 import com.example.hotel_booking.entity.*;
 import com.example.hotel_booking.repository.ReservationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.example.hotel_booking.repository.RoomRepository;
 import com.example.hotel_booking.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -19,6 +20,7 @@ public class ReservationService {
     private final ReservationRepository RESERVATION_REPOSITORY;
     private final UserRepository USER_REPOSITORY;
 
+    @Autowired
     public ReservationService(RoomRepository ROOM_REPOSITORY, ReservationRepository RESERVATION_REPOSITORY, UserRepository USER_REPOSITORY) {
         this.ROOM_REPOSITORY = ROOM_REPOSITORY;
         this.RESERVATION_REPOSITORY = RESERVATION_REPOSITORY;
@@ -77,8 +79,12 @@ public class ReservationService {
         return reservationDto;
     }
 
-
-
-
-
+    public List<ReservationDto> findAllByGuestId(Long id) {
+        List<ReservationEntity> reservationEntities = RESERVATION_REPOSITORY.findByGuestId(id);
+        List<ReservationDto> reservationDtoList = new ArrayList<>();
+        for (ReservationEntity reservationEntity : reservationEntities) {
+            reservationDtoList.add(ReservationDto.toReservationDto(reservationEntity));
+        }
+        return reservationDtoList;
+    }
 }

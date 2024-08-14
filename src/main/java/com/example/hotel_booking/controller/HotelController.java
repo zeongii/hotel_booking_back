@@ -2,13 +2,31 @@ package com.example.hotel_booking.controller;
 
 import com.example.hotel_booking.dto.FacilityDto;
 import com.example.hotel_booking.dto.HotelDto;
+import com.example.hotel_booking.dto.HotelFileDto;
 import com.example.hotel_booking.service.FacilityService;
+import com.example.hotel_booking.service.HotelFileService;
 import com.example.hotel_booking.service.HotelService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.relational.core.sql.In;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 
 @RestController
@@ -27,7 +45,6 @@ public class HotelController {
         return resultmap;
     }
 
-    @GetMapping("hotelOne/{id}")
     public HotelDto selectOne(@PathVariable Long id) {
 
         return hotelService.findById(id);
@@ -53,10 +70,10 @@ public class HotelController {
         Long id = hotelService.save(hotelDto);
 
 
-        List<FacilityDto>  facilityDtoList = new ArrayList<>();
+        List<FacilityDto> facilityDtoList = new ArrayList<>();
         System.out.println(valueMap.get("facilities").getClass());
 
-        List<Integer> facilityList = (ArrayList<Integer>)valueMap.get("facilities");
+        List<Integer> facilityList = (ArrayList<Integer>) valueMap.get("facilities");
         for (int i = 0; i < facilityList.size(); i++) {
             FacilityDto temp = new FacilityDto();
             temp.setHotelId(id);
@@ -70,8 +87,11 @@ public class HotelController {
         System.out.println("HotelController.write");
 
         return valueMap;
-
     }
 
-
+    @GetMapping("delete/{id}")
+    public void deleteHotel(@PathVariable Long id) {
+        System.out.println("id = " + id);
+        hotelService.delete(id);
+    }
 }

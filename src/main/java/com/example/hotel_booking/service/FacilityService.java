@@ -4,6 +4,8 @@ import com.example.hotel_booking.dto.FacilityDto;
 import com.example.hotel_booking.entity.FacilityEntity;
 import com.example.hotel_booking.entity.HotelEntity;
 import com.example.hotel_booking.entity.HotelFacilityEntity;
+import com.example.hotel_booking.repository.FacilityRepository;
+import com.example.hotel_booking.entity.HotelFacilityEntity;
 import com.example.hotel_booking.repository.HotelFacilityRepository;
 import com.example.hotel_booking.repository.HotelRepository;
 import lombok.RequiredArgsConstructor;

@@ -14,9 +14,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoomTypeDto implements Serializable {
-    Long id;
-    String typeName;
-    String typeContent;
+    private Long id;
+    private String typeName;
+    private String typeContent;
+
     public static RoomTypeDto toRoomTypeDto(RoomTypeEntity roomTypeEntity) {
         RoomTypeDto roomTypeDto = new RoomTypeDto();
         roomTypeDto.setId(roomTypeEntity.getId());

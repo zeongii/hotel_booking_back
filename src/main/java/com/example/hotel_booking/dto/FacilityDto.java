@@ -27,6 +27,4 @@ public class FacilityDto implements Serializable {
         facilityDto.setFacilityId(hotelFacilityEntity.getFacilityId());
         return facilityDto;
     }
-
-
 }

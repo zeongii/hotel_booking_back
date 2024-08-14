@@ -1,4 +1,5 @@
 package com.example.hotel_booking.entity;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,5 @@ public class FacilityEntity {
 
         @Column(name = "facility_name")
         private String facilityName;
-
-
 }
 

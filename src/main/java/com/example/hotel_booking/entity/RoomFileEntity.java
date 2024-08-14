@@ -28,13 +28,12 @@ public class RoomFileEntity extends TimeEntity{
     @JoinColumn(name="room_id")
     private RoomEntity roomEntity;
 
-    public static RoomFileEntity toRoomFileEntity(RoomFileDto roomFileDto,RoomEntity roomEntity) {
+    public static RoomFileEntity toRoomFileEntity(RoomFileDto roomFileDto, RoomEntity roomEntity) {
         RoomFileEntity roomFileEntity = new RoomFileEntity();
         roomFileEntity.setOriginalFileName(roomFileDto.getOriginalFileName());
         roomFileEntity.setStoredFileName(roomFileDto.getStoredFileName());
         roomFileEntity.setExtension(roomFileEntity.extension);
         roomFileEntity.setRoomEntity(roomEntity);
-
         return roomFileEntity;
     }
 }

@@ -8,6 +8,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,37 +19,48 @@ import java.util.List;
  */
 @Data
 public class UserDto implements Serializable, UserDetails {
-
     private UserEntity user;
-
-    private Long id;
-    private String email;
-    private String password;
-    private String name;
-    private String nickname;
-    private String role;
-    private String address;
-    private String userGender;
-    private String phone;
-    private int userGrade;
-    private Long userTotalAmount;
-    private int enabled;
+    Long id;
+    String email;
+    String password;
+    String name;
+    String nickname;
+    String role;
+    String address;
+    String userGender;
+    String phone;
+    int userGrade;
+    Long userTotalAmount;
+    int enabled;
 
     private List<GrantedAuthority> authorities;
 
-    @Override
     public List<GrantedAuthority> getAuthorities() {
         authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(role));
         return authorities;
     }
 
-
-    @Override
     public String getUsername() {
         return email;
     }
 
+    public static UserDto toGuestDto(UserEntity guestEntity) {
+        UserDto guestDto = new UserDto();
+        guestDto.setId(guestEntity.getId());
+        guestDto.setEmail(guestEntity.getEmail());
+        guestDto.setPassword(guestEntity.getPassword());
+        guestDto.setName(guestEntity.getName());
+        guestDto.setNickname(guestEntity.getNickname());
+        guestDto.setRole(guestEntity.getRole());
+        guestDto.setAddress(guestEntity.getAddress());
+        guestDto.setUserGender(guestEntity.getUserGender());
+        guestDto.setPhone(guestEntity.getPhone());
+        guestDto.setUserGrade(guestEntity.getUserGrade());
+        guestDto.setUserTotalAmount(guestEntity.getUserTotalAmount());
+        guestDto.setEnabled(guestEntity.getEnabled());
+        return guestDto;
+    }
 
     public static UserDto toUserDto(UserEntity userEntity) {
         UserDto userDto = new UserDto();

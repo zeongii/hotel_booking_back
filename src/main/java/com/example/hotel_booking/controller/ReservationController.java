@@ -5,6 +5,9 @@ import com.example.hotel_booking.dto.RoomDto;
 import com.example.hotel_booking.dto.RoomFileDto;
 import com.example.hotel_booking.service.*;
 import org.springframework.web.bind.annotation.*;
+import com.example.hotel_booking.service.ReservationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +16,7 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/reservation/")
 public class ReservationController {
+    ReservationService reservationService;
 
     private final ReservationService RESERVATION_SERVICE;
     private final UserService USER_SERVICE;
@@ -41,33 +45,34 @@ public class ReservationController {
         List<RoomFileDto> roomFileDtoList = ROOM_FILE_SERVICE.findByRoomId(reservationDto.getRoomId());
 
         resultMap.put("reservationDto", reservationDto);
-        resultMap.put("roomDto",roomDto);
-        resultMap.put("roomTypeList",ROOM_TYPE_SERVICE.selectAll());
-        resultMap.put("roomFileDtoList",roomFileDtoList);
+        resultMap.put("roomDto", roomDto);
+        resultMap.put("roomTypeList", ROOM_TYPE_SERVICE.selectAll());
+        resultMap.put("roomFileDtoList", roomFileDtoList);
 
         return resultMap;
     }
 
     @PostMapping("roomReservation/{roomId}")
-    public HashMap<String,Object> write(@PathVariable Long roomId, @RequestBody ReservationDto reservationDto) {
+    public HashMap<String, Object> write(@PathVariable Long roomId, @RequestBody ReservationDto reservationDto) {
         reservationDto.setRoomId(roomId);
         // 유저 정보는 가져와야하니까 로그인된 사람이 예약눌렀을때 로그인된 아이디의 id값을 출력해야함
         reservationDto.setUserId(1L);
-        String reservationNum= String.valueOf(System. currentTimeMillis());
+        String reservationNum = String.valueOf(System.currentTimeMillis());
         reservationDto.setReservationNumber(reservationNum);
         // 가격은 계산 나중에 다시 설정
 
-        reservationDto.setPayPrice(ROOM_SERVICE.selectOne(roomId).getRoomPrice()*2);
-        HashMap<String,Object> resultMap = new HashMap<>();
+        reservationDto.setPayPrice(ROOM_SERVICE.selectOne(roomId).getRoomPrice() * 2);
+        HashMap<String, Object> resultMap = new HashMap<>();
         try {
-            Long reservationId=RESERVATION_SERVICE.insert(reservationDto);
+            Long reservationId = RESERVATION_SERVICE.insert(reservationDto);
 
-            resultMap.put("result","success");
-            resultMap.put("reservationId",reservationId);
+            resultMap.put("result", "success");
+            resultMap.put("reservationId", reservationId);
         } catch (Exception e) {
             e.printStackTrace();
-            resultMap.put("result","fail");
+            resultMap.put("result", "fail");
         }
         return resultMap;
     }
 }
+

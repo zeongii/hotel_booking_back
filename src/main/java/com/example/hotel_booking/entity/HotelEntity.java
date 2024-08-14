@@ -61,6 +61,9 @@ public class HotelEntity extends TimeEntity{
     @JoinColumn(name = "user_id")
     private UserEntity businessEntity;
 
+    @OneToMany(mappedBy = "hotelEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<HotelFacilityEntity> hotelFacilityEntities;
+
     @OneToMany(mappedBy = "hotelEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<HotelFileEntity> hotelFileEntityList = new ArrayList<>();
 
@@ -90,12 +93,19 @@ public class HotelEntity extends TimeEntity{
         return hotelEntity;
     }
 
-
-
-
-
-
-
-
+    @Override
+    public String toString() {
+        return "HotelEntity{" +
+                "id=" + id +
+                ", hotelName='" + hotelName + '\'' +
+                ", hotelAddress='" + hotelAddress + '\'' +
+                ", hotelPhone='" + hotelPhone + '\'' +
+                ", hotelEmail='" + hotelEmail + '\'' +
+                ", hotelGrade=" + hotelGrade +
+                ", cityId=" + cityEntity.getId() +
+                ", businessEntity=" + businessEntity +
+                ", hotelFileEntityList=" + hotelFileEntityList +
+                '}';
+    }
 }
 
