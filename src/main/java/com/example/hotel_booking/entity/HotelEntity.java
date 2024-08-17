@@ -64,6 +64,9 @@ public class HotelEntity extends TimeEntity{
     @OneToMany(mappedBy = "hotelEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<HotelFacilityEntity> hotelFacilityEntities;
 
+    @OneToMany(mappedBy = "hotelEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<RoomEntity> roomEntities;
+
     @OneToMany(mappedBy = "hotelEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<HotelFileEntity> hotelFileEntityList = new ArrayList<>();
 
@@ -81,7 +84,7 @@ public class HotelEntity extends TimeEntity{
         return hotelEntity;
     }
 
-    public static HotelEntity toSaveHotelEntity(HotelDto hotelDto){
+    public static HotelEntity updateHotelEntity(HotelDto hotelDto, CityEntity cityEntity){
         HotelEntity hotelEntity = new HotelEntity();
         hotelEntity.setId(hotelDto.getId());
         hotelEntity.setHotelName(hotelDto.getHotelName());
@@ -89,6 +92,8 @@ public class HotelEntity extends TimeEntity{
         hotelEntity.setHotelPhone(hotelDto.getHotelPhone());
         hotelEntity.setHotelEmail(hotelDto.getHotelEmail());
         hotelEntity.setHotelGrade(hotelDto.getHotelGrade());
+        hotelEntity.setCityEntity(cityEntity);
+
 
         return hotelEntity;
     }

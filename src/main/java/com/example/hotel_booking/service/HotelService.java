@@ -1,12 +1,12 @@
 package com.example.hotel_booking.service;
 
+import com.example.hotel_booking.dto.FacilityDto;
 import com.example.hotel_booking.dto.HotelDto;
 import com.example.hotel_booking.entity.CityEntity;
+import com.example.hotel_booking.entity.FacilityEntity;
 import com.example.hotel_booking.entity.HotelEntity;
-import com.example.hotel_booking.repository.FacilityRepository;
-import com.example.hotel_booking.repository.CityRepository;
-import com.example.hotel_booking.repository.HotelFileRepository;
-import com.example.hotel_booking.repository.HotelRepository;
+import com.example.hotel_booking.entity.HotelFacilityEntity;
+import com.example.hotel_booking.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -23,17 +23,20 @@ public class HotelService {
     private final HotelRepository hotelRepository;
     private final FacilityRepository facilityRepository;
     private final CityRepository cityRepository;
+    private final HotelFacilityRepository hotelFacilityRepository;
 
     @Autowired
-    public HotelService(HotelRepository hotelRepository, FacilityRepository facilityRepository, CityRepository cityRepository) {
+    public HotelService(HotelRepository hotelRepository, FacilityRepository facilityRepository, CityRepository cityRepository, HotelFacilityRepository hotelFacilityRepository) {
         this.hotelRepository = hotelRepository;
         this.facilityRepository = facilityRepository;
         this.cityRepository = cityRepository;
+        this.hotelFacilityRepository = hotelFacilityRepository;
     }
 
 
     public List<HotelDto> searchHotel(List<Long> gradeList, List<Long> cityIdList
             , List<Long> facilityIdList, String hotelName) {
+
         List<HotelDto> hotelDtoList = new ArrayList<>();
 
         List<Long> hotelIdListFindByGrade = new ArrayList<>();
@@ -176,7 +179,7 @@ public class HotelService {
         List<HotelEntity> hotelEntityList = hotelRepository.findAll();
         List <HotelDto> hotelDtoList = new ArrayList<>();
         for (HotelEntity hotelEntity : hotelEntityList){
-            hotelDtoList.add(HotelDto.toHotelDto(hotelEntity));
+            hotelDtoList.add(HotelDto.toAllHotelDto(hotelEntity));
         }
         return hotelDtoList;
     }
@@ -185,11 +188,28 @@ public class HotelService {
         Optional<HotelEntity> optionalHotelEntity = hotelRepository.findById(id);
         if(optionalHotelEntity.isPresent()){
             HotelEntity hotelEntity = optionalHotelEntity.get();
-            HotelDto hotelDto = HotelDto.toHotelDto(hotelEntity);
+
+            HotelDto hotelDto = HotelDto.toAllHotelDto(hotelEntity);
 
             return hotelDto;
         } else {
             return null;
         }
     }
+
+    public HotelDto update(HotelDto hotelDto) {
+        CityEntity cityEntity = cityRepository.findById(hotelDto.getCityId()).get();
+        HotelEntity hotelEntity = HotelEntity.updateHotelEntity(hotelDto, cityEntity);
+        HotelEntity hotel = hotelRepository.save(hotelEntity);
+
+        return findById(hotel.getId());
+    }
+
+    public List<Long> facilityAll(long id) {
+        List<Long> byHotelEntityId = hotelFacilityRepository.findByHotelEntity_id(id);
+        Collections.sort(byHotelEntityId);
+        return byHotelEntityId;
+    }
+
+
 }

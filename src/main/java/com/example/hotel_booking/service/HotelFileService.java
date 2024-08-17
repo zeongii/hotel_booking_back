@@ -24,7 +24,7 @@ public class HotelFileService {
     private final HotelRepository hotelRepository;
     private final HotelFileRepository hotelFileRepository;
 
-    private String uploadDir = "src/main/resources/uploads/hotel";
+
 
     @Autowired
     public HotelFileService(HotelFileRepository hotelFileRepository, HotelRepository hotelRepository) {
@@ -40,6 +40,8 @@ public class HotelFileService {
         hotelFileRepository.save(hotelFileEntity);
     }
 
+
+
     public List<HotelFileDto> findByHotelId(long id) {
         List<HotelFileEntity> hotelFileEntityList = hotelFileRepository.findByHotelEntity_id(id);
         List<HotelFileDto> hotelFileDtoList = new ArrayList<>();
@@ -50,21 +52,12 @@ public class HotelFileService {
         return hotelFileDtoList;
     }
 
-    public Map<Long, List<HotelFileDto>> getThumbnailList(List<Long> hotelIdList) {
-        Map<Long, List<HotelFileDto>> map = new HashMap<>();
-
-        for (Long hotelId : hotelIdList) {
-            List<HotelFileEntity> tempHotelFileEntityList = hotelFileRepository.findByHotelId(hotelId);
-
-            List<HotelFileDto> hotelFileDtoList = new ArrayList<>();
-            for (HotelFileEntity hotelFileEntity : tempHotelFileEntityList) {
-                HotelFileDto tempHotelFileDto = HotelFileDto.toHotelFileDto(hotelFileEntity, hotelId);
-                hotelFileDtoList.add(tempHotelFileDto);
-            }
-
-            map.put(hotelId, hotelFileDtoList);
+    public List<String> findByHotelIdToName(Long id) {
+        List<HotelFileEntity> hotelFileEntityList = hotelFileRepository.findByHotelEntity_id(id);
+        List <String> hotelFileStoredNameList=new ArrayList<>();
+        for (HotelFileEntity hotelFileEntity : hotelFileEntityList) {
+            hotelFileStoredNameList.add(HotelFileDto.toHotelFileDto(hotelFileEntity,id).getStoredFileName());
         }
-
-        return map;
+        return hotelFileStoredNameList;
     }
 }

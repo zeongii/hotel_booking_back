@@ -11,7 +11,6 @@ import com.example.hotel_booking.repository.HotelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +21,6 @@ public class FacilityService {
 
     private final HotelFacilityRepository hotelFacilityRepository;
     private final HotelRepository hotelRepository;
-
 
 
     public List<FacilityDto> selectAll(Long hotelId) {
@@ -40,12 +38,21 @@ public class FacilityService {
     public void save(List<FacilityDto> facilityDtoList, Long hotelId) {
         Optional<HotelEntity> optionalHotelEntity = hotelRepository.findById(hotelId);
         HotelEntity hotelEntity = optionalHotelEntity.get();
-        for(int i = 0 ; i < facilityDtoList.size(); i++){
+        for (int i = 0; i < facilityDtoList.size(); i++) {
             HotelFacilityEntity facilityEntity = HotelFacilityEntity.toFacilityEntity(facilityDtoList.get(i), hotelEntity);
             hotelFacilityRepository.save(facilityEntity);
         }
 
     }
 
+    public void update(List<FacilityDto> facilityDtoList, Long hotelId) {
+        Optional<HotelEntity> optionalHotelEntity = hotelRepository.findById(hotelId);
+        HotelEntity hotelEntity = optionalHotelEntity.get();
+        for (int i = 0; i < facilityDtoList.size(); i++) {
+            HotelFacilityEntity facilityEntity = HotelFacilityEntity.toUpdateFacilityEntity(facilityDtoList.get(i), hotelEntity);
+            hotelFacilityRepository.save(facilityEntity);
+        }
+
+    }
 
 }
