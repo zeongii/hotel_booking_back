@@ -4,6 +4,10 @@ import com.example.hotel_booking.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * packageName : com.example.hotel_booking.entity
@@ -66,6 +70,15 @@ public class UserEntity {
     @Column(name = "enabled")
     private int enabled;
 
+    @Column(name = "visitor_count")
+    private Long visitorCount;
+
+    @CreatedDate
+    private LocalDateTime createdTime;
+
+    @OneToMany(mappedBy = "businessEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HotelEntity> hotels;
+
     public static UserEntity toGuestEntity(UserDto guestDto) {
         UserEntity guestEntity = new UserEntity();
         guestEntity.setId(guestDto.getId());
@@ -80,6 +93,7 @@ public class UserEntity {
         guestEntity.setUserGrade(guestDto.getUserGrade());
         guestEntity.setUserTotalAmount(guestDto.getUserTotalAmount());
         guestEntity.setEnabled(guestDto.getEnabled());
+        guestEntity.setVisitorCount(guestDto.getVisitorCount());
         return guestEntity;
     }
 
@@ -96,6 +110,7 @@ public class UserEntity {
         userEntity.setUserGrade(userDto.getUserGrade());
         userEntity.setUserTotalAmount(userDto.getUserTotalAmount());
         userEntity.setEnabled(userDto.getEnabled());
+        userEntity.setVisitorCount(userDto.getVisitorCount());
 
         return userEntity;
     }
