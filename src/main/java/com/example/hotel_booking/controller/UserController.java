@@ -1,6 +1,7 @@
 package com.example.hotel_booking.controller;
 
 import com.example.hotel_booking.dto.UserDto;
+import com.example.hotel_booking.service.AdminUserService;
 import com.example.hotel_booking.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -22,6 +24,8 @@ public class UserController {
     private final UserService USER_SERVICE;
     @Autowired
     private BCryptPasswordEncoder encoder;
+    @Autowired
+    private AdminUserService adminUserService;
 
     public UserController(UserService USER_SERVICE) {
         this.USER_SERVICE = USER_SERVICE;
@@ -73,6 +77,14 @@ public class UserController {
             resultMap.put("result", "fail");
         }
         return resultMap;
+    }
+
+    @GetMapping("userCount")
+    public ResponseEntity<Map<String, Integer>> getUserCount(@RequestParam List<String> roles) {
+        int userCount = adminUserService.countUsers(roles);
+        Map<String, Integer> response = new HashMap<>();
+        response.put("userCount", userCount);
+        return ResponseEntity.ok(response);
     }
 
 }

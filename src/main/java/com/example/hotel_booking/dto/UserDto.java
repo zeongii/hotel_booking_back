@@ -32,6 +32,7 @@ public class UserDto implements Serializable, UserDetails {
     int userGrade;
     Long userTotalAmount;
     int enabled;
+    Long visitorCount;
 
     private List<GrantedAuthority> authorities;
 
