@@ -1,4 +1,4 @@
-INSERT INTO city (city_name)
+/*INSERT INTO city (city_name)
 VALUES ('Seoul'),
        ('Gyeonggi'),
        ('Incheon'),
@@ -170,3 +170,4 @@ VALUES
     ('Incheon Airport', 'Enjoy the amenities of Incheon International Airport.'),
     ('Jeonju Hanok Village', 'Explore traditional Korean houses in Jeonju.'),
     ('Ulleungdo Adventure', 'Discover the unique island of Ulleungdo.');
+*/

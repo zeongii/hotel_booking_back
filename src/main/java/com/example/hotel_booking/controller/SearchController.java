@@ -67,6 +67,10 @@ public class SearchController {
         List<HotelDto> hotelDtoList = hotelService.searchHotel(gradeList, cityIdList, facilityIdList, hotelName);
         //Map<Long, List<HotelFileDto>> hotelFileDtoList = hotelFileService.getThumbnailList(hotelDtoList.stream().map(HotelDto::getId).toList());
 
+        for (HotelDto hotelDto : hotelDtoList) {
+            hotelDto.setImageList(hotelFileService.findByHotelIdToName(hotelDto.getId()));
+        }
+
         String startDateData = data.get("startDate").toString();
         String endDateData = data.get("endDate").toString();
         String startDate = "";

@@ -42,6 +42,8 @@ public class HotelController {
 
 
 
+
+
         System.out.println(hotelDtoList);
 
         resultmap.put("hotelList", hotelDtoList);
@@ -159,7 +161,7 @@ public class HotelController {
     }
 
     @PostMapping("imgInsert/{id}")
-    public void insertImg(@RequestParam(value = "file", required = false) MultipartFile[] files, @RequestParam Long id) throws IOException {
+    public ResponseEntity<String> insertImg(@RequestParam(value = "file", required = false) MultipartFile[] files, @RequestParam Long id) throws IOException {
         System.out.println("HotelController.insertImg");
         System.out.println("files = " + Arrays.toString(files) + ", id = " + id);
 
@@ -173,7 +175,6 @@ public class HotelController {
 
         for (MultipartFile file : files) {
             String originalFileName = file.getOriginalFilename();
-            long fileSize = file.getSize();
             String extension = "";
 
             if (originalFileName != null && originalFileName.contains(".")) {
@@ -190,16 +191,17 @@ public class HotelController {
             }
 
             HotelFileDto temp = new HotelFileDto();
-            temp.setId(id);
+            temp.setHotelId(id);
             temp.setOriginalFileName(originalFileName);
             temp.setStoredFileName(storedFileName);
             temp.setExtension(extension);
 
             System.out.println(temp);
 
-            hotelFileService.save(temp, id);
 
         }
+        return ResponseEntity.ok("Files uploaded successfully");
+
 
     }
 
