@@ -33,6 +33,7 @@ public class HotelDto implements Serializable {
     private String hotelEmail;
     private Long hotelGrade;
     private Long cityId;
+    private Long userId;
     private List<String> imageList;
 
 
@@ -49,6 +50,7 @@ public class HotelDto implements Serializable {
             hotelDto.setHotelPhone(hotelEntity.getHotelPhone());
             hotelDto.setHotelGrade(hotelEntity.getHotelGrade());
             hotelDto.setCityId(hotelEntity.getCityEntity().getId());
+            hotelDto.setUserId(hotelEntity.getBusinessEntity().getId());
         }
 
         return hotelDto;
@@ -63,6 +65,8 @@ public class HotelDto implements Serializable {
         hotelDto.setHotelPhone(hotelEntity.getHotelPhone());
         hotelDto.setHotelGrade(hotelEntity.getHotelGrade());
         hotelDto.setCityId(hotelEntity.getCityEntity().getId());
+        hotelDto.setUserId(hotelEntity.getBusinessEntity().getId());
+
 
         return hotelDto;
     }

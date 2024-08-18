@@ -2,10 +2,7 @@ package com.example.hotel_booking.service;
 
 import com.example.hotel_booking.dto.FacilityDto;
 import com.example.hotel_booking.dto.HotelDto;
-import com.example.hotel_booking.entity.CityEntity;
-import com.example.hotel_booking.entity.FacilityEntity;
-import com.example.hotel_booking.entity.HotelEntity;
-import com.example.hotel_booking.entity.HotelFacilityEntity;
+import com.example.hotel_booking.entity.*;
 import com.example.hotel_booking.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.transaction.Transactional;
@@ -24,13 +21,15 @@ public class HotelService {
     private final FacilityRepository facilityRepository;
     private final CityRepository cityRepository;
     private final HotelFacilityRepository hotelFacilityRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public HotelService(HotelRepository hotelRepository, FacilityRepository facilityRepository, CityRepository cityRepository, HotelFacilityRepository hotelFacilityRepository) {
+    public HotelService(HotelRepository hotelRepository, FacilityRepository facilityRepository, CityRepository cityRepository, HotelFacilityRepository hotelFacilityRepository, UserRepository userRepository) {
         this.hotelRepository = hotelRepository;
         this.facilityRepository = facilityRepository;
         this.cityRepository = cityRepository;
         this.hotelFacilityRepository = hotelFacilityRepository;
+        this.userRepository = userRepository;
     }
 
 
@@ -162,7 +161,8 @@ public class HotelService {
 
     public Long save(HotelDto hotelDto) {
         CityEntity cityEntity = cityRepository.findById(hotelDto.getCityId()).get();
-        HotelEntity hotelEntity = HotelEntity.toHotelEntity(hotelDto, cityEntity);
+        UserEntity userEntity = userRepository.findById(hotelDto.getUserId()).get();
+        HotelEntity hotelEntity = HotelEntity.toHotelEntity(hotelDto, cityEntity, userEntity);
         HotelEntity hotel = hotelRepository.save(hotelEntity);
         return hotel.getId();
     }
@@ -199,7 +199,8 @@ public class HotelService {
 
     public HotelDto update(HotelDto hotelDto) {
         CityEntity cityEntity = cityRepository.findById(hotelDto.getCityId()).get();
-        HotelEntity hotelEntity = HotelEntity.updateHotelEntity(hotelDto, cityEntity);
+        UserEntity userEntity = userRepository.findById(hotelDto.getUserId()).get();
+        HotelEntity hotelEntity = HotelEntity.updateHotelEntity(hotelDto, cityEntity, userEntity);
         HotelEntity hotel = hotelRepository.save(hotelEntity);
 
         return findById(hotel.getId());

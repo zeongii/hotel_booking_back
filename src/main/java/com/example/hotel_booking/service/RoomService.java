@@ -4,10 +4,8 @@ import com.example.hotel_booking.dto.RoomDto;
 import com.example.hotel_booking.entity.HotelEntity;
 import com.example.hotel_booking.entity.RoomEntity;
 import com.example.hotel_booking.entity.RoomTypeEntity;
-import com.example.hotel_booking.repository.HotelRepository;
-import com.example.hotel_booking.repository.RoomFileRepository;
-import com.example.hotel_booking.repository.RoomRepository;
-import com.example.hotel_booking.repository.RoomTypeRepository;
+import com.example.hotel_booking.entity.UserEntity;
+import com.example.hotel_booking.repository.*;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +23,15 @@ public class RoomService {
     private final RoomRepository ROOM_REPOSITORY;
     private final RoomFileRepository ROOM_FILE_REPOSITORY;
     private final RoomTypeRepository ROOM_TYPE_REPOSITORY;
+    private final UserRepository userRepository;
 
 
-    public RoomService(HotelRepository hotelRepository, RoomRepository roomRepository, RoomTypeRepository roomTypeRepository, RoomFileRepository roomFileRepository) {
+    public RoomService(HotelRepository hotelRepository, RoomRepository roomRepository, RoomTypeRepository roomTypeRepository, RoomFileRepository roomFileRepository, UserRepository userRepository) {
         this.HOTEL_REPOSITORY = hotelRepository;
         this.ROOM_REPOSITORY = roomRepository;
         this.ROOM_FILE_REPOSITORY = roomFileRepository;
         this.ROOM_TYPE_REPOSITORY = roomTypeRepository;
+        this.userRepository = userRepository;
     }
 
     public Long insert(RoomDto roomDto) throws IOException {
@@ -39,9 +39,9 @@ public class RoomService {
         Optional<HotelEntity> optionalHotelEntity = HOTEL_REPOSITORY.findById(roomDto.getHotelId());
         if (optionalHotelEntity.isPresent()) {
             HotelEntity hotelEntity = optionalHotelEntity.get();
-
+            UserEntity userEntity = userRepository.findById(roomDto.getUserId()).get();
             RoomTypeEntity roomTypeEntity = ROOM_TYPE_REPOSITORY.findById(roomDto.getRoomTypeId()).get();
-            RoomEntity roomEntity = RoomEntity.toInsertEntity(roomDto, hotelEntity, roomTypeEntity);
+            RoomEntity roomEntity = RoomEntity.toInsertEntity(roomDto, hotelEntity, roomTypeEntity, userEntity);
             return ROOM_REPOSITORY.save(roomEntity).getId();
 
         }
@@ -77,7 +77,8 @@ public class RoomService {
     public RoomDto update(RoomDto roomDto) {
         HotelEntity hotelEntity = HOTEL_REPOSITORY.findById(roomDto.getHotelId()).get();
         RoomTypeEntity roomTypeEntity = ROOM_TYPE_REPOSITORY.findById(roomDto.getRoomTypeId()).get();
-        RoomEntity roomEntity = RoomEntity.toUpdateEntity(roomDto, hotelEntity, roomTypeEntity);
+        UserEntity userEntity = userRepository.findById(roomDto.getUserId()).get();
+        RoomEntity roomEntity = RoomEntity.toUpdateEntity(roomDto, hotelEntity, roomTypeEntity, userEntity);
         ROOM_REPOSITORY.save(roomEntity);
         return selectOne(roomDto.getId());
     }

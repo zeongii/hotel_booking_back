@@ -71,7 +71,7 @@ public class HotelEntity extends TimeEntity{
     private List<HotelFileEntity> hotelFileEntityList = new ArrayList<>();
 
 
-    public static HotelEntity toHotelEntity(HotelDto hotelDto, CityEntity cityEntity){
+    public static HotelEntity toHotelEntity(HotelDto hotelDto, CityEntity cityEntity, UserEntity businessEntity){
         HotelEntity hotelEntity = new HotelEntity();
         hotelEntity.setId(hotelDto.getId());
         hotelEntity.setHotelName(hotelDto.getHotelName());
@@ -80,11 +80,12 @@ public class HotelEntity extends TimeEntity{
         hotelEntity.setHotelEmail(hotelDto.getHotelEmail());
         hotelEntity.setHotelGrade(hotelDto.getHotelGrade());
         hotelEntity.setCityEntity(cityEntity);
+        hotelEntity.setBusinessEntity(businessEntity);
 
         return hotelEntity;
     }
 
-    public static HotelEntity updateHotelEntity(HotelDto hotelDto, CityEntity cityEntity){
+    public static HotelEntity updateHotelEntity(HotelDto hotelDto, CityEntity cityEntity, UserEntity businessEntity){
         HotelEntity hotelEntity = new HotelEntity();
         hotelEntity.setId(hotelDto.getId());
         hotelEntity.setHotelName(hotelDto.getHotelName());
@@ -93,6 +94,7 @@ public class HotelEntity extends TimeEntity{
         hotelEntity.setHotelEmail(hotelDto.getHotelEmail());
         hotelEntity.setHotelGrade(hotelDto.getHotelGrade());
         hotelEntity.setCityEntity(cityEntity);
+        hotelEntity.setBusinessEntity(businessEntity);
 
 
         return hotelEntity;

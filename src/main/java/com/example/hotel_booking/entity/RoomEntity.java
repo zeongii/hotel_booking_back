@@ -54,6 +54,10 @@ public class RoomEntity extends TimeEntity {
     @JoinColumn(name = "hotel_id")
     private HotelEntity hotelEntity;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity businessEntity;
+
     @OneToMany(mappedBy = "roomEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<RoomFileEntity> roomFileEntityList = new ArrayList<>();
 
@@ -61,7 +65,7 @@ public class RoomEntity extends TimeEntity {
     @JoinColumn(name = "room_type_id")
     private RoomTypeEntity roomTypeEntity;
 
-    public static RoomEntity toInsertEntity(RoomDto roomDto, HotelEntity hotelEntity, RoomTypeEntity roomTypeEntity) {
+    public static RoomEntity toInsertEntity(RoomDto roomDto, HotelEntity hotelEntity, RoomTypeEntity roomTypeEntity, UserEntity businessEntity) {
         RoomEntity roomEntity = new RoomEntity();
         roomEntity.setRoomName(roomDto.getRoomName());
         roomEntity.setRoomMax(roomDto.getRoomMax());
@@ -72,10 +76,11 @@ public class RoomEntity extends TimeEntity {
         roomEntity.setBreakfastPrice(roomDto.getBreakfastPrice());
         roomEntity.setHotelEntity(hotelEntity);
         roomEntity.setRoomTypeEntity(roomTypeEntity);
+        roomEntity.setBusinessEntity(businessEntity);
         return roomEntity;
     }
 
-    public static RoomEntity toUpdateEntity(RoomDto roomDto, HotelEntity hotelEntity,RoomTypeEntity roomTypeEntity) {
+    public static RoomEntity toUpdateEntity(RoomDto roomDto, HotelEntity hotelEntity,RoomTypeEntity roomTypeEntity, UserEntity businessEntity) {
         RoomEntity roomEntity = new RoomEntity();
         roomEntity.setId(roomDto.getId());
         roomEntity.setRoomName(roomDto.getRoomName());
@@ -87,7 +92,18 @@ public class RoomEntity extends TimeEntity {
         roomEntity.setBreakfastPrice(roomDto.getBreakfastPrice());
         roomEntity.setHotelEntity(hotelEntity);
         roomEntity.setRoomTypeEntity(roomTypeEntity);
+        roomEntity.setBusinessEntity(businessEntity);
+
         return roomEntity;
+    }
+
+    @Override
+    public Object clone() {
+        Object obj = null;
+        try {
+            obj = super.clone();
+        } catch (CloneNotSupportedException e) {}
+        return obj;
     }
 
 }

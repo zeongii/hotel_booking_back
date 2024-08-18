@@ -77,10 +77,12 @@ public class HotelController {
         System.out.println(valueMap.get("hotelGrade").toString());
         int hotelGrade = Integer.parseInt(valueMap.get("hotelGrade").toString());
         int cityId = Integer.parseInt(valueMap.get("cityId").toString());
+        int userId = Integer.parseInt(valueMap.get("userId").toString());
 
 
         hotelDto.setHotelGrade((long) hotelGrade);
         hotelDto.setCityId((long) cityId);
+        hotelDto.setUserId((long) userId);
 
 
         Long id = hotelService.save(hotelDto);

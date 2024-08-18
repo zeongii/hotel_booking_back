@@ -75,13 +75,6 @@ public class RoomController {
     }
 
 
-    @GetMapping("write/{hotelId}")
-    public RoomDto write(@PathVariable Long hotelId) {
-        RoomDto roomDto = new RoomDto();
-        roomDto.setHotelId(1L);
-        System.out.println(roomDto);
-        return roomDto;
-    }
     @PostMapping("imgInsert/{id}")
     public void insertImg(@RequestParam(value = "file", required = false) MultipartFile[] files, @PathVariable Long id, HttpServletRequest request) throws IOException {
 
@@ -144,7 +137,7 @@ public class RoomController {
     }
 
     @PostMapping("update")
-    public HashMap<String, Object> update(@RequestBody RoomDto roomDto, Long hotelId) {
+    public HashMap<String, Object> update(@RequestBody RoomDto roomDto) {
         HashMap<String, Object> resultMap = new HashMap<>();
         ROOM_SERVICE.update(roomDto);
         resultMap.put("destRoomId", roomDto.getId());

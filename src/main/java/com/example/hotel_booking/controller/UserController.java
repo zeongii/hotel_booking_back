@@ -40,6 +40,10 @@ public class UserController {
         resultMap.put("id", userDto.getId());
         resultMap.put("nickname", userDto.getNickname());
         resultMap.put("role", userDto.getRole());
+        resultMap.put("address", userDto.getAddress());
+        resultMap.put("phone", userDto.getPhone());
+        resultMap.put("email", userDto.getEmail());
+
 
         return ResponseEntity.ok(resultMap);
     }

@@ -2,6 +2,7 @@ package com.example.hotel_booking.repository;
 
 import com.example.hotel_booking.dto.HotelDto;
 import com.example.hotel_booking.entity.HotelEntity;
+import com.example.hotel_booking.entity.HotelFileEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -19,4 +20,7 @@ public interface HotelRepository extends JpaRepository<HotelEntity, Long> {
 
     @Query(value = "SELECT id FROM hotel", nativeQuery = true)
     List<Long> findAllId();
+
+
+
 }
