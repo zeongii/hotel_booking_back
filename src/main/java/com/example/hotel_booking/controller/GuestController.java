@@ -66,6 +66,7 @@ public class GuestController {
     @GetMapping("wishlist/{id}")
     public List<WishlistDto> wishlist(@PathVariable Long id) {
         List<WishlistDto> WishlistList = wishlistService.findAllByGuestId(id);
+
         return WishlistList;
     }
 

@@ -31,6 +31,7 @@ public class AdminUserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserEntity> getUserById(@PathVariable Long id) {
         UserEntity user = adminUserService.findById(id);
+        System.out.println("AdminUserController.getUserById");
         if (user != null) {
             return ResponseEntity.ok(user);
         } else {

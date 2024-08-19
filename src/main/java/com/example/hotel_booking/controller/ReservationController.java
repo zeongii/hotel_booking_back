@@ -75,5 +75,22 @@ public class ReservationController {
         }
         return resultMap;
     }
+
+    @PostMapping("canceled/{reservationId}")
+    public HashMap<String, Object> cancel(@PathVariable Long reservationId) {
+        HashMap<String, Object> resultMap = new HashMap<>();
+        ReservationDto reservationDto = RESERVATION_SERVICE.selectOne(reservationId);
+        resultMap.put("destReservationId", reservationDto.getId());
+        System.out.println(reservationDto);
+        try {
+            RESERVATION_SERVICE.cancled(reservationDto);
+            resultMap.put("result", "success");
+            resultMap.put("reservationId", reservationDto.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("result","fail");
+        }
+        return resultMap;
+    }
 }
 
