@@ -49,7 +49,7 @@
 --
 -- INSERT INTO user (email, password, name, nickname, role, address, user_gender, phone, user_grade, user_total_amount,
 --                   enabled)
--- VALUES ('1@example.com', 'password123', 'John Doe', 'johnny', 'GUEST', '123 Maple Street', 'Male',
+-- VALUES ('1@example.com', '$2a$10$HTR/amEZo/9EbhwsjX0BXeyB1W.XW/McqwrFBMs9pNVzJMz/uOx6q', 'John Doe', 'johnny', 'GUEST', '123 Maple Street', 'Male',
 --         '123-456-7890',
 --         1, 1000, 1),
 --        ('2@example.com', '$2a$10$x/kT4A0Z.IGnu6kmvcJPD.9TvCrEEXX3mb3hiP7r7db9a6NajIjkG', 'Jane Smith', 'janey', 'BUSINESS', '456 Oak Avenue', 'Female',
@@ -104,18 +104,6 @@
 --        (6, 7);
 --
 --
---
--- INSERT INTO room_reservation (start_date, end_date, reservation_number, pay_price, is_breakfast, enabled)
--- VALUES ('2024-08-01', '2024-08-05', 'RES123456', 500000, 1, 1),
---        ('2024-08-06', '2024-08-10', 'RES123457', 600000, 0, 1),
---        ('2024-08-11', '2024-08-15', 'RES123458', 550000, 1, 1),
---        ('2024-08-16', '2024-08-20', 'RES123459', 700000, 1, 0),
---        ('2024-08-21', '2024-08-25', 'RES123460', 800000, 0, 1),
---        ('2024-08-26', '2024-08-30', 'RES123461', 900000, 1, 1),
---        ('2024-09-01', '2024-09-05', 'RES123462', 450000, 0, 1),
---        ('2024-09-06', '2024-09-10', 'RES123463', 650000, 1, 0),
---        ('2024-09-11', '2024-09-15', 'RES123464', 750000, 1, 1),
---        ('2024-09-16', '2024-09-20', 'RES123465', 850000, 0, 1);
 --
 --
 -- -- ReviewEntity 더미 데이터
@@ -176,4 +164,17 @@
 --
 --
 -- -- TripEntity 더미 데이터
+--
+--
+-- INSERT INTO room_reservation (start_date, end_date, reservation_number, pay_price, is_breakfast, enabled,user_id,room_id)
+-- VALUES ('2024-08-01', '2024-08-05', 'RES123456', 500000, 1, 1,1,1),
+--        ('2024-08-06', '2024-08-10', 'RES123457', 600000, 0, 1,1,2),
+--        ('2024-08-11', '2024-08-15', 'RES123458', 550000, 1, 1,1,3),
+--        ('2024-08-16', '2024-08-20', 'RES123459', 700000, 1, 0,1,4),
+--        ('2024-08-21', '2024-08-25', 'RES123460', 800000, 0, 1,1,5),
+--        ('2024-08-26', '2024-08-30', 'RES123461', 900000, 1, 1,1,6),
+--        ('2024-09-01', '2024-09-05', 'RES123462', 450000, 0, 1,1,7),
+--        ('2024-09-06', '2024-09-10', 'RES123463', 650000, 1, 0,1,8),
+--        ('2024-09-11', '2024-09-15', 'RES123464', 750000, 1, 1,1,9),
+--        ('2024-09-16', '2024-09-20', 'RES123465', 850000, 0, 1,1,10);
 --
