@@ -1,11 +1,6 @@
 package com.example.hotel_booking.dto;
 
-import com.example.hotel_booking.entity.HotelEntity;
-import com.example.hotel_booking.entity.HotelFileEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.example.hotel_booking.entity.FileEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +19,7 @@ public class HotelFileDto {
 
     private Long hotelId;
 
-    public static HotelFileDto toHotelFileDto(HotelFileEntity hotelFileEntity, Long hotelId){
+    public static HotelFileDto toHotelFileDto(FileEntity hotelFileEntity, Long hotelId){
         HotelFileDto hotelFileDto = new HotelFileDto();
         hotelFileDto.setId(hotelFileEntity.getId());
         hotelFileDto.setOriginalFileName(hotelFileEntity.getOriginalFileName());
